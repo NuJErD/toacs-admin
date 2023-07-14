@@ -7,11 +7,11 @@
 @section('content')
 
 <div class="main">
-    <p class="text-[26px] font-bold mb-3">ผู้ใช้งาน</p>
+    <p class="text-[26px] font-bold mb-3 ">ผู้ใช้งาน</p>
     <div class="main-prod">
         <div class="">
             <div class="card-pro px-4 ">
-                <div class="header min-h-[50px] max-w-full text-white rounded-t-[5px]  flex justify-between bg-black bg-zinc-800 min-h-14 items-center px-6  flex-wrap">
+                <div class="header min-h-[50px] max-w-full text-white rounded-t-[5px]  flex justify-between  bg-zinc-800 min-h-14 items-center px-6  flex-wrap">
                     <div class="">ผู้ใช้งาน</div>
                     <div class="btn flex justify-end flex-wrap  ">
                         <a href="{{url('adduser')}}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</div></a>
@@ -54,43 +54,53 @@
                                     <thead class="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" class="px-6 py-3">
-                                                Product name
+                                                ชื่อ - นามสกุล
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                Color
+                                               อีเมล
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                Category
+                                               Requester
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                Price
+                                                Approved
                                             </th>
                                             <th scope="col" class="px-6 py-3 flex items-center justify-center ">
-                                                <p class="">Action</p>
+                                                <p class="">Manage</p>
                                             </th>
                                             
                                             
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @for($i=0; $i<10; $i++)
+                                        @foreach ($user as $u)
+                                            
+                                        
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                Apple MacBook Pro 17"
+                                               {{$u->nameTH}}
                                             </th>
                                             <td class="px-6 py-4 ">
-                                                Silver
+                                               {{$u->email}}
                                             </td>
                                             <td class="px-6 py-4">
-                                                Laptop
+                                                @if($u->statusR == 'Y')
+                                                <i class="fa-solid fa-check text-green-500 text-[17px]"></i>
+                                                @else
+                                                <i class="fa-solid fa-x text-red-600 text-[17px]"></i>
+                                                @endif
                                             </td>
                                             <td class="px-6 py-4">
-                                                $2999
+                                                @if($u->statusA == 'Y')
+                                                <i class="fa-solid fa-check text-green-500 text-[17px]"></i>
+                                                @else
+                                                <i class="fa-solid fa-x text-red-600 text-[17px]"></i>
+                                                @endif
                                             </td>
                                             <td class="">
                                                 <div class="flex justify-center">
                                                 <div class=" mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">
-                                                <a href="#" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer ">แก้ไข</a>
+                                                <a href="{{route('user.edit',$u->id)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer ">แก้ไข</a>
                                             </div>
                                             <div class="w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">
                                                 <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer">ลบ</a>
@@ -98,7 +108,7 @@
                                         </div>
                                             </td>
                                         </tr>
-                                       @endfor
+                                        @endforeach
                                        
                                     </tbody>
                                 </table>

@@ -1,15 +1,11 @@
 @if (Session()->has('admin'))
-   <script>window.location = "/HomeBack";</script>
+   <script>window.location = "/home";</script>
              
 @endif
 
 @extends('layout.homeLO')
 @section('content')
-@if($error = Session::get('error'))
-<div class="alert alert-danger"  >
-    {{$error}}
- </div>
-@endif
+
 <div class="login">
 
     
@@ -38,10 +34,16 @@
             <div class="forgotpwd flex justify-end mt-[2px]">
                 <a href="{{ url('forgot') }}" class="underline">forgot password</a>
             </div>
+            @if($error = Session::get('error'))
+            <div class="mt-1 text-red-600"  >
+                {{$error}}
+             </div>
+            @endif
             <div class="signin ">
-                <button type="submit" class="w-[90px] h-[45px] bg-blue-700 rounded-lg mt-10"><p class="text-white">Sign in</p></button>
+                <button type="submit" class="w-[90px] h-[45px] bg-blue-700 rounded-lg mt-8"><p class="text-white">Sign in</p></button>
             </div>
         </form>
+       
 
         </div>
     </div>

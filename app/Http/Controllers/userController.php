@@ -19,7 +19,8 @@ class userController extends Controller
     public function index()
     {
         
-        return view('Users.index');
+        $user = users::get();
+        return view('Users.index',compact('user'));
     }
     public function adduser()
     {
@@ -92,9 +93,13 @@ class userController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(users $user)
     {
-        //
+      
+        $phase = phase::get();
+        $position = position::get();
+        $department = department::get();
+        return view('Users.edit',compact('user','phase','position','department'));
     }
 
     /**

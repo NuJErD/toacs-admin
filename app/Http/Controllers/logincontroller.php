@@ -33,13 +33,13 @@ class logincontroller extends Controller
                 
              }else{
                 session()->flash('error','password ไม่ถูกต้อง');
-                return redirect(route('login'));
+                return redirect()->route('login.index');
              }
             
         
          }else{
              session()->flash('error','email ไม่ถูกต้อง');
-             return redirect(route('login'));
+             return redirect()->route('login.index');
          }
             
     }

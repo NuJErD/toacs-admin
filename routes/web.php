@@ -43,7 +43,7 @@ Route::get('/adduser',[userController::class, 'adduser'])->name('adduser');
 //Home
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 //backend
-Route::get('/homeBack', [HomeController::class, 'homeB'])->name('homeBack');
+
 Route::get('/product', [productController::class, 'index'])->name('product');
 
 Route::get('/item',[itemController::class, 'index'])->name('item');

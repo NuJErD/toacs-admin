@@ -30,7 +30,7 @@
      </div>
     
     
-            <div id="contentmain" class="content ml-[70px] " >
+            <div id="contentmain" class="content ml-[85px] " >
                 
             @yield('content')
               
