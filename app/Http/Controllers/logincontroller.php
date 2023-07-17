@@ -23,10 +23,11 @@ class logincontroller extends Controller
    
 
     public function logincheck(Request $request){
-       
-        $getuser = users::where('email',$request->email)->first();
         
+        $getuser = users::where('email',$request->email)->first();
+     
        if(!empty($getuser)){
+        if($getuser->role == "admin"){
              if(Hash::check($request->password,$getuser->password)){
                 Session()->put('admin', $getuser->id);   
                 return redirect(route('home'));
@@ -35,6 +36,11 @@ class logincontroller extends Controller
                 session()->flash('error','password ไม่ถูกต้อง');
                 return redirect()->route('login.index');
              }
+            }else{
+                session()->flash('error','เข้าได้เฉพาะ Admin');
+                return redirect()->route('login.index');
+
+            }
             
         
          }else{

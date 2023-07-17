@@ -95,11 +95,21 @@ class userController extends Controller
      */
     public function edit(users $user)
     {
+        $convertdepartment = explode(",",$user->department);
+        $user= users::join('phases', 'phase', '=' , 'phases.id')
+        ->join('positions','position','=','positions.id')
+        ->join('departments', 'department','=','departments.id')
+        ->where('users.id',$user->id)->get();
+        $user = $user[0];
+        
+        $phase = phase::where('id', '!=',$user->phase)->get();
       
-        $phase = phase::get();
-        $position = position::get();
-        $department = department::get();
+        $position = position::where('id','!=',$user->position)->get();
+        $department = department::where('id','!=',$user->department)->get();
+        
+        dd($convertdepartment);
         return view('Users.edit',compact('user','phase','position','department'));
+        
     }
 
     /**
@@ -109,9 +119,9 @@ class userController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, users $user)
     {
-        //
+        dd('aaaasas');
     }
 
     /**
