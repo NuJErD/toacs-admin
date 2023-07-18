@@ -33,3 +33,20 @@ function readURL(input) {
   }
   
 }
+
+//////////////////toggle import////////////////////
+var importbtn = true;
+function openimport(){
+  
+  if (importbtn) {
+    console.log(importbtn);
+    document.getElementById("importbtn").style.display = "flex";
+    
+    this.importbtn = false;
+  } else {
+    console.log(importbtn);
+    document.getElementById("importbtn").style.display = "none";
+ 
+    this.importbtn = true;
+  }
+}

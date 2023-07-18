@@ -7,7 +7,9 @@ use App\Models\phase;
 use App\Models\position;
 use App\Models\department;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Hash;
+
 
 class userController extends Controller
 {
@@ -96,19 +98,22 @@ class userController extends Controller
     public function edit(users $user)
     {
         $convertdepartment = explode(",",$user->department);
-        $user= users::join('phases', 'phase', '=' , 'phases.id')
-        ->join('positions','position','=','positions.id')
-        ->join('departments', 'department','=','departments.id')
-        ->where('users.id',$user->id)->get();
-        $user = $user[0];
-        
+        $departinuse = department::whereIn('id',$convertdepartment)->get();
+        $phaseinuse = phase::where('id',$user->phase)->get();
+        $phaseinuse =  $phaseinuse[0];
+        $positioninuse = position::where('id',$user->position)->get();
+        $positioninuse = $positioninuse[0];
+        // $userget= users::join('phases', 'phase', '=' , 'phases.id')
+        // ->join('positions','position','=','positions.id')
+        // ->join('departments', 'department','=','departments.id')
+        // ->where('users.id',$user->id)->get();
+        // $user = $user[0];
         $phase = phase::where('id', '!=',$user->phase)->get();
-      
         $position = position::where('id','!=',$user->position)->get();
-        $department = department::where('id','!=',$user->department)->get();
+        $department = department::whereNotIn('id',$convertdepartment)->get();
         
-        dd($convertdepartment);
-        return view('Users.edit',compact('user','phase','position','department'));
+        //dd($positioninuse);
+        return view('Users.edit',compact('user','phase','position','department','departinuse','phaseinuse','positioninuse'));
         
     }
 
@@ -121,9 +126,50 @@ class userController extends Controller
      */
     public function update(Request $request, users $user)
     {
-        dd('aaaasas');
+       $signame = $user->signature;
+       if(isset($request->signature)){
+        unlink("./picture/signature/".$signame);  
+        $signature = $request->file('signature');
+        $name_gen = hexdec((uniqid())); 
+        $name_type = strtolower($signature->getClientOriginalExtension());
+        $signame = $name_gen.'.'.$name_type;
+        
+        $signature->move(public_path('picture/signature'), $signame);
+       }
+       
+       
+        $department = implode(",",$request->department);
+        users::where('id',$user->id)
+            ->update(
+            [
+            'nameTH' => $request->nameTH,
+            'nameEN' => $request->nameEN,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'department' => $department,
+            'position' => $request->position,
+            'phase' => $request->phase,
+            'statusR' => $request->statusR,
+            'statusA' => $request->statusA,
+            'signature' => $signame
+
+            ]
+        );
+        return redirect()->route('user.index');
     }
 
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        $file = $request->file('file');
+
+        Excel::import(new userController, $file);
+
+        return redirect()->back()->with('success', 'Data imported successfully!');
+    }
     /**
      * Remove the specified resource from storage.
      *

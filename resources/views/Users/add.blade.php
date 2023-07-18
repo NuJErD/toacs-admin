@@ -45,7 +45,7 @@
                                 <div class="w-[450px] ml-6 h-[35px] ">
                                     <select name="department[]" data-te-select-init multiple  required>
                                         @foreach ($department as $de)
-                                        <option  value="{{$de->id}}">{{$de->nameTH}}</option>
+                                        <option  value="{{$de->id}}">{{$de->departTH}}</option>
                                         @endforeach
                                        
                                        
@@ -59,7 +59,7 @@
                                     <select name="position"  class="" data-te-select-init required >
                                         <option value=""></option>
                                         @foreach ($position as $ps)
-                                        <option value="{{$ps->id}}">{{$ps->nameTH}}</option>
+                                        <option value="{{$ps->id}}">{{$ps->posTH}}</option>
                                         @endforeach
                                       </select>
                                       <label data-te-select-label-ref>ตำแหน่ง</label>
@@ -86,7 +86,7 @@
                                     <select name="phase"  class="" data-te-select-init required >
                                         <option value=""></option>
                                         @foreach ($phase as $ph)
-                                        <option value="{{$ph->id}}">{{$ph->nameTH}}</option>
+                                        <option value="{{$ph->id}}">{{$ph->phaseTH}}</option>
                                         @endforeach
                                       </select>
                                       <label data-te-select-label-ref>อาคารที่อยู่</label>

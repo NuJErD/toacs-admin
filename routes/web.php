@@ -37,13 +37,15 @@ Route::post('/logincf', [loginController::class, 'logincheck'])->name('loginck')
 Route::get('/logout', [loginController::class, 'logout'])->name('logout');
 Route::get('/forgot', [forgotpwdController::class, 'index'])->name('forgot');
 //user
-
+Route::put('/updateuser/{user}',[userController::class, 'update'])->name('updateuser');
 Route::get('/adduser',[userController::class, 'adduser'])->name('adduser');
 
 //Home
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 //product
-
-Route::get('/item',[itemController::class, 'index'])->name('item');
+Route::get('/product/add',[productController::class,'add'])->name('additem');
+Route::get('/item',[productController::class, 'index'])->name('item');
 //Order
 Route::get('/pr',[ordersController::class, 'index'])->name('pr');
+//import
+Route::post('/import', [usesrController::class, 'import'])->name('import');

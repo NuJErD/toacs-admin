@@ -15,8 +15,10 @@
     {{-- @include('sweetalert::alert') --}}
     <title>Document</title>
 </head>
-<script  src="js/sidebar.js"></script>
-<script  src="js/register.js"></script>
+<script src="{{ asset('js/sidebar.js')}}"></script>
+<script src="{{ asset('js/register.js')}}"></script>
+
+
 {{-- <script
   type="text/javascript"
   src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script> --}}

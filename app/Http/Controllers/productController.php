@@ -16,6 +16,10 @@ class productController extends Controller
         return view('product.index');
     }
 
+
+    public function additem(){
+        return view('Product.add');
+    }
     /**
      * Show the form for creating a new resource.
      *

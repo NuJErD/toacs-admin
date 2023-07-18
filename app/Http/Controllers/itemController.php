@@ -26,6 +26,9 @@ class itemController extends Controller
         //
     }
 
+    public function additem(){
+        return view('product.add');
+    }
     /**
      * Store a newly created resource in storage.
      *

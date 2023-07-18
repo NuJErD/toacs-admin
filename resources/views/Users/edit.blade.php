@@ -24,6 +24,7 @@
                         <form action="{{route('user.update',$user->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+                            
                         <div class=" px-[10px] ">
                             <div class="flex flex-wrap justify-between mt-6">                               
                                 <div class="w-[130px] flex justify-end"><p>ชื่อ-สกุล(TH)</p></div>                                                                  
@@ -45,8 +46,8 @@
                                 <div class="w-[130px] flex justify-end"><p>สังกัดหน่อยงาน</p></div>
                                 <div class="w-[450px] ml-6 h-[35px] ">
                                     <select name="department[]"  data-te-select-init multiple value required>
-                                        @foreach ($user as $item)
-                                            
+                                        @foreach ($departinuse as $decheck)
+                                        <option value="{{$decheck->id}}" selected>{{$decheck->departTH}}</option>
                                         @endforeach
                                         
                                         @foreach ($department as $de)
@@ -62,8 +63,8 @@
                                 <div class="w-[130px] flex justify-end"><p>ตำแหน่ง</p></div>
                                 <div class="w-[450px] ml-6 h-[35px]">
                                     <select  name="position"  class="" data-te-select-init required >
-                                        <option value=""></option>
-                                        <option selected>{{$user->posTH}}</option>
+                                        
+                                        <option selected value="{{$positioninuse->id}}">{{$positioninuse->posTH}}</option>
                                         @foreach ($position as $ps)
                                         <option value="{{$ps->id}}">{{$ps->posTH}}</option>
                                         @endforeach
@@ -75,22 +76,23 @@
                                 <div class="w-[130px] flex justify-end"><p>สถานะ</p></div>
                                 <div class="check ml-[30px]">
                                     <div class="flex items-center mb-4">
-                                        <input type="hidden" name="requester" value="N">
+                                        <input type="hidden" name="statusR" value="N">
                                         @if($user->statusR == 'Y')
-                                        <input id="requester-checkbox" checked  type="checkbox" name="requester" value="Y" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                       
+                                        <input id="requester-checkbox" checked  type="checkbox" name="statusR" value="Y" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="requester-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Request</label>
                                         @else
-                                        <input id="requester-checkbox"   type="checkbox" name="requester" value="Y" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input id="requester-checkbox"   type="checkbox" name="statusR" value="Y" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="requester-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Request</label>
                                         @endif
                                     </div>
                                     <div class="flex items-center mb-4">
-                                        <input type="hidden" name="approve" value="N">
+                                        <input type="hidden" name="statusA" value="N">
                                         @if($user->statusA == 'Y')
-                                        <input id="approve-checkbox" checked type="checkbox" name="approve" value="Y" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input id="approve-checkbox" checked type="checkbox" name="statusA" value="Y" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="approve-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Approve</label>
                                         @else
-                                        <input id="approve-checkbox"  type="checkbox" name="approve" value="Y" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input id="approve-checkbox"  type="checkbox" name="statusA" value="Y" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="approve-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Approve</label>
                                         @endif
                                     </div>
@@ -100,7 +102,7 @@
                                 <div class="w-[130px] flex justify-end"><p>อาคารที่อยู่</p></div>
                                 <div class="w-[450px] ml-6 h-[35px]">
                                     <select name="phase"  class="" data-te-select-init required >
-                                        <option selected>{{$user->phaseTH}}</option>
+                                        <option selected value="{{$phaseinuse->id}}">{{$phaseinuse->phaseTH}}</option>
                                         @foreach ($phase as $ph)
                                         <option value="{{$ph->id}}">{{$ph->phaseTH}}</option>
                                         @endforeach
@@ -115,14 +117,16 @@
                                 <div class="w-[130px] flex justify-end"></div>
                                 <div class="">
                                     <div class="border border-gray-300 w-[450px] h-[160px]">
-                                        <img id="blah" src="/picture/signaturePicture/{{$user->signature}}" class="w-[240px] h-[130px]">
+                                        <img id="blah" src="/picture/signature/{{$user->signature}}" class="w-[240px] h-[130px]">
                                         
                                     </div>
                                 </div>
                             </div>
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"><p>ลายเซ็น</p></div>
-                                <div class=""><input value="{{$user->signature}}" name="signature" type="file" class="pl-3 w-[450px] ml-6 h-[35px]" onchange="readURL(this)"    ></div>
+                                <div class="">
+                                    <input name="signature" type="file" class="pl-3 w-[450px] ml-6 h-[35px]" onchange="readURL(this)">
+                                </div>
                             </div>
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"></div>

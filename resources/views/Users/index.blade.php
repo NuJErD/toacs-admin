@@ -15,13 +15,13 @@
                     <div class="">ผู้ใช้งาน</div>
                     <div class="btn flex justify-end flex-wrap  ">
                         <a href="{{url('adduser')}}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</div></a>
-                        <div class="import bg-green-800 rounded-[4px] mr-1 flex items-center px-2"><i class="fa-solid fa-file-arrow-up mr-1"></i>Excel Upload</div>
+                        <button onclick="openimport()" class="import bg-green-800 rounded-[4px] mr-1 flex items-center px-2"><div   ><i class="fa-solid fa-file-arrow-up mr-1" ></i>Excel Upload</div></button>
                         <div class="export bg-yellow-400 rounded-[4px] text-black flex items-center px-2"> <i class="fa-solid fa-file-export mr-1"></i>Export Product Excel</div>
                     </div>
                 </div>
                 <div class="card-body border px-3 py-4">
                     <form action="" class="">
-                    <div class="im-excel bg-blue-50 flex justify-center py-[25px] min-h-[100px] flex-wrap" style="display: none">
+                    <div id="importbtn" class="im-excel bg-blue-50 flex justify-center py-[25px] min-h-[100px] flex-wrap" style="display: none" >
                         <div class="text flex items-center">
                             <p class="text-[18px] font-bold">Excel<p class="text-red-500 text-[18px] ml-1">*</p></p>
                         </div>
@@ -36,9 +36,9 @@
                     </div>
                 </form>
                     <div class="list-prod ">
-                        <div class="show flex justify-between">
-                            <div class="showprod flex">
-                                <p class=" mr-1">Show</p>
+                        <div class="show flex justify-between mt-3">
+                            <div class="showprod flex ">
+                                <p class=" mr-1 mt">Show</p>
                                 <select class="border border-slate-300 rounded-[5px] w-28">
                                     <option value="10">10</option>
                                     <option value="25">25</option>
