@@ -21,7 +21,7 @@ class userController extends Controller
     public function index()
     {
         
-        $user = users::get();
+        $user = users::get()->paginate( 5 );
         return view('Users.index',compact('user'));
     }
     public function adduser()
@@ -72,7 +72,7 @@ class userController extends Controller
         $name_type = strtolower($picture->getClientOriginalExtension());
         $picname = $name_gen.'.'.$name_type;    
         $user->signature = $picname;    
-         $picture->move(public_path('signaturePicture'), $picname);
+         $picture->move(public_path('picture/signature'), $picname);
         $user->save();
         return redirect()->route('user.index');
         // $user->signature =

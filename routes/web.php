@@ -8,6 +8,9 @@ use App\Http\Controllers\itemController;
 use App\Http\Controllers\ordersController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\categories;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,6 +29,7 @@ Route::resource('forgotpw',forgotpwdController::class);
 Route::resource('home',HomeController::class);
 Route::resource('items',itemController::class);
 Route::resource('order',ordersController::class);
+Route::resource('categories',categories::class);
 
 
 Route::get('/', function () {
@@ -43,9 +47,11 @@ Route::get('/adduser',[userController::class, 'adduser'])->name('adduser');
 //Home
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 //product
-Route::get('/product/add',[productController::class,'add'])->name('additem');
+Route::get('/addproduct',[productController::class,'addproduct'])->name('additem');
 Route::get('/item',[productController::class, 'index'])->name('item');
 //Order
 Route::get('/pr',[ordersController::class, 'index'])->name('pr');
 //import
 Route::post('/import', [usesrController::class, 'import'])->name('import');
+//categories
+Route::get('/addcategories',[categories::class, 'addcategories'])->name('addcategories');

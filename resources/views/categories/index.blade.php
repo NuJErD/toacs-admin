@@ -7,16 +7,15 @@
 @section('content')
 
 <div class="main">
-    <p class="text-[26px] font-bold mb-[50px]"></p>
+    <p class="text-[26px] font-bold mb-3 ">ผู้ใช้งาน</p>
     <div class="main-prod">
         <div class="">
             <div class="card-pro px-4 ">
                 <div class="header min-h-[50px] max-w-full text-white rounded-t-[5px]  flex justify-between  bg-zinc-800 min-h-14 items-center px-6  flex-wrap">
-                    <div class="">สินค้าและบริการ</div>
+                    <div class="">ผู้ใช้งาน</div>
                     <div class="btn flex justify-end flex-wrap  ">
-                        <a href="{{route('additem')}}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</div></a>
-                        <button onclick="openimport()" class="import bg-green-800 rounded-[4px] mr-1 flex items-center px-2"><div   ><i class="fa-solid fa-file-arrow-up mr-1" ></i>Excel Upload</div></button>
-                        <div class="export bg-yellow-400 rounded-[4px] text-black flex items-center px-2"> <i class="fa-solid fa-file-export mr-1"></i>Export Product Excel</div>
+                        <a href="{{url('addcategories')}}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</div></a>
+                        
                     </div>
                 </div>
                 <div class="card-body border px-3 py-4">
@@ -53,58 +52,46 @@
                                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                     <thead class="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
-                                            <th scope="col" class="px-2 py-2">
-                                               <p class="flex justify-center">รูปภาพ</p>
+                                            <th scope="col" class="px-6 py-3">
+                                                ชื่อ - นามสกุล
                                             </th>
-                                            <th scope="col" class="px-2 py-2">
-                                               <p class="flex justify-center">รหัส</p>
+                                            <th scope="col" class="px-6 py-3">
+                                               อีเมล
                                             </th>
-                                            <th scope="col" class="px-2 py-2">
-                                               <p class="flex justify-center">หมวดสินค้า</p>
+                                            <th scope="col" class="px-6 py-3">
+                                               Requester
                                             </th>
-                                            <th scope="col" class="px-2 py-2">
-                                               <p class="flex justify-center">ชื่อ</p>
+                                            <th scope="col" class="px-6 py-3">
+                                                Approved
                                             </th>
-                                           
-                                             <th scope="col" class="px-2 py-2">
-                                                <p class="flex justify-center">ราคา</p>
-                                             </th>
-                                            <th scope="col" class="px-2 py-2 flex items-center justify-center ">
-                                                <p class="flex justify-center">Manage</p>
+                                            <th scope="col" class="px-6 py-3 flex items-center justify-center ">
+                                                <p class="">Manage</p>
                                             </th>
                                             
                                             
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($product as $p)
+                                        {{-- @foreach ($user as $u) --}}
                                             
                                         
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                           
-                                            <td class="px-2 py-2 w-[130px] ">
-                                               <div class="flex justify-center "><img src="picture/product/{{$p->picture}}" class="w-[70px] h-[70px] p-0  alt=""></div>
-                                            </td>
-                                            <td class="px-2 py-2">
-                                                <p class="flex justify-center">{{$p->id}}</p>
-                                            </td>
-                                            <td class="px-2 py-2 ">
-                                                <p class="flex justify-center">{{$p->category}}</p>    
-                                            </td>
-                                            <td class="px-2 py-2">
-                                                <p class="flex justify-center">{{$p->PnameTH}}</p> 
-                                            </td>
-                                           
-                                            <td class="px-2 py-2">
-                                                <p class="flex justify-center">{{$p->price}}</p>
-                                            </td>
-                                            
+                                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                               
+                                            </th>
+                                            <td class="px-6 py-4 ">
                                               
-                                            
-                                            <td class="w-[250px]">
+                                            </td>
+                                            <td class="px-6 py-4">
+                                               
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                
+                                            </td>
+                                            <td class="">
                                                 <div class="flex justify-center">
                                                 <div class=" mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">
-                                                <a href="{{route('product.edit',$p->id)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer ">แก้ไข</a>
+                                                <a href="" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer ">แก้ไข</a>
                                             </div>
                                             <div class="w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">
                                                 <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer">ลบ</a>
@@ -112,17 +99,10 @@
                                         </div>
                                             </td>
                                         </tr>
-                                        @endforeach
+                                        {{-- @endforeach --}}
                                        
                                     </tbody>
-                                    
                                 </table>
-                               
-                                    {{ $product->links() }}
-                                   
-                               
-                                  
-                              
                             </div>
                         </div>
                         <div class=""></div>

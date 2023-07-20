@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\product;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\pagegination;
 
-
-class productController extends Controller
+class department extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +13,9 @@ class productController extends Controller
      */
     public function index()
     {
-        $product = product::paginate(5);
-       // dd($product);
-        return view('product.index',compact('product'));
+        //
     }
 
-   
-    public function addproduct(){
-        return view('product.add');
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -43,25 +33,8 @@ class productController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    
-        $product = new product;
-               
-         $product->PnameTH = $request->PnameTH;
-         $product->PnameEN = $request->PnameEN;
-         $product->category = $request->category;
-         $product->supplier = $request->supplier;
-         $product->unit = $request->unit;
-         $product->price = $request->price;
-         $product->detail = $request->detail;
-
-         $picture = $request->file('productpic');
-         $name_gen = hexdec((uniqid())); 
-         $name_type = strtolower($picture->getClientOriginalExtension());
-         $picname = $name_gen.'.'.$name_type;            
-         $product->picture = $picname;
-         $product->save();
-         $picture->move(public_path('picture/product'), $picname);
-         return redirect()->route('product.index');
+    {
+        //
     }
 
     /**
