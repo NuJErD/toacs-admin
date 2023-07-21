@@ -77,6 +77,7 @@
                                 <div class="w-[130px] flex justify-end"><p>รายละเอียด</p></div>
                                  <textarea name="detail" class="pl-3 w-[450px] ml-6 h-[100px] border border-gray-300 rounded-[5px] pt-1"></textarea>
                             </div>
+                           
                             
                 
                             <div class="flex flex-wrap justify-between mt-6">

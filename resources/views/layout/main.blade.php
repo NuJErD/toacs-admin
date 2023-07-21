@@ -26,10 +26,14 @@
   src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script> --}}
 <body>
     
-    <div class="main">
+    <div class="main  ">
         @include('layout.nav')
-        <div class="sidebar" >
-            @yield('sidebar')
+        <div class="sidebar fixed top-0 hover:w-[250px]  hover:ease-in-out duration-300  ">
+
+           
+                 @yield('sidebar')
+            
+           
          </div>
      </div>
     

@@ -6,11 +6,13 @@ function toggleSidebar() {
   if (mini) {
     console.log("opening sidebar");
     document.getElementById("contentmain").style.marginLeft = "250px";
+    document.getElementById("navbar").style.marginLeft = "250px";
     
     this.mini = false;
   } else {
     console.log("closing sidebar");
     document.getElementById("contentmain").style.marginLeft = "85px";
+    document.getElementById("navbar").style.marginLeft = "70px";
  
     this.mini = true;
   }

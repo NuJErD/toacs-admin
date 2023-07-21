@@ -73,7 +73,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($user as $u)
+                                        @foreach ($userall as $u)
                                             
                                         
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">

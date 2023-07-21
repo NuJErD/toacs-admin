@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\categories;
-use App\Models\product;
 use Illuminate\Http\Request;
+use App\Models\categories;
+use DB;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\pagegination;
 
 
-
-class productController extends Controller
+class categoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +18,15 @@ class productController extends Controller
      */
     public function index()
     {
-        $product = product::paginate(5);
-       // dd($product);
-        return view('product.index',compact('product'));
+        $categories = categories::paginate(7);
+       return view('categories.index',compact('categories'));
+      // return view('categories.add');
     }
 
-   
-    public function addproduct(){
-        return view('product.add');
+    public function addcategories(){
+        return view('categories.add');
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -33,7 +34,7 @@ class productController extends Controller
      */
     public function create()
     {
-        //
+      
     }
 
     /**
@@ -43,26 +44,15 @@ class productController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    
-        $product = new product;
-               
-         $product->PnameTH = $request->PnameTH;
-         $product->PnameEN = $request->PnameEN;
-         $product->category = $request->category;
-         $product->supplier = $request->supplier;
-         $product->unit = $request->unit;
-         $product->price = $request->price;
-         $product->detail = $request->detail;
-
-         $picture = $request->file('productpic');
-         $name_gen = hexdec((uniqid())); 
-         $name_type = strtolower($picture->getClientOriginalExtension());
-         $picname = $name_gen.'.'.$name_type;            
-         $product->picture = $picname;
-         $product->save();
-         $picture->move(public_path('picture/product'), $picname);
-         return redirect()->route('product.index');
-    }
+    {
+        //
+         $categ = new categories;
+        $categ->code = $request->code;
+        $categ->CnameTH = $request->CnameTH;
+        $categ->CnameEN =$request->CnameEN;
+        $categ->save();
+        return redirect()->route('categories.index');
+     } 
 
     /**
      * Display the specified resource.
@@ -81,12 +71,9 @@ class productController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(product $product)
-    {   
-         $categoies = categories::wherenot('id',$product->category)->get();
-         
-         //dd($categoies);
-        return view('product.edit',compact('product'));
+    public function edit($id)
+    {
+        //
     }
 
     /**

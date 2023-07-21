@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('supplier_types', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-            $table->string('CnameTH');
-            $table->string('CnameEN');
+            $table->string('SPTnameTH');
+            $table->string('SPnmaEN');
+            
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('supplier_types');
     }
 };

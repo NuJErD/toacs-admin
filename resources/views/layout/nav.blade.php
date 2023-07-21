@@ -1,4 +1,4 @@
-<nav class="bg-white border-gray-200 dark:bg-gray-900 drop-shadow-lg sticky top-0 z-10">
+<nav id="navbar" class="bg-white border-gray-200 dark:bg-gray-900 drop-shadow-lg  ml-[60px]">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
     <a href="" class="flex items-center">
         <img class="h-8 mr-3" alt="Flowbite Logo" src="{{url('/picture/logo.jpg')}}">  

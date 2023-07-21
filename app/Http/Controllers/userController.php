@@ -20,9 +20,10 @@ class userController extends Controller
      */
     public function index()
     {
-        
-        $user = users::get()->paginate( 5 );
-        return view('Users.index',compact('user'));
+       
+        $userall = users::paginate( 5 );
+        //dd($user);
+        return view('Users.index',compact('userall'));
     }
     public function adduser()
     {

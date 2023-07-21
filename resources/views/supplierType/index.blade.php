@@ -7,14 +7,14 @@
 @section('content')
 
 <div class="main">
-    <p class="text-[26px] font-bold mb-3 ">ผู้ใช้งาน</p>
+    <p class="text-[26px] font-bold mb-3 ">ประเภทซัพพลายเออร์</p>
     <div class="main-prod">
         <div class="">
             <div class="card-pro px-4 ">
                 <div class="header min-h-[50px] max-w-full text-white rounded-t-[5px]  flex justify-between  bg-zinc-800 min-h-14 items-center px-6  flex-wrap">
-                    <div class="">ผู้ใช้งาน</div>
+                    <div class="">ประเภทซัพพลายเออร์</div>
                     <div class="btn flex justify-end flex-wrap  ">
-                        <a href="{{url('addcategories')}}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</div></a>
+                        <a href="{{route('addSpType')}}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</div></a>
                         
                     </div>
                 </div>
@@ -52,14 +52,12 @@
                                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                     <thead class="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
+                                            
                                             <th scope="col" class="px-6 py-3">
-                                               รหัส
+                                              <p class="flex justify-center"> ประเภทซัพพลายเออร์ (TH)</p>
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                               หมวดสินค้า(TH)
-                                            </th>
-                                            <th scope="col" class="px-6 py-3">
-                                               หมวดสินค้า(EN)
+                                                <p class="flex justify-center">ประเภทซัพพลายเออร์ (EN)</p>
                                             </th>
                                            
                                             <th scope="col" class="px-6 py-3 flex items-center justify-center ">
@@ -70,19 +68,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                         @foreach ($categories as $c) 
+                                         @foreach ($supplierType as $spt) 
                                             
                                         
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                             
-                                            <td class="px-6 py-4 ">
-                                              <p>{{$c->code}}</p>
+                                           
+                                            <td class="px-6 py-4">
+                                               <p class="flex justify-center">{{$spt->SPTnameTH}}</p>
                                             </td>
                                             <td class="px-6 py-4">
-                                               <p>{{$c->CnameTH}}</p>
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                <p>{{$c->CnameEN}}</p>
+                                                <p class="flex justify-center">{{$spt->SPTnameEN}}</p>
                                             </td>
                                             <td class="">
                                                 <div class="flex justify-center">
@@ -98,6 +94,7 @@
                                         @endforeach
                                        
                                     </tbody>
+                                    {{ $supplierType->links() }}
                                 </table>
                             </div>
                         </div>

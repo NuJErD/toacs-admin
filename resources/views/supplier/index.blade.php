@@ -7,14 +7,14 @@
 @section('content')
 
 <div class="main">
-    <p class="text-[26px] font-bold mb-3 ">ผู้ใช้งาน</p>
+    <p class="text-[26px] font-bold mb-3 ">ประเภทซัพพลายเออร์</p>
     <div class="main-prod">
         <div class="">
             <div class="card-pro px-4 ">
                 <div class="header min-h-[50px] max-w-full text-white rounded-t-[5px]  flex justify-between  bg-zinc-800 min-h-14 items-center px-6  flex-wrap">
-                    <div class="">ผู้ใช้งาน</div>
+                    <div class="">ประเภทซัพพลายเออร์</div>
                     <div class="btn flex justify-end flex-wrap  ">
-                        <a href="{{url('addcategories')}}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</div></a>
+                        <a href="{{route('addsupplier')}}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</div></a>
                         
                     </div>
                 </div>
@@ -52,15 +52,21 @@
                                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                     <thead class="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
+                                            
                                             <th scope="col" class="px-6 py-3">
-                                               รหัส
+                                              <p class="flex justify-center"> รหัส</p>
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                               หมวดสินค้า(TH)
+                                                <p class="flex justify-center">ชื่อ - นามสกุล</p>
+                                              </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                <p class="flex justify-center">ซัพพลายเออร์ (TH)</p>
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                               หมวดสินค้า(EN)
-                                            </th>
+                                                <p class="flex justify-center"> ซัพพลายเออร์ (EN)</p>
+                                              </th>
+                                              
+                                             
                                            
                                             <th scope="col" class="px-6 py-3 flex items-center justify-center ">
                                                 <p class="">Manage</p>
@@ -70,24 +76,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                         @foreach ($categories as $c) 
+                                         @foreach ($supplier as $sp) 
                                             
                                         
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                             
-                                            <td class="px-6 py-4 ">
-                                              <p>{{$c->code}}</p>
+                                           
+                                            <td class="px-6 py-4">
+                                               <p class="flex justify-center">{{$sp->code}}</p>
                                             </td>
                                             <td class="px-6 py-4">
-                                               <p>{{$c->CnameTH}}</p>
-                                            </td>
+                                                <p class="flex justify-center">{{$sp->name}}</p>
+                                             </td>
+                                             <td class="px-6 py-4">
+                                                <p class="flex justify-center">{{$sp->SPnameTH}}</p>
+                                             </td>
                                             <td class="px-6 py-4">
-                                                <p>{{$c->CnameEN}}</p>
+                                                <p class="flex justify-center">{{$sp->SPnameEN}}</p>
                                             </td>
                                             <td class="">
                                                 <div class="flex justify-center">
                                                 <div class=" mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">
-                                                <a href="" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer ">แก้ไข</a>
+                                                <a href="{{route('supplier.edit', $sp->id)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer ">แก้ไข</a>
                                             </div>
                                             <div class="w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">
                                                 <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer">ลบ</a>
@@ -98,6 +108,7 @@
                                         @endforeach
                                        
                                     </tbody>
+                                    {{ $supplier->links() }}
                                 </table>
                             </div>
                         </div>

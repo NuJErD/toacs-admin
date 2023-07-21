@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\supplierType;
 use Illuminate\Http\Request;
 
-class categories extends Controller
+class supplierTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,12 +14,19 @@ class categories extends Controller
      */
     public function index()
     {
-       return view('categories.index');
-      // return view('categories.add');
+
+
+        $supplierType = supplierType::paginate(10);
+        return view('supplierType.index',compact('supplierType'));
     }
 
-    public function addcategories(){
-        return view('categories.add');
+
+    public function addSpType()
+    {
+
+
+        
+        return view('supplierType.add');
     }
 
     /**
@@ -28,7 +36,7 @@ class categories extends Controller
      */
     public function create()
     {
-      
+        //
     }
 
     /**
@@ -39,7 +47,11 @@ class categories extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $supplierType = new supplierType;
+        $supplierType->SPTnameTH = $request->SPTnameTH;
+        $supplierType->SPTnameEN = $request->SPTnameEN;
+        $supplierType->save();
+        return redirect()->route('supplierType.index');
     }
 
     /**
