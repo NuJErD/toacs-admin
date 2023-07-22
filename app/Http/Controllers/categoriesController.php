@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\categories;
+use App\Models\product;
 use DB;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\pagegination;
+
 
 
 class categoriesController extends Controller
@@ -19,6 +19,7 @@ class categoriesController extends Controller
     public function index()
     {
         $categories = categories::paginate(7);
+        
        return view('categories.index',compact('categories'));
       // return view('categories.add');
     }
@@ -60,9 +61,9 @@ class categoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+      
     }
 
     /**
@@ -71,9 +72,14 @@ class categoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(categories $category)
     {
-        //
+       
+        $cat = $category;
+
+
+       
+        return view('categories.edit',compact('cat'));
     }
 
     /**
@@ -83,9 +89,17 @@ class categoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, categories $category)
     {
-        //
+        categories::where('id',$category->id)
+        ->update(
+            [
+                'code' => $request->code,
+                'CnameTH' => $request->CnameTH,
+                'CnameEN' => $request->CnameEN
+            ]
+        );
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -94,8 +108,14 @@ class categoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(categories $category)
     {
-        //
+       $check = product::where('category',$category->id)->first();
+       if(isset($check)){
+       
+       }else{
+        categories::where('id',$category->id)->delete();
+       }
+       return redirect()->route('categories.index');
     }
 }

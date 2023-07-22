@@ -19,6 +19,7 @@
 </head>
 <script src="{{ asset('js/sidebar.js')}}"></script>
 <script src="{{ asset('js/register.js')}}"></script>
+<script src="{{ asset('js/app.js')}}"></script>
 
 
 {{-- <script

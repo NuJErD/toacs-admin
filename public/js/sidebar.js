@@ -7,12 +7,16 @@ function toggleSidebar() {
     console.log("opening sidebar");
     document.getElementById("contentmain").style.marginLeft = "250px";
     document.getElementById("navbar").style.marginLeft = "250px";
+    document.getElementById("navbar").style.transitionDuration = '0.3s';
+    
+    
     
     this.mini = false;
   } else {
     console.log("closing sidebar");
     document.getElementById("contentmain").style.marginLeft = "85px";
     document.getElementById("navbar").style.marginLeft = "70px";
+    document.getElementById("navbar").style.transitionDuration = '0.3s';
  
     this.mini = true;
   }

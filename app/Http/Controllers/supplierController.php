@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\categories;
 use App\Models\supplier;
 use App\Models\supplierType;
 use Illuminate\Http\Request;
@@ -77,9 +78,12 @@ class supplierController extends Controller
      */
     public function edit(supplier $supplier)
     {
+       
         $sup = $supplier;
+        $supType_use = supplierType::where('id',$sup->SPtype)->first();
         $supType = supplierType::wherenot('id',$sup->SPtype)->get();
-      return view('supplier.edit',compact('sup','supType'));
+       
+      return view('supplier.edit',compact('sup','supType','supType_use'));
     }
 
     /**

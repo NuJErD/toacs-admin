@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\categories;
 use App\Models\product;
+use App\Models\supplier;
 use Illuminate\Http\Request;
 
 
@@ -83,10 +84,17 @@ class productController extends Controller
      */
     public function edit(product $product)
     {   
-         $categoies = categories::wherenot('id',$product->category)->get();
+         $p = $product;
+         $categories = categories::wherenot('id',$product->category)->get();
+         $categories_use =categories::where('id',$product->category)->get();
+         $categories_use = $categories_use[0];
+         $supplier = supplier::wherenot('id',$product->supplier)->get();
+         $supplier_use = supplier::where('id',$product->supplier)->first();
          
-         //dd($categoies);
-        return view('product.edit',compact('product'));
+
+         
+        
+        return view('product.edit',compact('p','categories','categories_use','supplier','supplier_use'));
     }
 
     /**
@@ -96,9 +104,35 @@ class productController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,product $product)
     {
-        //
+        
+        $picname = $product->picture;
+       
+       if(isset($request->productpic)){
+        unlink("./picture/product/".$picname);  
+        $picture = $request->file('productpic');
+        $name_gen = hexdec((uniqid())); 
+        $name_type = strtolower($picture->getClientOriginalExtension());
+        $picname = $name_gen.'.'.$name_type;
+        
+        $picture->move(public_path('picture/product'), $picname);
+       }
+        
+        product::where('id',$product->id)
+        ->update(
+            [
+                'PnameTH' => $request->PnameTH,
+                'PnameEN' => $request->PnameEN,
+                'supplier' => $request->supplier,
+                'category' => $request->category,
+                'unit' => $request->unit,
+                'price' => $request->price,
+                'detail' => $request->detail,
+                'picture' => $picname
+            ]
+        );
+        return redirect()->route('product.index');
     }
 
     /**

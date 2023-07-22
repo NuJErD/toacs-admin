@@ -38,7 +38,7 @@ Route::resource('supplierType',supplierTypeController::class);
 Route::resource('supplier',supplierController::class);
 
 Route::get('/', function () {
-    return view('home');
+    return view('login');
 });
 // login 
 
@@ -59,7 +59,7 @@ Route::get('/item',[productController::class, 'index'])->name('item');
 //Order
 Route::get('/pr',[ordersController::class, 'index'])->name('pr');
 //import
-Route::post('/import', [usesrController::class, 'import'])->name('import');
+Route::post('/import', [userController::class, 'import'])->name('import');
 //categories
 Route::get('/addcategories',[categoriesController::class, 'addcategories'])->name('addcategories');
 //supplier

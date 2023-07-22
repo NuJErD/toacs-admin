@@ -21,20 +21,21 @@
                 <div class="card-body borderpx-3 pt-4 pb-10 flex shadow-lg ">
                     
                     <div class="wrapped mx-auto">
-                        <form action="{{route('categories.store')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('categories.update',$cat->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                         <div class=" px-[10px] ">
                             <div class="flex flex-wrap justify-between mt-6">                               
                                 <div class="w-[130px] flex justify-end"><p>รหัส</p></div>                                                                  
-                                    <input name="code" type="text" placeholder="รหัส" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                    <input name="code" value="{{$cat->code}}" type="text" placeholder="รหัส" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
                             </div>
                             <div class="flex flex-wrap justify-between mt-6">                               
                                 <div class="w-[130px] flex justify-end"><p>ชื่อหมวดหมู่(TH)</p></div>                                                                  
-                                    <input name="CnameTH" type="text" placeholder="ชื่อหมวดหมู่" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                    <input name="CnameTH" value="{{$cat->CnameTH}}" type="text" placeholder="ชื่อหมวดหมู่" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
                             </div>
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"><p>ชื่อหมวดหมู่(EN)</p></div>
-                                <div class=""><input name="CnameEN" type="text" placeholder="ชื่อหมวดหมู่(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                                <div class=""><input name="CnameEN" value="{{$cat->CnameEN}}" type="text" placeholder="ชื่อหมวดหมู่(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
                             </div>
                         </div>
                 

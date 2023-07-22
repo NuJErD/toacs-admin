@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\supplier;
 use App\Models\supplierType;
 use Illuminate\Http\Request;
+use DB;
 
 class supplierTypeController extends Controller
 {
@@ -71,9 +73,10 @@ class supplierTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(supplierType $supplierType)
     {
-        //
+        $sup = $supplierType;
+       return view('supplierType.edit',compact('sup'));
     }
 
     /**
@@ -83,9 +86,16 @@ class supplierTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, supplierType $supplierType)
     {
-        //
+        
+        supplierType::where('id',$supplierType->id)
+        ->update([
+            'SPTnameTH' => $request->SPTnameTH,
+            'SPTnameEN' => $request->SPTnameEN
+        ]);
+        
+        return redirect()->route('supplierType.index');
     }
 
     /**
@@ -94,8 +104,17 @@ class supplierTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(supplierType $supplierType)
     {
-        //
+        
+        $check = supplier::where('SPtype',$supplierType->id)->first();
+        if(isset($check)){
+            session()->flash('error','ไม่สามารถลบรายการนี้ได้');
+        }else{
+            
+           supplierType::where('id', $supplierType->id)->delete();
+        
+        }
+        return redirect()->route('supplierType.index');
     }
 }

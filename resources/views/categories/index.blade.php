@@ -14,7 +14,7 @@
                 <div class="header min-h-[50px] max-w-full text-white rounded-t-[5px]  flex justify-between  bg-zinc-800 min-h-14 items-center px-6  flex-wrap">
                     <div class="">ผู้ใช้งาน</div>
                     <div class="btn flex justify-end flex-wrap  ">
-                        <a href="{{url('addcategories')}}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</div></a>
+                        <a href="{{url('addcategories')}}"><d class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2" onclick="goBack()"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</d< iv></a>
                         
                     </div>
                 </div>
@@ -86,12 +86,14 @@
                                             </td>
                                             <td class="">
                                                 <div class="flex justify-center">
-                                                <div class=" mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">
-                                                <a href="" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer ">แก้ไข</a>
-                                            </div>
-                                            <div class="w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">
-                                                <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer">ลบ</a>
-                                            </div>
+                                               
+                                                <a href="{{route('categories.edit',$c->id)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">แก้ไข</a>
+                                            
+                                            <form action="{{route('categories.destroy',$c->id)}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">ลบ</button>
+                                            </form>
                                         </div>
                                             </td>
                                         </tr>

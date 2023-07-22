@@ -14,7 +14,7 @@
                 <div class="header min-h-[50px] rounded-t-[4px] max-w-full text-white border flex justify-between bg-zinc-700 min-h-14 items-center px-6  flex-wrap">
                     <div class="">สมัครผู้ใช้งาน</div>
                     <div class="btn flex justify-end flex-wrap  ">
-                        <div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2">ย้อนกลับ</div>
+                        <div class="add"><button class=" bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2 " onclick="goBack()">ย้อนกลับ</button></div>
                         
                     </div>
                 </div>

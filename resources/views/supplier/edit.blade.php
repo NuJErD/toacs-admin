@@ -14,7 +14,7 @@
                 <div class="header min-h-[50px] rounded-t-[4px] max-w-full text-white border flex justify-between bg-zinc-700 min-h-14 items-center px-6  flex-wrap">
                     <div class="">เพิ่มสินค้า</div>
                     <div class="btn flex justify-end flex-wrap  ">
-                        <div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2">ย้อนกลับ</div>
+                        <div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2" onclick="goBack()"><button>ย้อนกลับ</button></div>
                         
                     </div>
                 </div>
@@ -58,14 +58,21 @@
                                 
                             <div class="flex flex-wrap justify-between mt-6">
                                             <div class="w-[140px] flex justify-end items-center"><p>เครดิต</p></div>                                
-                                                <input name="credit" value="{{$sup->credit}}" type="text" placeholder="เครดิต" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                                
+                                            <input name="credit" value="{{$sup->credit}}" type="text" placeholder="เครดิต" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
                             </div> 
+
+                            <div class="flex flex-wrap justify-between mt-6">
+                                <div class="w-[140px] flex justify-end items-center"><p>อีเมล</p></div> 
+                                                               
+                                    <input name="email" value="{{$sup->email}}" type="email" placeholder="อีเมล" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                            </div>
                                             
                             <div class="flex flex-wrap justify-between mt-6">
                                                 <div class="w-[150px] flex justify-end items-center"><p>ประเภทซัพพลายเออร์</p></div>                                
                                                 <div class="w-[450px] ml-6 h-[35px] ">
                                                     <select name="SPtype" data-te-select-init   required>
-                                                    <option selected value="{{$sup->id}}">{{$sup->SPtype}}</option>
+                                                    <option selected value="{{$sup->id}}">{{$supType_use->SPTnameTH}}</option>
                                                       @foreach($supType as $sup)
                                                        <option value="{{$sup->id}}">{{$sup->SPTnameTH}}</option>
                                                        @endforeach
@@ -75,10 +82,7 @@
                                                 </div>  
                             </div>
                             
-                            <div class="flex flex-wrap justify-between mt-6">
-                                <div class="w-[140px] flex justify-end items-center"><p>อีเมล</p></div>                                
-                                    <input name="email" value="{{$sup->email}}" type="email" placeholder="อีเมล" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
-                            </div> 
+                              
                         </div>
                 
                             <div class="flex flex-wrap justify-between mt-6">

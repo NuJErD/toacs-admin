@@ -21,17 +21,18 @@
                 <div class="card-body borderpx-3 pt-4 pb-10 flex shadow-lg ">
                     
                     <div class="wrapped mx-auto">
-                        <form action="{{route('supplierType.store')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('supplierType.update',$sup->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                         <div class=" px-[10px] ">
                            
                             <div class="flex flex-wrap justify-between mt-6">                               
                                 <div class="w-[140px] flex justify-end items-center"><p>ประเภทซัพพลายเออร์ (TH)</p></div>                                                                  
-                                    <input name="SPTnameTH" type="text" placeholder="ประเภทซัพพลายเออร์(TH)" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                    <input name="SPTnameTH" value="{{$sup->SPTnameTH}}" type="text" placeholder="ประเภทซัพพลายเออร์(TH)" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
                             </div>
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[140px] flex justify-end items-center"><p>ประเภทซัพพลายเออร์ (EN)</p></div>
-                                <div class=""><input name="SPTnameEN" type="text" placeholder="ประเภทซัพพลายเออร์(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                                <div class=""><input name="SPTnameEN" value="{{$sup->SPTnameEN}}" type="text" placeholder="ประเภทซัพพลายเออร์(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
                             </div>
                         </div>
                 

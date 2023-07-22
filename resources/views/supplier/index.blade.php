@@ -96,11 +96,11 @@
                                             </td>
                                             <td class="">
                                                 <div class="flex justify-center">
-                                                <div class=" mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">
-                                                <a href="{{route('supplier.edit', $sp->id)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer ">แก้ไข</a>
+                                                <div class=" ">
+                                                <a href="{{route('supplier.edit', $sp->id)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">แก้ไข</a>
                                             </div>
-                                            <div class="w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">
-                                                <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer">ลบ</a>
+                                            <div class="">
+                                                <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">ลบ</a>
                                             </div>
                                         </div>
                                             </td>
