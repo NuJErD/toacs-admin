@@ -1,6 +1,4 @@
-@if (!Session()->has('admin'))
-   <script>window.location = "/login";</script>
-@endif
+
 
 @extends("layout.main")
 @section('sidebar')
