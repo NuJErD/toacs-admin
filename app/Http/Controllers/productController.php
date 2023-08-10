@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\categories;
 use App\Models\product;
 use App\Models\supplier;
+use App\Models\department;
 use Illuminate\Http\Request;
 
 
@@ -25,7 +26,8 @@ class productController extends Controller
 
    
     public function addproduct(){
-        return view('product.add');
+        $department = department::get();
+        return view('product.add',compact('department'));
     }
     /**
      * Show the form for creating a new resource.
@@ -45,10 +47,13 @@ class productController extends Controller
      */
     public function store(Request $request)
     {    
+        $department = implode(",",$request->department);
+      
         $product = new product;
                
          $product->PnameTH = $request->PnameTH;
          $product->PnameEN = $request->PnameEN;
+         $product->permission = $department;
          $product->category = $request->category;
          $product->supplier = $request->supplier;
          $product->unit = $request->unit;
@@ -85,6 +90,12 @@ class productController extends Controller
     public function edit(product $product)
     {   
          $p = $product;
+         //แบ่งสินค้าตามแผนก
+         $convertpermission = explode(",",$p->permission);
+         $permissionUse = department::whereIn('id',$convertpermission)->get();
+         $permission = department::whereNotIn('id',$convertpermission)->get();
+         
+         //ประเภทสินค้า
          $categories = categories::wherenot('id',$product->category)->get();
          $categories_use =categories::where('id',$product->category)->get();
          $categories_use = $categories_use[0];
@@ -94,7 +105,7 @@ class productController extends Controller
 
          
         
-        return view('product.edit',compact('p','categories','categories_use','supplier','supplier_use'));
+        return view('product.edit',compact('p','categories','categories_use','supplier','supplier_use','permissionUse','permission'));
     }
 
     /**
@@ -118,7 +129,7 @@ class productController extends Controller
         
         $picture->move(public_path('picture/product'), $picname);
        }
-        
+       $department = implode(",",$request->department);
         product::where('id',$product->id)
         ->update(
             [
@@ -126,6 +137,7 @@ class productController extends Controller
                 'PnameEN' => $request->PnameEN,
                 'supplier' => $request->supplier,
                 'category' => $request->category,
+                'permission' => $department,
                 'unit' => $request->unit,
                 'price' => $request->price,
                 'detail' => $request->detail,

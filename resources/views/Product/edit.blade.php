@@ -46,6 +46,23 @@
                                 <div class=""><input name="PnameEN" value="{{$p->PnameEN}}" type="text" placeholder="ชื่อสินค้า(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
                             </div>
                             <div class="flex flex-wrap justify-between mt-6 z-0">
+                                <div class="w-[130px] flex justify-end"><p>สังกัดหน่อยงาน</p></div>
+                                <div class="w-[450px] ml-6 h-[35px] ">
+                                    <select name="department[]"  data-te-select-init multiple value required>
+                                        @foreach ($permissionUse as $decheck)
+                                        <option value="{{$decheck->id}}" selected>{{$decheck->departTH}}</option>
+                                        @endforeach
+                                        
+                                        @foreach ($permission as $de)
+                                        <option  value="{{$de->id}}">{{$de->departTH}}</option>
+                                        @endforeach
+                                       
+                                       
+                                      </select>
+                                      <label data-te-select-label-ref>หน่วยงาน</label>
+                                </div>  
+                            </div>
+                            <div class="flex flex-wrap justify-between mt-6 z-0">
                                 <div class="w-[130px] flex justify-end"><p>หมวดสินค้า</p></div>
                                 <div class="w-[450px] ml-6 h-[35px] ">
                                     <select name="category" data-te-select-init required>

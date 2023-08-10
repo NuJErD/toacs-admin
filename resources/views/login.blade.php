@@ -34,7 +34,7 @@
             <div class="forgotpwd flex justify-end mt-[2px]">
                 <a href="{{ url('forgot') }}" class="underline">forgot password</a>
             </div>
-            @if($error = Session::get('error'))
+            @if($error = Session()->get('error'))
             <div class="mt-1 text-red-600"  >
                 {{$error}}
              </div>
