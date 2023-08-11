@@ -49,11 +49,11 @@
                                 <div class="w-[130px] flex justify-end"><p>สังกัดหน่อยงาน</p></div>
                                 <div class="w-[450px] ml-6 h-[35px] ">
                                     <select name="department[]"  data-te-select-init multiple value required>
-                                        @foreach ($permissionUse as $decheck)
+                                        @foreach ($departInuse as $decheck)
                                         <option value="{{$decheck->id}}" selected>{{$decheck->departTH}}</option>
                                         @endforeach
                                         
-                                        @foreach ($permission as $de)
+                                        @foreach ($depart as $de)
                                         <option  value="{{$de->id}}">{{$de->departTH}}</option>
                                         @endforeach
                                        
