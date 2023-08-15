@@ -174,10 +174,11 @@ class productController extends Controller
                 $depart_forAdd = array_diff($department,$depart_use);
                 $string = implode(',', $depart_forAdd);
                 $depart_forAdd = explode(',', $string);
-                
+               // dd( $depart_forAdd[0]);
               //เพิ่มผนกที่ยังไม่มี (จาก input ที่ส่งมา) 
-              if(count($depart_forAdd) != 1){
+              if($depart_forAdd[0] != ""){
                 $count = count($depart_forAdd); 
+               
                 for($i=0;$i<$count;$i++){
                      $product_depart = new product_depart;
                      $departname = department::where('id',$depart_forAdd[$i])->value('departTH');
