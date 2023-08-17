@@ -34,43 +34,13 @@
             <a href="{{ url('pr') }}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clipboard-list w-[30px]"></i>
             <span class="ml-[10px] opacity-0 group-hover:opacity-100 text-[16px]">รายการรอการอนุมัติ</span>    
         </a></li>
-        <li>
-            <a href="" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"> <i class="fa-solid fa-clipboard-list w-[30px]"></i>
-            <span class="ml-[10px] opacity-0  group-hover:opacity-100 text-[16px] " >รายการใบขอสั่งซื้อ</span>   
-         </a></li>
-        <li>
-            <a href="" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clipboard-check w-[30px]"></i>            
-            <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px]">รายการใบสั่งซื้อ</span> 
-         </a></li>
-       
-       
         
-        
-        <li>
-            <a href="" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clock-rotate-left w-[30px]"></i>
-            <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">ประวัติการอนุมัติ</span>    
-        </a></li>
-        <li>
-            <a href="" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clock-rotate-left w-[30px]"></i>
-            <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">ประวัติการอนุมัติ</span>    
-        </a></li>
-        <li>
-            <a href="" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clock-rotate-left w-[30px]"></i>
-            <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">ประวัติการอนุมัติ</span>    
-        </a></li>
       
     <li >
         <a href="{{route('logout')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px] "><i class="fa-solid fa-right-from-bracket w-[30px]"></i>
             <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">loguot</span>   
     </a></li>
-    <li >
-        <a href="{{route('logout')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px] "><i class="fa-solid fa-right-from-bracket w-[30px]"></i>
-            <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">loguot</span>   
-    </a></li>
-    <li >
-        <a href="{{route('logout')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px] "><i class="fa-solid fa-right-from-bracket w-[30px]"></i>
-            <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">loguot</span>   
-    </a></li>
+   
     
     </ul> 
 </div>

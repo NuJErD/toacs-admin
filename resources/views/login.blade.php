@@ -19,7 +19,7 @@
         <div class="login-r border-2 w-[450px] h-[500px] flex flex-col rounded-r-3xl items-center pt-[100px]" >
             <div class="logo flex space-x-2">
                 <img class="w-12 h-12" src="{{url('/picture/logo.jpg')}}">
-                <p class="text-4xl text-toblue">TOACS BACKEND</p>
+                <p class="text-4xl text-toblue">TOACS ADMIN</p>
             </div>
             <form action="{{route('loginck')}}" method="POST">
                 @csrf
