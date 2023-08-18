@@ -4,25 +4,25 @@ var mini = true;
 
 function toggleSidebar() {
   console.log(1)
-  // if (mini) {
-  //   console.log("opening sidebar");
-  //   document.getElementById("contentmain").style.marginLeft = "250px";
-  //   document.getElementById("navbar").style.marginLeft = "250px";
-  //   document.getElementById("navbar").style.transitionDuration = '0.3s';
-  //   document.getElementById("contentmain").style.transitionDuration = '0.3s';
+  if (mini) {
+    console.log("opening sidebar");
+    document.getElementById("contentmain").style.marginLeft = "240px";
+    document.getElementById("navbar").style.marginLeft = "250px";
+    document.getElementById("navbar").style.transitionDuration = '0.3s';
+    document.getElementById("contentmain").style.transitionDuration = '0.3s';
     
     
     
-  //   this.mini = false;
-  // } else {
-  //   console.log("closing sidebar");
-  //   document.getElementById("contentmain").style.marginLeft = "85px";
-  //   document.getElementById("navbar").style.marginLeft = "70px";
-  //   document.getElementById("navbar").style.transitionDuration = '0.3s';
-  //   document.getElementById("contentmain").style.transitionDuration = '0.3s';
+    this.mini = false;
+  } else {
+    console.log("closing sidebar");
+    document.getElementById("contentmain").style.marginLeft = "85px";
+    document.getElementById("navbar").style.marginLeft = "70px";
+    document.getElementById("navbar").style.transitionDuration = '0.3s';
+    document.getElementById("contentmain").style.transitionDuration = '0.3s';
  
-  //   this.mini = true;
-  // }
+    this.mini = true;
+   }
 }
 
 ///////////////////////////showpicupload///////////////////////////////

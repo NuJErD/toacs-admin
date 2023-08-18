@@ -11,6 +11,7 @@
     <link href="{{ asset('/css/pagination.css') }}" rel="stylesheet">
 
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
@@ -47,6 +48,15 @@
         
 
 </body>
+@if(session()->has('success'))
+<script>
+    swal("Message","{{session('success')}}",'success',{
+        button:true,
+        button:"OK",
+        //timer:2000
+    })
+</script>
+@endif
 <footer>
     <div class="w-full h-[40px] bg-white"></div>
 </footer>

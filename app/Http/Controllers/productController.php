@@ -191,7 +191,7 @@ class productController extends Controller
               }
               
                //  dd($depart_forAdd);       
-       
+              session()->flash('success','แก้ไข้ข้อมูลสำเร็จ');
         return redirect()->route('product.index');
     }
 
