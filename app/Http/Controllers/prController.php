@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\pr;
 
-class ordersController extends Controller
+
+class prController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,9 @@ class ordersController extends Controller
      */
     public function index()
     {
-       return view('front.pr');
+       $pr = pr::where('status','1')->paginate(10);
+       //dd($pr);
+       return view('pr.index',compact('pr'));
     }
 
     /**

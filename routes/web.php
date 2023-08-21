@@ -5,10 +5,10 @@ use App\Http\Controllers\logincontroller;
 use App\Http\Controllers\forgotpwdController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\itemController;
-use App\Http\Controllers\ordersController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\categoriesController;
+use App\Http\Controllers\prController;
 use App\Http\Controllers\supplierController;
 use App\Http\Controllers\supplierTypeController;
 use App\Models\supplier;
@@ -32,10 +32,11 @@ Route::resource('login',logincontroller::class);
 Route::resource('forgotpw',forgotpwdController::class);
 Route::resource('home',HomeController::class);
 Route::resource('items',itemController::class);
-Route::resource('order',ordersController::class);
+
 Route::resource('categories',categoriesController::class);
 Route::resource('supplierType',supplierTypeController::class);
 Route::resource('supplier',supplierController::class);
+Route::resource('pr',prController::class);
 
 Route::get('/', function () {
     return view('login');
@@ -56,8 +57,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 //product
 Route::get('/addproduct',[productController::class,'addproduct'])->name('additem');
 Route::get('/item',[productController::class, 'index'])->name('item');
-//Order
-Route::get('/pr',[ordersController::class, 'index'])->name('pr');
+//pr
+
 //import
 Route::post('/import', [userController::class, 'import'])->name('import');
 //categories
