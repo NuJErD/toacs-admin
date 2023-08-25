@@ -51,10 +51,10 @@
                                         <tr>
                                             
                                             <th scope="col" class="px-6 py-3">
-                                              <p class="flex justify-center">รหัสฬฎฟ</p>
+                                              <p class="flex justify-center">รหัสใบขอซื้อ</p>
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                <p class="flex justify-center">ชื่อผู้สั่ง</p>
+                                                <p class="flex justify-center">แผนก</p>
                                               </th>
                                             <th scope="col" class="px-6 py-3">
                                                 <p class="flex justify-center">ราคา </p>
@@ -96,8 +96,10 @@
                                                 <div class=" ">
                                                 {{-- <a href="{{route('supplier.edit', $sp->id)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">แก้ไข</a>
                                             </div> --}}
-                                            <div class="">
-                                                <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">ลบ</a>
+                                           
+                                            <div class="flex">
+                                                <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-blue-500 h-[30px] rounded-[4px] mr-3">แก้ไข</a>
+                                                <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[100px] flex items-center justify-center bg-blue-500 h-[30px] rounded-[4px]">รายละเอียด</a>
                                             </div>
                                         </div>
                                             </td>
