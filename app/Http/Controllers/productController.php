@@ -30,6 +30,26 @@ class productController extends Controller
         $department = department::get();
         return view('product.add',compact('department'));
     }
+
+    public function active(Request $request, product $product){
+
+        $status = $request->status ;
+       $id = $request->id;
+
+       $product->update([
+
+        'Active' => $status
+
+        ]);
+
+        if($status == '1'){     
+            return response()->json(['success','เปิดใช้งานสินค้า']);
+        }else{
+            return response()->json(['success','ปิดใช้งานสินค้า']);
+        }
+       
+       
+    }
     /**
      * Show the form for creating a new resource.
      *

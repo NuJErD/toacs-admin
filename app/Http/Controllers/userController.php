@@ -21,7 +21,7 @@ class userController extends Controller
     public function index()
     {
        
-        $userall = users::paginate( 5 );
+        $userall = users::paginate(5);
         //dd($user);
         return view('Users.index',compact('userall'));
     }
@@ -33,6 +33,10 @@ class userController extends Controller
         return view('Users.add',compact('phase','position','department'));
     }
 
+    public function resetPW(Request $request , users $user){
+
+        dd(123);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -159,18 +163,18 @@ class userController extends Controller
         return redirect()->route('user.index');
     }
 
-    public function import(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|mimes:xlsx,xls,csv'
-        ]);
+    // public function import(Request $request)
+    // {
+    //     $request->validate([
+    //         'file' => 'required|mimes:xlsx,xls,csv'
+    //     ]);
 
-        $file = $request->file('file');
+    //     $file = $request->file('file');
+    //     dd($file);
+    //     Excel::import(new userController, $file);
 
-        Excel::import(new userController, $file);
-
-        return redirect()->back()->with('success', 'Data imported successfully!');
-    }
+        
+    // }
     /**
      * Remove the specified resource from storage.
      *
