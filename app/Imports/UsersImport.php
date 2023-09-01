@@ -26,7 +26,7 @@ class UsersImport implements ToModel,WithHeadingRow,WithUpserts
          $depart =  department::whereIn('departTH',$departvalue)->pluck('id')->implode(',');
          $position = position::whereIn('posTH',$position)->pluck('id')->implode(',');
          $phase = phase::where('phaseTH',$row['phase'])->value('id');
-        //dd($phase);
+       // dd($row['phase']);
         return new users([
             'nameTH'     => $row['nameth'],
             'nameEN'    => $row['nameen'],

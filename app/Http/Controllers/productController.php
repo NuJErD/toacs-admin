@@ -28,7 +28,9 @@ class productController extends Controller
    
     public function addproduct(){
         $department = department::get();
-        return view('product.add',compact('department'));
+        $supplier = supplier::get();
+        $categories = categories::get();
+        return view('product.add',compact('department','supplier','categories'));
     }
 
     public function active(Request $request, product $product){
@@ -73,7 +75,7 @@ class productController extends Controller
      
         $product = new product;
         
-              
+         $product->p_code = $request->code;     
          $product->PnameTH = $request->PnameTH;
          $product->PnameEN = $request->PnameEN;
          $product->category = $request->category;
@@ -132,11 +134,11 @@ class productController extends Controller
         
          
          //ประเภทสินค้า
-         $categories = categories::wherenot('id',$product->category)->get();
-         $categories_use =categories::where('id',$product->category)->get();
+         $categories = categories::wherenot('code',$product->category)->get();
+         $categories_use =categories::where('code',$product->category)->get();
          $categories_use = $categories_use[0];
-         $supplier = supplier::wherenot('id',$product->supplier)->get();
-         $supplier_use = supplier::where('id',$product->supplier)->first();
+         $supplier = supplier::wherenot('s_code',$product->supplier)->get();
+         $supplier_use = supplier::where('s_code',$product->supplier)->first();
          
 
          
@@ -170,11 +172,11 @@ class productController extends Controller
         product::where('id',$product->id)
         ->update(
             [
+                'p_code' => $request->code,
                 'PnameTH' => $request->PnameTH,
                 'PnameEN' => $request->PnameEN,
                 'supplier' => $request->supplier,
-                'category' => $request->category,
-                
+                'category' => $request->category,                
                 'unit' => $request->unit,
                 'price' => $request->price,
                 'detail' => $request->detail,

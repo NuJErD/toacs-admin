@@ -36,6 +36,10 @@
                                 <div class="w-[130px] flex justify-end"><p>รูปภาพสินค้า</p></div>
                                 <div class=""><input name="productpic" type="file" class="pl-3 w-[450px] ml-6 h-[35px]" onchange="readURL(this)" required></div>
                             </div>
+                            <div class="flex flex-wrap justify-between mt-6">
+                                <div class="w-[130px] flex justify-end"><p>รหัสสินค้า</p></div>
+                                <div class=""><input name="code" type="text" placeholder="รหัสสินค้า" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                            </div>
                             <div class="flex flex-wrap justify-between mt-6">                               
                                 <div class="w-[130px] flex justify-end"><p>ชื่อสินค้า(TH)</p></div>                                                                  
                                     <input name="PnameTH" type="text" placeholder="ชื่อสินค้า" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
@@ -61,8 +65,10 @@
                                 <div class="w-[130px] flex justify-end"><p>หมวดสินค้า</p></div>
                                 <div class="w-[450px] ml-6 h-[35px] ">
                                     <select name="category" data-te-select-init required>
-                                        <option value=""></option> 
-                                       <option value="1">สินค้า</option>                                                                                                               
+                                        <option ></option>
+                                        @foreach ($categories as $c) 
+                                       <option value="{{$c->code}}">{{$c->CnameTH}}</option>                                                                                                               
+                                       @endforeach
                                       </select>
                                       <label data-te-select-label-ref>หมวดสินค้า</label>
                                 </div>  
@@ -78,8 +84,11 @@
                             <div class="flex flex-wrap justify-between mt-6 z-0">
                                 <div class="w-[130px] flex justify-end"><p>ซัพพลายเออร์</p></div>
                                 <div class="w-[450px] ml-6 h-[35px] ">
-                                    <select name="supplier" data-te-select-init multiple  required>
-                                       <option value="1">1</option>
+                                    <select name="supplier" data-te-select-init required>
+                                        <option ></option>
+                                        @foreach ($supplier as $sup) 
+                                       <option value="{{$sup->s_code}}">{{$sup->SPnameTH}}</option>                                                                                                               
+                                       @endforeach
                                        
                                        
                                       </select>

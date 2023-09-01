@@ -20,8 +20,8 @@
                         <button onclick="openimport()" class="import bg-green-800 rounded-[4px] mr-1 flex items-center px-2">
                             <div><i class="fa-solid fa-file-arrow-up mr-1" ></i>Excel Upload</div>
                         </button>
-                        <div class="export bg-yellow-400 rounded-[4px] text-black flex items-center px-2"> <i class="fa-solid fa-file-export mr-1"></i>Export Product Excel</div>
-                    </div>
+                       <div class="export bg-yellow-400 rounded-[4px] text-black flex items-center px-2"> <a href="/export/users"><i class="fa-solid fa-file-export mr-1"></i>Export Product Excel</div>
+                    </a></div>
                 </div>
                 <div class="card-body border px-3 py-4">
                     <form action="{{route('import')}}" method="POST" enctype="multipart/form-data">

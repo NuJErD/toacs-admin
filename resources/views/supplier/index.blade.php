@@ -15,11 +15,14 @@
                     <div class="">ประเภทซัพพลายเออร์</div>
                     <div class="btn flex justify-end flex-wrap  ">
                         <a href="{{route('addsupplier')}}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</div></a>
-                        
-                    </div>
+                        <button onclick="openimport()" class="import bg-green-800 rounded-[4px] mr-1 flex items-center px-2"><div   ><i class="fa-solid fa-file-arrow-up mr-1" ></i>Excel Upload</div></button>
+                        <div class="export bg-yellow-400 rounded-[4px] text-black flex items-center px-2"><a href="/export/suppliers"> <i class="fa-solid fa-file-export mr-1"></i>Export Product Excel</div>
+                    </div></a>
+                   
                 </div>
                 <div class="card-body border px-3 py-4">
-                    <form action="" class="">
+                    <form action="{{route('importsup')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
                     <div id="importbtn" class="im-excel bg-blue-50 flex justify-center py-[25px] min-h-[100px] flex-wrap" style="display: none" >
                         <div class="text flex items-center">
                             <p class="text-[18px] font-bold">Excel<p class="text-red-500 text-[18px] ml-1">*</p></p>
@@ -27,7 +30,7 @@
                
                         <div class="upfile w-[500px] border bg-white border-slate-300 min-h-[45px] flex items-center rounded-[5px]" >
                             
-                            <input class="ml-3" type="file">
+                            <input class="ml-3" type="file" name="file">
                         </div>
                         <div class="btn flex flex-col justify-center ml-2  w-[100px]">
                             

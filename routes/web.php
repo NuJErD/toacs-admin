@@ -55,18 +55,31 @@ Route::put('/resetPW',[userController::class,'changePW']);
 
 //Home
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 //product
 Route::get('/addproduct',[productController::class,'addproduct'])->name('additem');
 Route::get('/item',[productController::class, 'index'])->name('item');
 Route::put('/active/{product}',[productController::class,'active']);
+
 //pr
 //user
 Route::put('/pwreset/{user}',[userController::class,'resetPW]']);
+
 //import
-Route::post('/import', [ExcelController::class, 'UserImport'])->name('import');
+Route::post('/import/user', [ExcelController::class, 'UserImport'])->name('import');
+Route::post('/import/product', [ExcelController::class, 'ProductImport'])->name('importPD');
+Route::post('/import/sup', [ExcelController::class, 'SupplierImport'])->name('importsup');
+
+//Export
+Route::get('/export/users', [ExcelController::class, 'Usersexport'])->name('UserExport');
+Route::get('/export/products', [ExcelController::class, 'Productsexport'])->name('ProductExport');
+Route::get('/export/suppliers', [ExcelController::class, 'Usersexport'])->name('SupplierExport');
+
 //categories
 Route::get('/addcategories',[categoriesController::class, 'addcategories'])->name('addcategories');
+
 //supplier
 Route::get('/addsupplier',[supplierController::class,'addsupplier'])->name('addsupplier');
+
 //supplierType
 Route::get('/addSpType',[supplierTypeController::class,'addSpType'])->name('addSpType');
