@@ -75,16 +75,17 @@ class productController extends Controller
      
         $product = new product;
         
-         $product->p_code = $request->code;     
-         $product->PnameTH = $request->PnameTH;
-         $product->PnameEN = $request->PnameEN;
-         $product->category = $request->category;
-         $product->supplier = $request->supplier;
-         $product->unit = $request->unit;
-         $product->price = $request->price;
-         $product->detail = $request->detail;
+        //  $product->p_code = $request->code;     
+        //  $product->PnameTH = $request->PnameTH;
+        //  $product->PnameEN = $request->PnameEN;
+        //  $product->category = $request->category;
+        //  $product->supplier = $request->supplier;
+        //  $product->unit = $request->unit;
+        //  $product->price = $request->price;
+        //  $product->detail = $request->detail;
 
           $picture = $request->file('productpic');
+          dd($picture);
           $name_gen = hexdec((uniqid())); 
           $name_type = strtolower($picture->getClientOriginalExtension());
           $picname = $name_gen.'.'.$name_type;            

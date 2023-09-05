@@ -52,8 +52,8 @@
                         </div>
                         <div class=" mt-3">
                             <div class=" overflow-x-auto  shadow-md sm:rounded-lg">
-                                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                    <thead class="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
+                                <table class="w-full text-sm text-left text-black dark:text-gray-400">
+                                    <thead class="text-xs text-black uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             
                                             <th scope="col" class="px-6 py-3">
@@ -86,7 +86,7 @@
                                             
                                            
                                             <td class="px-6 py-4">
-                                               <p class="flex justify-center">{{$sp->code}}</p>
+                                               <p class="flex justify-center">{{$sp->s_code}}</p>
                                             </td>
                                             <td class="px-6 py-4">
                                                 <p class="flex justify-center">{{$sp->name}}</p>
