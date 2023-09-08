@@ -50,7 +50,9 @@ Route::get('/forgot', [forgotpwdController::class, 'index'])->name('forgot');
 //user
 Route::put('/updateuser/{user}',[userController::class, 'update'])->name('updateuser');
 Route::get('/adduser',[userController::class, 'adduser'])->name('adduser');
-Route::put('/resetPW',[userController::class,'changePW']);
+Route::get('/resetPW',[userController::class,'changePW'])->name('changePW');
+Route::post('/resetPWCF',[userController::class,'changePWCF'])->name('cfpass');
+
 
 
 //Home
@@ -71,9 +73,9 @@ Route::post('/import/product', [ExcelController::class, 'ProductImport'])->name(
 Route::post('/import/sup', [ExcelController::class, 'SupplierImport'])->name('importsup');
 
 //Export
-Route::get('/export/users', [ExcelController::class, 'Usersexport'])->name('UserExport');
+Route::get('/export/users', [ExcelController::class, 'Usersexport']);
 Route::get('/export/products', [ExcelController::class, 'Productsexport'])->name('ProductExport');
-Route::get('/export/suppliers', [ExcelController::class, 'Usersexport'])->name('SupplierExport');
+Route::get('/export/suppliers', [ExcelController::class, ''])->name('SupplierExport');
 
 //categories
 Route::get('/addcategories',[categoriesController::class, 'addcategories'])->name('addcategories');

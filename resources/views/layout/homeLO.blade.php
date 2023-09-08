@@ -20,5 +20,23 @@
         
     </div>
 </body>
+@if(session()->has('success'))
+<script>
+    swal("Message","{{session('success')}}",'success',{
+        button:true,
+        button:"OK",
+        //timer:2000
+    })
+</script>
+@endif
+@if(session()->has('error'))
+<script>
+    swal("Message","{{session('error')}}",'error',{
+        button:true,
+        button:"OK",
+        //timer:2000
+    })
+</script>
+@endif
 
 </html>

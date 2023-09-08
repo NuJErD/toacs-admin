@@ -9,4 +9,5 @@ class product_depart extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $guarded = [];
 }

@@ -3,7 +3,9 @@
 namespace App\Imports;
 
 use App\Models\categories;
+use App\Models\department;
 use App\Models\product;
+use App\Models\product_depart;
 use App\Models\supplier;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -24,24 +26,59 @@ class ProductImport implements ToModel,WithHeadingRow,WithUpserts
     */
     public function model(array $row)
     {
-       
-        $supplier = supplier::where('s_code',$row['supplier'])->value('id');
-        $categoty = categories::where('code',$row['category'])->value('id');
-       //dd($row);
+     
+        $departmentIN = explode(',',$row['department']);
+        $supplier = supplier::where('s_code',$row['supplier'])->value('s_code');
+        $categoty = categories::where('code',$row['category'])->value('code');
+       // dd($departmentIN);
+    
+       //check ข้อมูลที่ยังไม่มีใน DB
+       $depart_use = product_depart::where('products_id',$row['department'])->pluck('departments_id');
+       $depart_use =  $depart_use->toArray();
+       $depart_forAdd = array_diff($departmentIN,$depart_use);
+     //  dd($depart_forAdd);
+       //เพิ่ม แผนกที่สามารถเห็นสินค้า
+      
+        foreach($depart_forAdd as $d){
+            $dname = department::where('departTH',$d)->first();
+           
+            //dd($dname);
+            new product_depart([
+                'product_id' => $row['id'],
+                'departments_id' =>$dname->id ,
+                'departments_departTH' => $dname->code
+            ]);
+       }
+
+       //อัพโหลดรูปภาพ
+       $pic = $row['picture'];
+       $file_info = pathinfo($pic);
+        $name_gen = hexdec((uniqid()));
+        $file_extension = $file_info['extension'];
+       $picname = $name_gen.'.'.$file_extension;
+       $this->downloadAndMoveFile($pic,$picname);
         
         return new product([
-            'p_code' => $row['p_code'],
-            'PnameTH' => $row['pnameth'],
-            'PnameEN' => $row['pnameen'],
+            'p_code' => $row['id'],
+            'PnameTH' => $row['name_th'],
+            'PnameEN' => $row['name_en'],
             'supplier' => $supplier,
             'category' => $categoty,
             'unit' => $row['unit'],
             'price' => $row['price'],
             'detail' => $row['detail'], 
-            //'picture' => $row['picture']
+            'picture' => $row['picture']
         ]);
        
         }
+
+        public function downloadAndMoveFile($pic,$name)
+    {
+        $path = "$pic";
+        $destinationPath = 'picture/product/';
+        Storage::disk('public')->put( $destinationPath.$name, file_get_contents($path));
+    }
+        
 
         public function uniqueBy()
         {

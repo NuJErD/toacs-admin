@@ -33,9 +33,28 @@ class userController extends Controller
         return view('Users.add',compact('phase','position','department'));
     }
 
-    public function resetPW(Request $request , users $user){
+    public function changePW(){
 
-        dd(123);
+        return view('users.changePW');
+    }
+
+    public function changePWCF(Request $request){
+        $oldpass = $request->oldpass;
+        $newpass = $request->newpass;
+        $cfpass = $request->cfnewpass;
+        $password = users::where('id',session('admin'))->value('password');
+           
+        if(Hash::check($oldpass,$password)){
+             $password = Hash::make($newpass);
+                users::where('id',session('admin'))
+                ->update([
+                    'password' => $password
+                ]);
+            return redirect()->route('home')->with('success','เปลี่ยนรหัสผ่านสำเร็จ');
+        }else{
+            return back()->with('error','รหัสผ่านเดิมไม่ถูกต้อง');
+        }
+       
     }
     /**
      * Show the form for creating a new resource.

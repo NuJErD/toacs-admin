@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\users;
+use App\Models\pr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use GuzzleHttp\Client;
 
 
 class HomeController extends Controller
@@ -15,13 +18,16 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $pr = pr::orderBy('create_date')->where('status','!=','0')->get()->groupby(function($data){
+        //     return $data->departments_id;
+        // });
        
+        // dd($pr);
        return view('home');
     }
-    public function homeB()
-    {
-       return view('Back.home');
-    }
+
+    
+    
 
     /**
      * Show the form for creating a new resource.

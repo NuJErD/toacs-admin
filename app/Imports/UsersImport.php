@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Concerns\WithUpserts;
 use App\Models\department;
 use App\Models\position;
 use App\Models\phase;
+use Illuminate\Support\Facades\Storage;
 
 
 class UsersImport implements ToModel,WithHeadingRow,WithUpserts
@@ -20,13 +21,25 @@ class UsersImport implements ToModel,WithHeadingRow,WithUpserts
     */
     public function model(array $row)
     {
-        
+        //dd($row);
          $departvalue = explode(',',$row['department']);
-         $position = explode(',',$row['position']);
+        // $position = explode(',',$row['position']);
+         $position = $row['position'];
          $depart =  department::whereIn('departTH',$departvalue)->pluck('id')->implode(',');
-         $position = position::whereIn('posTH',$position)->pluck('id')->implode(',');
+        // $position = position::whereIn('posTH',$position)->pluck('id')->implode(',');
+         $position = position::where('posTH',$position)->value('id');
+        //dd($position);
          $phase = phase::where('phaseTH',$row['phase'])->value('id');
-       // dd($row['phase']);
+
+    //upload pic error extension
+        $pic = $row['picture'];
+        $file_info = pathinfo($pic);
+        $name_gen = hexdec((uniqid()));
+        $file_extension = $file_info['extension'];
+       $picname = $name_gen.'.'.$file_extension;
+       $this->downloadAndMoveFile($pic,$picname);
+        //dd($picname);
+      
         return new users([
             'nameTH'     => $row['nameth'],
             'nameEN'    => $row['nameen'],
@@ -38,24 +51,22 @@ class UsersImport implements ToModel,WithHeadingRow,WithUpserts
             'role' => $row['role'],
             'phase' => $phase,
             'statusR' => $row['statusr'],
-            'statusA' => $row['statusa']
+            'statusA' => $row['statusa'],
+            'signature' => $picname
 
         ]);
-        // return new users([
-        //     'nameTH'     => $row[0],
-        //     'nameEN'    => $row[1],
-        //     'password' => bcrypt($row[2]),
-        //     'phone' => $row[3],
-        //     'email' => $row[4],
-        //     'department' => $row[5],
-        //     'position' => $row[6],
-        //     'role' => $row[7],
-        //     'phase' => $row[8],
-        //     'statusR' => $row[9],
-        //     'statusA' => $row[10]
-
-        // ]);
+         
+       
     }
+    public function downloadAndMoveFile($pic,$name)
+    {
+        
+        $path = "$pic";
+   
+        $destinationPath = 'picture/signature/';
+        Storage::disk('public')->put( $destinationPath.$name, file_get_contents($path));
+    }
+
     public function uniqueBy()
         {
             return 'email';

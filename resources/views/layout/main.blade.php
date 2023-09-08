@@ -60,6 +60,15 @@
     })
 </script>
 @endif
+@if(session()->has('error'))
+<script>
+    swal("Message","{{session('error')}}",'error',{
+        button:true,
+        button:"OK",
+        //timer:2000
+    })
+</script>
+@endif
 <footer>
     <div class="w-full h-[40px] bg-white"></div>
 </footer>

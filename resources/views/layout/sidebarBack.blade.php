@@ -18,6 +18,11 @@
             <a href="{{route('user.edit', session('admin'))}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clock-rotate-left w-[30px]"></i>
             <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">แก้ไขข้อมมูลส่วนตัว</span>    
         </a></li>
+        <li>
+            <a href="{{route('changePW')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clock-rotate-left w-[30px]"></i>
+            <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">เปลี่ยนรหัสผ่าน</span>    
+        </a>
+        </li>
         @endif
         <li>
             <a href="{{route('supplier.index')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clock-rotate-left w-[30px]"></i>

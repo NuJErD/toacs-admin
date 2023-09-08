@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\users;
+use App\Models\department;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UsersImport;
 use App\Imports\ProductImport;
@@ -61,6 +63,10 @@ class ExcelController extends Controller
     //Users Export
     public function Usersexport() 
     {
+        
+       
+       
+    //  return view('exports.users',compact('users'));
         return Excel::download(new UsersExport, 'users.xlsx');
     }  
     //Product Export
