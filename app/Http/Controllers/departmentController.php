@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\department;
 
 class departmentController extends Controller
 {
@@ -13,7 +14,8 @@ class departmentController extends Controller
      */
     public function index()
     {
-        //
+      $depart = department::paginate(10);
+       return view('department.index',compact('depart'));
     }
 
     /**
@@ -54,9 +56,11 @@ class departmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(department $department )
     {
+        $department;
         //
+        return view('department.edit',compact('department'));
     }
 
     /**
@@ -66,9 +70,16 @@ class departmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, department $department)
     {
-        //
+       department::where('id',$department->id)
+       ->update([
+         'code' =>  $request->code,
+         'departTH' => $request->departTH,
+         'departEN' => $request->departEN,
+         'code_fac1' => $request->code_fac1,
+         'code_fac2' => $request->code_fac2
+       ]);
     }
 
     /**

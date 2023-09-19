@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 
 
+
 class productController extends Controller
 {
     /**
@@ -32,6 +33,8 @@ class productController extends Controller
         $categories = categories::get();
         return view('product.add',compact('department','supplier','categories'));
     }
+
+    
 
     public function active(Request $request, product $product){
 
@@ -75,14 +78,14 @@ class productController extends Controller
      
         $product = new product;
         
-        //  $product->p_code = $request->code;     
-        //  $product->PnameTH = $request->PnameTH;
-        //  $product->PnameEN = $request->PnameEN;
-        //  $product->category = $request->category;
-        //  $product->supplier = $request->supplier;
-        //  $product->unit = $request->unit;
-        //  $product->price = $request->price;
-        //  $product->detail = $request->detail;
+         $product->p_code = $request->code;     
+         $product->PnameTH = $request->PnameTH;
+         $product->PnameEN = $request->PnameEN;
+         $product->category = $request->category;
+         $product->supplier = $request->supplier;
+         $product->unit = $request->unit;
+         $product->price = $request->price;
+         $product->detail = $request->detail;
 
           $picture = $request->file('productpic');
           dd($picture);
@@ -97,7 +100,7 @@ class productController extends Controller
          for($i=0;$i<$count;$i++){
             $product_depart = new product_depart;
             $departname = department::where('id',$request->department[$i])->value('departTH');
-            $product_depart->products_id = $product->id;
+            $product_depart->products_id = $product->p_code;
             $product_depart->departments_id = $request->department[$i];
             $product_depart->departments_departTH = $departname;
             $product_depart->save();
@@ -128,7 +131,7 @@ class productController extends Controller
     {   
          $p = $product;
          //แบ่งสินค้าตามแผนก
-        $depart_use = product_depart::where('products_id',$p->id)->pluck('departments_id');
+        $depart_use = product_depart::where('products_id',$p->p_code)->pluck('departments_id');
         $depart_use =  $depart_use->toArray();
         $departInuse = department::whereIn('id',$depart_use)->get();
         $depart = department::whereNotIn('id',$depart_use)->get();
@@ -188,11 +191,11 @@ class productController extends Controller
                 
                 $department = $request->department;
                 // delete (แผนกที่ต้องการเอาออก)
-                $depart_delete = product_depart::where('products_id',$product->id)
+                $depart_delete = product_depart::where('products_id',$product->p_code)
                 ->whereNotIn('departments_id',$department)
                 ->delete();
                 //check ข้อมูลที่ยังไม่มีใน DB
-                $depart_use = product_depart::where('products_id',$product->id)->pluck('departments_id');
+                $depart_use = product_depart::where('products_id',$product->p_code)->pluck('departments_id');
                 $depart_use =  $depart_use->toArray();
                 $depart_forAdd = array_diff($department,$depart_use);
                 $string = implode(',', $depart_forAdd);
@@ -205,11 +208,10 @@ class productController extends Controller
                 for($i=0;$i<$count;$i++){
                      $product_depart = new product_depart;
                      $departname = department::where('id',$depart_forAdd[$i])->value('departTH');
-                     $product_depart->products_id = $product->id;
+                     $product_depart->products_id = $product->p_code;
                      $product_depart->departments_id = $depart_forAdd[$i];
                      $product_depart->departments_departTH = $departname;
-                     $product_depart->save();
-                 
+                     $product_depart->save();                 
                           }
               }
               

@@ -30,24 +30,25 @@ class ProductImport implements ToModel,WithHeadingRow,WithUpserts
         $departmentIN = explode(',',$row['department']);
         $supplier = supplier::where('s_code',$row['supplier'])->value('s_code');
         $categoty = categories::where('code',$row['category'])->value('code');
-       // dd($departmentIN);
+        //dd($departmentIN);
     
        //check ข้อมูลที่ยังไม่มีใน DB
        $depart_use = product_depart::where('products_id',$row['department'])->pluck('departments_id');
        $depart_use =  $depart_use->toArray();
        $depart_forAdd = array_diff($departmentIN,$depart_use);
-     //  dd($depart_forAdd);
+      //     dd($depart_forAdd);
        //เพิ่ม แผนกที่สามารถเห็นสินค้า
       
         foreach($depart_forAdd as $d){
             $dname = department::where('departTH',$d)->first();
            
-            //dd($dname);
-            new product_depart([
-                'product_id' => $row['id'],
+           // dd($dname->code);
+           $data = new product_depart([
+                'products_id' => $row['id'],
                 'departments_id' =>$dname->id ,
                 'departments_departTH' => $dname->code
             ]);
+            $data->save();
        }
 
        //อัพโหลดรูปภาพ
@@ -67,7 +68,7 @@ class ProductImport implements ToModel,WithHeadingRow,WithUpserts
             'unit' => $row['unit'],
             'price' => $row['price'],
             'detail' => $row['detail'], 
-            'picture' => $row['picture']
+            'picture' => $picname
         ]);
        
         }

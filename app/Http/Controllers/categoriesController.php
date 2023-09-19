@@ -90,7 +90,16 @@ class categoriesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, categories $category)
-    {
+    {   
+        $check = product::where('category',$category->code)->first();
+        if(isset($check)){
+             product::where('category',$category->code)
+        ->update([
+            'category' => $request->code
+        ]);
+        }
+       
+
         categories::where('id',$category->id)
         ->update(
             [
@@ -99,6 +108,8 @@ class categoriesController extends Controller
                 'CnameEN' => $request->CnameEN
             ]
         );
+
+        
         return redirect()->route('categories.index');
     }
 

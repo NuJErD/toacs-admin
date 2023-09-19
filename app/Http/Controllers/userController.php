@@ -45,11 +45,16 @@ class userController extends Controller
         $password = users::where('id',session('admin'))->value('password');
            
         if(Hash::check($oldpass,$password)){
-             $password = Hash::make($newpass);
-                users::where('id',session('admin'))
-                ->update([
-                    'password' => $password
-                ]);
+                if($newpass == $cfpass){
+                    $password = Hash::make($newpass);
+                    users::where('id',session('admin'))
+                    ->update([
+                        'password' => $password
+                    ]);
+                }else{
+                    return back()->with('error','รหัสผ่านใหม่ไม่ตรงกัน');
+                }
+                
             return redirect()->route('home')->with('success','เปลี่ยนรหัสผ่านสำเร็จ');
         }else{
             return back()->with('error','รหัสผ่านเดิมไม่ถูกต้อง');
@@ -160,7 +165,7 @@ class userController extends Controller
         
         $signature->move(public_path('picture/signature'), $signame);
        }
-       
+      
        
         $department = implode(",",$request->department);
         users::where('id',$user->id)
@@ -194,6 +199,7 @@ class userController extends Controller
 
         
     // }
+   
     /**
      * Remove the specified resource from storage.
      *

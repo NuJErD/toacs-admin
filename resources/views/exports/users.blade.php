@@ -14,7 +14,7 @@
             <tr>
                 <td  style="font-size:12px; text-align: left;">{{ $user->nameTH }}</td>
                 <td  style="font-size:12px; text-align: left;">{{ $user->nameEN }}</td>
-                <td  style="font-size:12px; text-align: left;">{{ $user->telephone }}</td>
+                <td  style="font-size:12px; text-align: left;">{{ $user->phone }}</td>
                 <td  style="font-size:12px; text-align: left;">{{ $user->email }}</td>
                 @php
                     // $departments = Department::whereIn('id',$user->department ?? [])->pluck('name_th')->implode(', ');

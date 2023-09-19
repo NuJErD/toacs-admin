@@ -8,6 +8,8 @@ use App\Http\Controllers\itemController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\categoriesController;
+use App\Http\Controllers\department;
+use App\Http\Controllers\departmentController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\prController;
 use App\Http\Controllers\supplierController;
@@ -38,6 +40,7 @@ Route::resource('categories',categoriesController::class);
 Route::resource('supplierType',supplierTypeController::class);
 Route::resource('supplier',supplierController::class);
 Route::resource('pr',prController::class);
+Route::resource('department',departmentController::class);
 
 Route::get('/', function () {
     return view('login');
@@ -64,8 +67,10 @@ Route::get('/item',[productController::class, 'index'])->name('item');
 Route::put('/active/{product}',[productController::class,'active']);
 
 //pr
+Route::get('/prapprove',[prController::class,'pr_approve'])->name('pr_approve');
 //user
-Route::put('/pwreset/{user}',[userController::class,'resetPW]']);
+Route::put('/pwreset/{user}',[userController::class,'resetPW']);
+
 
 //import
 Route::post('/import/user', [ExcelController::class, 'UserImport'])->name('import');
@@ -85,3 +90,6 @@ Route::get('/addsupplier',[supplierController::class,'addsupplier'])->name('adds
 
 //supplierType
 Route::get('/addSpType',[supplierTypeController::class,'addSpType'])->name('addSpType');
+
+//
+

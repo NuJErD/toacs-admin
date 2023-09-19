@@ -28,7 +28,7 @@
                            
                             <div class="flex flex-wrap justify-between mt-6">                               
                                 <div class="w-[140px] flex justify-end items-center"><p>รหัส</p></div>                                                                  
-                                    <input name="code" value="{{$sup->code}}" type="text" placeholder="รหัส" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                    <input name="code" value="{{$sup->s_code}}" type="text" placeholder="รหัส" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
                             </div>
 
                             <div class="flex flex-wrap justify-between mt-6">
@@ -72,8 +72,8 @@
                                                 <div class="w-[150px] flex justify-end items-center"><p>ประเภทซัพพลายเออร์</p></div>                                
                                                 <div class="w-[450px] ml-6 h-[35px] ">
                                                     <select name="SPtype" data-te-select-init   required>
-                                                    <option selected value="{{$sup->id}}">{{$supType_use->SPTnameTH}}</option>
-                                                      @foreach($supType as $sup)
+                                                    <option selected value="{{$supType_use->id}}">{{$supType_use->SPTnameTH}}</option>
+                                                      @foreach($supType as $supT)
                                                        <option value="{{$sup->id}}">{{$sup->SPTnameTH}}</option>
                                                        @endforeach
                                                        

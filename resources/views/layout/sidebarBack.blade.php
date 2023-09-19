@@ -10,27 +10,17 @@
                 <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">ผู้ใช้งาน</span>   
         </a></li>
         <li>
-            <a href="{{route('categories.index')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clock-rotate-left w-[30px]"></i>
+            <a href="{{route('categories.index')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clipboard-list w-[30px]"></i>
             <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">หมวดสินค้า</span>    
         </a></li>
-        @if (Session()->has('admin'))
+       
         <li>
-            <a href="{{route('user.edit', session('admin'))}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clock-rotate-left w-[30px]"></i>
-            <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">แก้ไขข้อมมูลส่วนตัว</span>    
-        </a></li>
-        <li>
-            <a href="{{route('changePW')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clock-rotate-left w-[30px]"></i>
-            <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">เปลี่ยนรหัสผ่าน</span>    
-        </a>
-        </li>
-        @endif
-        <li>
-            <a href="{{route('supplier.index')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clock-rotate-left w-[30px]"></i>
+            <a href="{{route('supplier.index')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-people-group w-[30px]" style="color: #ffffff;"></i>
             <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">ซัพพลายเออร์</span>    
         </a>
         </li>
         <li>
-            <a href="{{route('supplierType.index')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clock-rotate-left w-[30px]"></i>
+            <a href="{{route('supplierType.index')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-people-group w-[30px]" style="color: #ffffff;"></i>
             <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">ประเภทซัพพลายเออร์</span>    
         </a>
         </li>
@@ -39,11 +29,31 @@
             <a href="{{ route('pr.index') }}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clipboard-list w-[30px]"></i>
             <span class="ml-[10px] opacity-0 group-hover:opacity-100 text-[16px]">รายการรอการอนุมัติ</span>    
         </a></li>
-        
+        <li>
+            <li>
+                <a href="{{ route('pr_approve') }}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clipboard-list w-[30px]"></i>
+                <span class="ml-[10px] opacity-0 group-hover:opacity-100 text-[16px]">รายการใบขอสั่งซื้อ</span>    
+            </a></li>
+            <li>
+            
+            <a href="{{ route('department.index') }}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clipboard-list w-[30px]"></i>
+            <span class="ml-[10px] opacity-0 group-hover:opacity-100 text-[16px]">สังกัดหน่อยงาน</span>    
+        </a></li>
+        @if (Session()->has('admin'))
+        <li>
+            <a href="{{route('user.edit', session('admin'))}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-regular fa-pen-to-square w-[30px]" style="color: #ffffff;"></i>
+            <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">แก้ไขข้อมมูลส่วนตัว</span>    
+        </a></li>
+        <li>
+            <a href="{{route('changePW')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-lock w-[30px]" style="color: #ffffff;"></i>
+            <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">เปลี่ยนรหัสผ่าน</span>    
+        </a>
+        </li>
+        @endif
       
     <li >
         <a href="{{route('logout')}}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px] "><i class="fa-solid fa-right-from-bracket w-[30px]"></i>
-            <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">loguot</span>   
+            <span class="ml-[10px] opacity-0 group-hover:opacity-100  text-[16px] ">logout</span>   
     </a></li>
    
     

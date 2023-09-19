@@ -90,7 +90,7 @@
                                                <div class="flex justify-center "><img src="picture/product/{{$p->picture}}" class="w-[70px] h-[70px] p-0  alt=""></div>
                                             </td>
                                             <td class="px-2 py-2">
-                                                <p class="flex justify-center">{{$p->id}}</p>
+                                                <p class="flex justify-center">{{$p->p_code}}</p>
                                             </td>
                                             <td class="px-2 py-2 ">
                                                 <p class="flex justify-center">{{$p->category}}</p>    

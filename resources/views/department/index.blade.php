@@ -7,13 +7,16 @@
 @section('content')
 
 <div class="main">
-    <p class="text-[26px] font-bold mb-3 ">รายการรอการอนุมัติ</p>
+    <p class="text-[26px] font-bold mb-3 ">ผู้ใช้งาน</p>
     <div class="main-prod">
         <div class="">
             <div class="card-pro px-4 ">
                 <div class="header min-h-[50px] max-w-full text-white rounded-t-[5px]  flex justify-between  bg-zinc-800 min-h-14 items-center px-6  flex-wrap">
-                    <div class="">รายการรอการอนุมัติ</div>
-                  
+                    <div class="">ผู้ใช้งาน</div>
+                    <div class="btn flex justify-end flex-wrap  ">
+                        <a href="{{url('addcategories')}}"><d class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2" onclick="goBack()"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</d< iv></a>
+                        
+                    </div>
                 </div>
                 <div class="card-body border px-3 py-4">
                     <form action="" class="">
@@ -47,23 +50,20 @@
                         <div class=" mt-3">
                             <div class=" overflow-x-auto  shadow-md sm:rounded-lg">
                                 <table class="w-full text-sm text-left text-black dark:text-gray-400">
-                                    <thead class="text-xs text-black uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
-                                            
                                             <th scope="col" class="px-6 py-3">
-                                              <p class="flex justify-center">รหัสใบขอซื้อ</p>
+                                               รหัส
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                <p class="flex justify-center">แผนก</p>
-                                              </th>
-                                            <th scope="col" class="px-6 py-3">
-                                                <p class="flex justify-center">ราคา </p>
+                                              สังกัดหน่อยงาน
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                <p class="flex justify-center"> วันที่ </p>
-                                              </th>
-                                              
-                                             
+                                                Code NO. FAC1
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                Code NO. FAC5
+                                             </th>
                                            
                                             <th scope="col" class="px-6 py-3 flex items-center justify-center ">
                                                 <p class="">Manage</p>
@@ -73,43 +73,40 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                         @foreach ($pr as $prs) 
-                                            
-                                        
+                                         @foreach ($depart as $d) 
+                                                                                   
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                             
-                                           
-                                            <td class="px-6 py-4">
-                                               <p class="flex justify-center">{{$prs->prcode}}</p>
+                                            <td class="px-6 py-4 ">
+                                              <p>{{$d->code}}</p>
                                             </td>
                                             <td class="px-6 py-4">
-                                                <p class="flex justify-center">{{$prs->departments_id}}</p>
-                                             </td>
-                                             <td class="px-6 py-4">
-                                                <p class="flex justify-center">{{$prs->total}}</p>
-                                             </td>
+                                               <p>{{$d->departTH}}</p>
+                                            </td>
                                             <td class="px-6 py-4">
-                                                <p class="flex justify-center">{{$prs->create_date}}</p>
+                                                <p>{{$d->code_fac1}}</p>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <p>{{$d->code_fac5}}</p>
                                             </td>
                                             <td class="">
                                                 <div class="flex justify-center">
-                                                <div class=" ">
-                                                {{-- <a href="{{route('supplier.edit', $sp->id)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">แก้ไข</a>
-                                            </div> --}}
-                                           
-                                            <div class="flex">
-                                                <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-blue-500 h-[30px] rounded-[4px] mr-3">แก้ไข</a>
-                                                <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[100px] flex items-center justify-center bg-blue-500 h-[30px] rounded-[4px]">รายละเอียด</a>
-                                            </div>
+                                               
+                                                <a href="{{route('department.edit',$d->id)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">แก้ไข</a>
+                                            
+                                            <form action="{{route('department.destroy',$d->id)}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">ลบ</button>
+                                            </form>
                                         </div>
                                             </td>
                                         </tr>
                                         @endforeach
                                        
                                     </tbody>
-                                  
                                 </table>
-                                {{$pr}}
+                                {{ $depart->links() }}
                             </div>
                         </div>
                         <div class=""></div>

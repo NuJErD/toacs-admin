@@ -15,9 +15,17 @@ class prController extends Controller
      */
     public function index()
     {
-       $pr = pr::where('status','1')->paginate(10);
+       $pr = pr::where('status','!=','0')
+       ->where('Approve1_By',null)->paginate(10);
        //dd($pr);
        return view('pr.index',compact('pr'));
+    }
+
+    public function pr_approve()
+    {
+       $pr = pr::where('ApproveStatus','1')->paginate(10);
+       //dd($pr);
+       return view('pr.pr_approve',compact('pr'));
     }
 
     /**
