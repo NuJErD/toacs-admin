@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class pr extends Model
+class pr_detail extends Model
 {
     use HasFactory;
-    protected $table = 'pr';
-
-    function pr_detail(){
-        return $this->hasMany(pr_detail::class);
-    }
+    public $timestamps = false;
+    protected $guarded = [];
 }

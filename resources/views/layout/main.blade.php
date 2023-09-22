@@ -24,6 +24,7 @@
 <script src="{{ asset('js/register.js')}}"></script>
 <script src="{{ asset('js/app.js')}}"></script>
 <script src="{{ asset('js/product.js')}}"></script>
+<script src="{{ asset('js/po.js')}}"></script>
 
 
 {{-- <script

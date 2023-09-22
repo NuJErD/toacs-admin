@@ -14,6 +14,7 @@ use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\prController;
 use App\Http\Controllers\supplierController;
 use App\Http\Controllers\supplierTypeController;
+use App\Http\Controllers\poController;
 use App\Models\supplier;
 use App\Models\supplierType;
 use Maatwebsite\Excel\Row;
@@ -35,7 +36,7 @@ Route::resource('login',logincontroller::class);
 Route::resource('forgotpw',forgotpwdController::class);
 Route::resource('home',HomeController::class);
 Route::resource('items',itemController::class);
-
+Route::resource('po',poController::class);
 Route::resource('categories',categoriesController::class);
 Route::resource('supplierType',supplierTypeController::class);
 Route::resource('supplier',supplierController::class);
@@ -68,6 +69,15 @@ Route::put('/active/{product}',[productController::class,'active']);
 
 //pr
 Route::get('/prapprove',[prController::class,'pr_approve'])->name('pr_approve');
+//po--get data
+Route::get('/datasup',[poController::class,'getsup']);
+Route::get('/get_prlist',[poController::class,'get_prlist']);
+Route::get('/getproduct',[poController::class,'getproduct']);
+Route::get('/get_productdetail',[poController::class,'get_productdetail']);
+//po
+Route::get('/po/create',[poController::class,'PoCreate'])->name('PoCreate');
+Route::post('/po/create2',[poController::class,'PoCreate2'])->name('PoCreate2');
+Route::get('/po/detail/{po}',[poController::class,'po_detail'])->name('po_detail');
 //user
 Route::put('/pwreset/{user}',[userController::class,'resetPW']);
 

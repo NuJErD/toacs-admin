@@ -31,10 +31,11 @@
         </a></li>
         <li>
             <li>
-                <a href="{{ route('pr_approve') }}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clipboard-list w-[30px]"></i>
-                <span class="ml-[10px] opacity-0 group-hover:opacity-100 text-[16px]">รายการใบขอสั่งซื้อ</span>    
+                <a href="{{ route('po.index') }}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clipboard-list w-[30px]"></i>
+                <span class="ml-[10px] opacity-0 group-hover:opacity-100 text-[16px]">รายการใบสั่งซื้อ</span>    
             </a></li>
             <li>
+
             
             <a href="{{ route('department.index') }}" class="flex items-center p-5 pt-1 hover:bg-blue-900 text-white w-[250px]"><i class="fa-solid fa-clipboard-list w-[30px]"></i>
             <span class="ml-[10px] opacity-0 group-hover:opacity-100 text-[16px]">สังกัดหน่อยงาน</span>    
