@@ -60,7 +60,7 @@
                                                 <p class="flex justify-center">ราคา </p>
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                <p class="flex justify-center"> วันที่ </p>
+                                                <p class="flex justify-center"> วันที่</p>
                                               </th>
                                               
                                              
@@ -109,7 +109,8 @@
                                     </tbody>
                                   
                                 </table>
-                                {{$pr}}
+                        
+                          
                             </div>
                         </div>
                         <div class=""></div>

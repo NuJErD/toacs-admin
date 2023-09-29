@@ -75,9 +75,12 @@ Route::get('/get_prlist',[poController::class,'get_prlist']);
 Route::get('/getproduct',[poController::class,'getproduct']);
 Route::get('/get_productdetail',[poController::class,'get_productdetail']);
 //po
+Route::get('/popage/{code}',[poController::class,'popage'])->name('PoPage');
 Route::get('/po/create',[poController::class,'PoCreate'])->name('PoCreate');
+Route::get('/po/getpo/detail',[poController::class,'get_po_detail']);
 Route::post('/po/create2',[poController::class,'PoCreate2'])->name('PoCreate2');
-Route::get('/po/detail/{po}',[poController::class,'po_detail'])->name('po_detail');
+Route::post('/po/add/detail',[poController::class,'po_detail'])->name('po_add_detail');
+//Route::get('/po/detail/{po}',[poController::class,'po_detail'])->name('po_detail');
 //user
 Route::put('/pwreset/{user}',[userController::class,'resetPW']);
 
