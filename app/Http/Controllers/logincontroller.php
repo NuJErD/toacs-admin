@@ -23,7 +23,7 @@ class logincontroller extends Controller
    
 
     public function logincheck(Request $request){
-        
+        //dd(session()->all());
         $getuser = users::where('email',$request->email)->first();
      
        if(!empty($getuser)){

@@ -28,28 +28,26 @@
 			height: 180px;
 		}
 		<!-- Edit -->
-		
-        @font-face {
+            @font-face {
             font-family: 'THSarabunNew';
-            font-style: bold;
+            font-style:;
             font-weight: bold;
-            src: url("{{ asset('fonts/THSarabunNew/THSarabunNew Bold.ttf') }}") format('truetype');
-        }
-
-        @font-face {
-            font-family: 'THSarabunNew';
-            font-style: normal;
-            font-weight: normal;
-            src: url("{{ asset('fonts/THSarabunNew/THSarabunNew.ttf') }}") format('truetype');
-        }
+            src: url("{{ asset('fonts/THSarabunNew/THSarabunNewBold.ttf') }}") format('truetype');
+             }
+           
+            @font-face {
+                font-family:'THSarabunNew';
+                font-style: normal;
+                font-weight: normal;
+                src: url("{{ asset('fonts/THSarabunNew/THSarabunNew.ttf') }}") format('truetype');
+            }  
 
         body {
-            font-family: 'THSarabunNew';
-            line-height: 20px;
-			/*padding-top: 210;*/
-			/*padding-bottom: 210;*/
-			/*margin-top: 210px;*/
-			/*margin-bottom: 130px;*/
+			font-family: 'THSarabunNew',sans-serif;
+                line-height: 20px;
+            /* font-family: 'THSarabunNew';
+            line-height: 20px; */
+			
 			margin-top: 400px;
 			margin-bottom: 300px;
         }
@@ -72,7 +70,7 @@
 </head>
 	<header>
 		<p style="text-align: center; margin: 0px;">
-			<img src="{{ url('/images/TOACS_LOGO.jpg') }}" alt="logo" style="width:30px; height:30px;">
+			<img src="{{url('/picture/logo.jpg')}}" alt="logo" style="width:30px; height:30px;">
 			<b style="font-size: 1.5rem;">TOACS (THAILAND) CO.,LTD.</b>
 		</p>
 		<p style="text-align: center; font-size: 1.5rem; margin: 0px;"><b>บริษัท โทแอคส์ (ประเทศไทย) จำกัด</b></p>
@@ -86,19 +84,19 @@
 		
 		<section class="row">
 			<div class="column" style="float: left; font-size: 16px; width: 50%; height: 150px;">
-				<p style="margin:0px;"><b>TO: {{ $purchaseOrder->supplier_name }} <span
-					style="word-break: break-all;">{{ $purchaseOrder->supplier_address }}</span></b></p>
-				<p style="margin:0px;"><b>ATTN : {{ $purchaseOrder->supplier_name }} Mobile
-					{{ $purchaseOrder->supplier_phone }}</b></p>
+				<p style="margin:0px;"><b>TO: <span
+					style="word-break: break-all;"></span></b></p>
+				<p style="margin:0px;"><b>ATTN :  Mobile
+					</b></p>
 				<p style="margin:0px;">E-Mail : it.office.equipment@gmail.com</p>
-				<p style="margin:0px;">PERSON IN CHARGE : {{ $purchaseOrder->admin_name }} Ext.1123 Mobile 097-0151578</b>
+				<p style="margin:0px;">PERSON IN CHARGE :  Ext.1123 Mobile 097-0151578</b>
 				</p>
 				<p style="margin:0px;">E-Mail : anjanya@toacs.co.th</p>
 			</div>
 			<div class="column" style="float: left; font-size: 16px; text-align: right; width: 50%; height: 150px;">
-				<p style="margin:0px;"><b>P/O NO : {{ $purchaseOrder->order_invoice }}</b></p>
-				<p style="margin:0px;"><b>Supplier Code : {{ $purchaseOrder->supplier_code }}</b></p>
-				<p style="margin:0px;"><b>QUOTATION NO. : {{ $purchaseOrder->quotation_1 }}</p>
+				<p style="margin:0px;"><b>P/O NO :</b></p>
+				<p style="margin:0px;"><b>Supplier Code : </b></p>
+				<p style="margin:0px;"><b>QUOTATION NO. : </p>
 				@if(!empty($purchaseOrder->quotation_2))
 					<p style="margin:-5px;"><b>{{ $purchaseOrder->quotation_2 }}</p>
 				@else
@@ -114,7 +112,7 @@
 				@else
 					<p style="margin:-5px;"><b><br></p>
 				@endif
-				<p style="margin:-5px;"><b>DATE : {{ date('d-M-y', strtotime($purchaseOrder->created_at)) }}</b> </p>
+				<p style="margin:-5px;"><b>DATE :</b> </p>
 			</div>
 		</section>
 	</header>
@@ -124,7 +122,7 @@
 		<table style="width: 100%; border-collapse: collapse;">
 			<tr>
 				<td colspan="8" style="text-align: left; vertical-align: top; font-size: 1rem; padding-right:.3rem; padding-left:.3rem; word-wrap:break-word; table-layout: fixed; height: 40px; overflow:hidden;">
-					Note:&nbsp;{{ $purchaseOrder->note }}
+					Note:&nbsp;
 				</td>
 			</tr>
 			<tr>
@@ -174,7 +172,7 @@
 	</footer>
 	
 <body>
-	<!--<section class="row">
+	{{-- <!--<section class="row">
 		<div class="column" style="float: left; font-size: 16px; width: 50%; height: 150px;">
 			<p style="margin:0px;"><b>TO: {{ $purchaseOrder->supplier_name }} <span
 				style="word-break: break-all;">{{ $purchaseOrder->supplier_address }}</span></b></p>
@@ -200,10 +198,10 @@
 			@endif
 			<p style="margin:0px;"><b>DATE : {{ date('d-M-y', strtotime($purchaseOrder->created_at)) }}</b> </p>
 		</div>
-	</section> -->
+	</section> --> --}}
 	<section class="row">
 		<table style="width: 100%; border-collapse: collapse;">
-		<!-- @if (count($purchaseOrderProducts) >= 3) page-break-after:always; @endif}} -->
+		{{-- <!-- @if (count($purchaseOrderProducts) >= 3) page-break-after:always; @endif}} --> --}}
 		<thead>
 			<tr>
 				<th style="text-align: center; font-size: 1rem; white-space: nowrap;">ITEM</th>
@@ -216,43 +214,43 @@
 				<th style="text-align: center; font-size: 1rem; white-space: nowrap;">AMOUNT</th>
 			</tr>
 		</thead>
-			@foreach ($purchaseOrderProducts as $key => $purchaseOrderProduct)
-				@php
+			{{-- @foreach ($purchaseOrderProducts as $key => $purchaseOrderProduct) --}}
+				{{-- @php
 					$orderPhase = App\Models\Phase::where('id', $purchaseOrderProduct->order_phase_id)->first();
-				@endphp
+				@endphp --}}
 			<tbody>
 				<tr>
 					<td
 						style="text-align: center; font-size: 1rem; vertical-align: top; padding-right:.3rem; padding-left:.3rem;">
-						{{ $key + 1 }}</td>
+					</td>
 					<td
 						style="font-size: 1rem; word-break: break-all; vertical-align: top; padding-right:.3rem; padding-left:.3rem;">
-						{{ $purchaseOrderProduct->product_name_th }}</td>
+						</td>
 					<td
 						style="text-align: center; font-size: 1rem; vertical-align: top; white-space: nowrap; padding-right:.3rem; padding-left:.3rem;">
-						{{ empty($orderPhase->name_th) ? '' : $orderPhase->name_th }}</td>
+						</td>
 					<td
 						style="text-align: center; font-size: 1rem; vertical-align: top; white-space: nowrap; padding-right:.3rem; padding-left:.3rem;">
-						{{ date('d-M-y', strtotime($purchaseOrderProduct->order_use_date)) }}</td>
+						</td>
 					<td
 						style="text-align: center; font-size: 1rem; vertical-align: top; padding-right:.3rem; padding-left:.3rem;">
-						{{ $purchaseOrderProduct->amount }}</td>
+						</td>
 					<td
 						style="text-align: center; font-size: 1rem; vertical-align: top; padding-right:.3rem; padding-left:.3rem;">
-						{{ $purchaseOrderProduct->product_unit }}</td>
+						</td>
 					<td
 						style="text-align: right; font-size: 1rem; vertical-align: top; padding-right:.3rem; padding-left:.3rem;">
-						{{ number_format($purchaseOrderProduct->product_price, 2) }}</td>
+						</td>
 					<td
 						style="text-align: right; font-size: 1rem; vertical-align: top; white-space: nowrap; padding-right:.3rem; padding-left:.3rem;">
-						{{ number_format($purchaseOrderProduct->total_price, 2) }}</td>
+					</td>
 				</tr>
 			</tbody>
-			@endforeach
+			{{-- @endforeach --}}
 			
-			@php
+			{{-- @php
 				$totalVat = $purchaseOrder->total_price * ($purchaseOrder->vat / 100);
-			@endphp
+			@endphp --}}
 			<tr style="margin-top: 40px;">
 				<td colspan="5" rowspan="3">Payment Term: 30 DAYS AFTER END OF MONTH</td>
 				<td colspan="2"
@@ -261,17 +259,17 @@
 				</td>
 				<td
 					style="text-align: right; vertical-align: middle; font-size: 1rem; padding-right:.3rem; padding-left:.3rem;">
-					<b>{{ number_format($purchaseOrder->total_price, 2) }}</b>
+					<b></b>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2"
 					style="text-align: center; font-size: 1rem; vertical-align: middle; white-space: nowrap;">
-					<b>Vat {{ $purchaseOrder->vat }}%</b>
+					<b>Vat %</b>
 				</td>
 				<td
 					style="text-align: right; vertical-align: middle; font-size: 1rem; padding-right:.3rem; padding-left:.3rem;">
-					<b>{{ number_format($totalVat, 2) }}</b>
+					<b></b>
 				</td>
 			</tr>
 			<tr>
@@ -281,12 +279,12 @@
 				</td>
 				<td
 					style="text-align: right; vertical-align: middle; font-size: 1rem; padding-right:.3rem; padding-left:.3rem;">
-					<b>{{ number_format($purchaseOrder->total_price + $totalVat, 2) }}</b>
+					<b></b>
 				</td>
 			</tr>
 			<!--<tr>
 				<td colspan="8" style="text-align: left; font-size: 1rem; padding-right:.3rem; padding-left:.3rem;">
-					Note: {{ $purchaseOrder->note }}
+					{{-- Note: {{ $purchaseOrder->note }} --}}
 				</td>
 			</tr>
 			<tr>

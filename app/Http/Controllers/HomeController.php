@@ -18,6 +18,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        //dd(session()->all());
         // $pr = pr::orderBy('create_date')->where('status','!=','0')->get()->groupby(function($data){
         //     return $data->departments_id;
         // });

@@ -53,9 +53,12 @@
                         <td>{{$sup->phone}}</td>
                     </tr>
                     <tr>
-                        <td><b>Address</b></td>
-                        <td>:</td>
-                        <td>{{$sup->address}}</td>
+                        <td class="flex"><b>Address</b>
+                            </td>
+                        <td class="flex flex-row"><p>:</p></td>
+                    
+                        <td class=" whitespace-normal">{{$sup->address}}700/65 หมู่ 6 ตำบลคลองตำหรุ อำเภอเมือง จังหวัดชลบุรี 20000
+                            โทร: (038) 213289-91 แฟ็กซ์ : (038)213507}</td>
                     </tr>
                 </tbody>
             </table>
@@ -219,7 +222,7 @@
                                    <p class="w-[70px] h-[25px] font-semibold">Sum Total</p>
                                 </td>
                                 <td class="px-6 py-1  text-end text-gray-900">
-                                    <p id="SUM" class="w-[70px] h-[25px] font-semibold">900.00</p>
+                                    <p id="SUM" class="w-[70px] h-[25px] font-semibold"></p>
                                   
                                 </td>
                                 <td class="px-6 py-1   text-center text-gray-900">
@@ -257,7 +260,7 @@
                                    <p  class="w-[70px] h-[25px] font-semibold">Vat 7%</p>
                                 </td>
                                 <td class="px-6 py-1  text-end text-gray-900">
-                                    <p id="VAT" class="w-[70px] h-[25px] font-semibold">900.00</p>
+                                    <p id="VAT" class="w-[70px] h-[25px] font-semibold"></p>
                                   
                                 </td>
                                 <td class="px-6 py-1   text-center text-gray-900">
@@ -295,7 +298,7 @@
                                    <p class="w-[70px] h-[25px] font-semibold whitespace-nowrap">Total Amount</p>
                                 </td>
                                 <td class="px-6 py-1  text-end text-gray-900 ">
-                                    <p  id="TOTAL" class="w-[70px] h-[25px] font-semibold">900.00</p>
+                                    <p  id="TOTAL" class="w-[70px] h-[25px] font-semibold"></p>
                                   
                                 </td>
                                 <td class="px-6 py-1   text-center text-gray-900">
@@ -319,6 +322,10 @@
         </div>
         </div>
     </div>
+    <a href="{{route('printPO',$po->order_invoice)}}"  target="_blank" class="w-[90px] h-[40px] border border-gray-300 bg-gray-100 rounded-sm mt-2 flex justify-center">  
+        <i class="fa-solid fa-print mr-2 flex items-center"></i>
+        <p class="flex items-center">Print</p>
+    </a> 
 
  <script>
      get_prlist()

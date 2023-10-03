@@ -191,12 +191,14 @@ function get_po_detail(id){
         }
 
         let price = parseFloat(data[i].total)
-        sum += price
+        sum = (100 + 240.46).toFixed(2)
+        sumInt = parseFloat(sum)
+        //sum = 
         vat = ((sum*0.07).toFixed(2))*1
-        total = sum+vat
-        console.log(price)
+        total = (sumInt+vat).toFixed(2)
+        console.log(sum,vat)
        
-    html +=`<tr id="POadd" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 " style="display: ">
+    html +=`<tr  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 " style="display: ">
     <th scope="row" class=" px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white  text-center">
     
         <p class=" w-[150px] h-[25px] text-center">PR.${data[i].pr_code}</p>
@@ -225,7 +227,7 @@ function get_po_detail(id){
         <p class="w-[70px] h-[25px]  text-center"> ${note}</p>
     </td>
     <td class="px-6 py-4  text-center text-gray-900">
-        
+    <a href=""><i class="fa-solid fa-trash-can fa-xl"></i></a>
     </td>
     
 </tr>`

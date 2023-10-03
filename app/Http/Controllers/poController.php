@@ -197,6 +197,9 @@ class poController extends Controller
      }
 //-----------------------------------------------------------------------------------------------------------------//
 
+    public function po_detail_del(Request $podID){
+        dd($podID);
+    }
     /**
      * Store a newly created resource in storage.
      *
