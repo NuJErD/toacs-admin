@@ -72,13 +72,33 @@ function PoAdd(){
         data:{ poID:id, PRNO:PRNO, product:product, QTY:QTY, unit:unit, price:price, total:total, date:date, note:note },
         dataType: 'json',
         success: function(data) {
-            location.reload();
+            $('#PRNO').empty()
+            $('#product-po').empty()
+            get_po_detail(data)
+            get_prlist()
+            get_po_detail(data)
+          //  location.reload();
            console.log(data)
         
        }
       })
 
  }
+
+function del_podetail(id){
+// console.log(id)
+podID = {
+    id:id
+}
+$.get('/po_detail/del',podID,function(data){
+    $('#PRNO').empty()
+    $('#product-po').empty()
+    get_po_detail(data)
+    get_prlist()
+    get_po_detail(data)
+})
+
+}
 
 //------------------------------------------------- Make an AJAX request to fetch the data  GET DATA--------------------------------------------------------------------------------------------------------------------//
 function get_prlist(){
@@ -131,7 +151,7 @@ function  getproduct(){
             
             option.value = data[i].id
             option.className = "text-center"
-            option.text = "PR."+data[i].PnameTH
+            option.text = data[i].PnameTH
             selectElement.appendChild(option)
     }
     })
@@ -191,12 +211,12 @@ function get_po_detail(id){
         }
 
         let price = parseFloat(data[i].total)
-        sum = (100 + 240.46).toFixed(2)
+        sum += price
         sumInt = parseFloat(sum)
-        //sum = 
+        
         vat = ((sum*0.07).toFixed(2))*1
         total = (sumInt+vat).toFixed(2)
-        console.log(sum,vat)
+      //  console.log(data)
        
     html +=`<tr  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 " style="display: ">
     <th scope="row" class=" px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white  text-center">
@@ -227,7 +247,7 @@ function get_po_detail(id){
         <p class="w-[70px] h-[25px]  text-center"> ${note}</p>
     </td>
     <td class="px-6 py-4  text-center text-gray-900">
-    <a href=""><i class="fa-solid fa-trash-can fa-xl"></i></a>
+    <i class="fa-solid fa-trash-can fa-xl hover:cursor-pointer" onclick="del_podetail(${data[i].id})"></i>
     </td>
     
 </tr>`
@@ -235,7 +255,7 @@ function get_po_detail(id){
     }
 
     $('#POlist').html(html)
-    $('#SUM').append(sum)
+    $('#SUM').append(sumInt.toFixed(2))
     $('#VAT').append(vat)
     $('#TOTAL').append(total)
     //console.log(vat,sum,total)

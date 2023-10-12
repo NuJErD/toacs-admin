@@ -94,8 +94,8 @@
 				<p style="margin:0px;">E-Mail : anjanya@toacs.co.th</p>
 			</div>
 			<div class="column" style="float: left; font-size: 16px; text-align: right; width: 50%; height: 150px;">
-				<p style="margin:0px;"><b>P/O NO :</b></p>
-				<p style="margin:0px;"><b>Supplier Code : </b></p>
+				<p style="margin:0px;"><b>P/O NO :{{$po->order_invoice}}</b></p>
+				<p style="margin:0px;"><b>Supplier Code : {{$po->supplier_code}}</b></p>
 				<p style="margin:0px;"><b>QUOTATION NO. : </p>
 				@if(!empty($purchaseOrder->quotation_2))
 					<p style="margin:-5px;"><b>{{ $purchaseOrder->quotation_2 }}</p>
@@ -214,39 +214,37 @@
 				<th style="text-align: center; font-size: 1rem; white-space: nowrap;">AMOUNT</th>
 			</tr>
 		</thead>
-			{{-- @foreach ($purchaseOrderProducts as $key => $purchaseOrderProduct) --}}
-				{{-- @php
-					$orderPhase = App\Models\Phase::where('id', $purchaseOrderProduct->order_phase_id)->first();
-				@endphp --}}
+		 @foreach ($po_detail as $index => $pod) 
+					
 			<tbody>
 				<tr>
 					<td
 						style="text-align: center; font-size: 1rem; vertical-align: top; padding-right:.3rem; padding-left:.3rem;">
-					</td>
+						{{$index+1}}</td>
 					<td
 						style="font-size: 1rem; word-break: break-all; vertical-align: top; padding-right:.3rem; padding-left:.3rem;">
-						</td>
+						{{$pod->product_name}}</td>
 					<td
 						style="text-align: center; font-size: 1rem; vertical-align: top; white-space: nowrap; padding-right:.3rem; padding-left:.3rem;">
-						</td>
+						{{$pod->phase}}</td>
 					<td
 						style="text-align: center; font-size: 1rem; vertical-align: top; white-space: nowrap; padding-right:.3rem; padding-left:.3rem;">
 						</td>
 					<td
 						style="text-align: center; font-size: 1rem; vertical-align: top; padding-right:.3rem; padding-left:.3rem;">
-						</td>
+						{{$pod->QTY}}</td>
 					<td
 						style="text-align: center; font-size: 1rem; vertical-align: top; padding-right:.3rem; padding-left:.3rem;">
-						</td>
-					<td
+						{{$pod->unit}}</td>
+					<td	
 						style="text-align: right; font-size: 1rem; vertical-align: top; padding-right:.3rem; padding-left:.3rem;">
-						</td>
+						{{$pod->price}}</td>
 					<td
 						style="text-align: right; font-size: 1rem; vertical-align: top; white-space: nowrap; padding-right:.3rem; padding-left:.3rem;">
-					</td>
+						{{$pod->total}}</td>
 				</tr>
 			</tbody>
-			{{-- @endforeach --}}
+			 @endforeach
 			
 			{{-- @php
 				$totalVat = $purchaseOrder->total_price * ($purchaseOrder->vat / 100);
@@ -259,7 +257,7 @@
 				</td>
 				<td
 					style="text-align: right; vertical-align: middle; font-size: 1rem; padding-right:.3rem; padding-left:.3rem;">
-					<b></b>
+					<b>{{$sum}}</b>
 				</td>
 			</tr>
 			<tr>
@@ -269,7 +267,7 @@
 				</td>
 				<td
 					style="text-align: right; vertical-align: middle; font-size: 1rem; padding-right:.3rem; padding-left:.3rem;">
-					<b></b>
+					<b>{{$vat}}</b>
 				</td>
 			</tr>
 			<tr>
@@ -279,7 +277,7 @@
 				</td>
 				<td
 					style="text-align: right; vertical-align: middle; font-size: 1rem; padding-right:.3rem; padding-left:.3rem;">
-					<b></b>
+					<b>{{$sumtotal}}</b>
 				</td>
 			</tr>
 			<!--<tr>

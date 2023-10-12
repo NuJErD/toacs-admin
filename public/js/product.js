@@ -17,7 +17,7 @@ function active(status, id){
             text: '',
             icon: 'success'
           }).then(() => {
-                window.location.reload();    
+                //window.location.reload();    
         });
           
     

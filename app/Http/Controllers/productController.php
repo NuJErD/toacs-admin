@@ -19,12 +19,43 @@ class productController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $product = product::paginate(5);
-       // dd($product);
-        return view('product.index',compact('product'));
+    public function index(Request $request){ 
+        if(!session('page')){
+            session()->put('page','5');
+        }else if($request->setpage){
+            session()->put('page',$request->setpage);
+            //return response();
+        }
+        $page = session('page');
+        $product = product::paginate(session('page'));
+       //dd($product->lastPage());
+        return view('product.index',compact('product','page'));
     }
+
+    public function search_product(Request $request){
+        $input = $request->text;
+
+        if(isset($input) && $input != ''){
+            $product = product::where(function($query) use($input){
+                
+                $query->where('p_code','like','%'. $input . '%')
+                ->orwhere('PnameTH','like','%'. $input . '%');
+               // ->orwhere('brand','like','%'. $input . '%');
+                 })->get();
+                 $show = 'none';
+            return response()->json(['product'=> $product, 'show' => $show]);
+            
+        } else{
+          
+            $product =product::take(session('page'))->get();
+            $show = 'open';
+            return response()->json(['product'=> $product, 'show' => $show]);
+            
+        }
+        
+       
+    }
+    
 
    
     public function addproduct(){
@@ -88,7 +119,7 @@ class productController extends Controller
          $product->detail = $request->detail;
 
           $picture = $request->file('productpic');
-          dd($picture);
+        //  dd($picture);
           $name_gen = hexdec((uniqid())); 
           $name_type = strtolower($picture->getClientOriginalExtension());
           $picname = $name_gen.'.'.$name_type;            
@@ -107,7 +138,8 @@ class productController extends Controller
            // dd($departname);
                    }
         //dd();
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with('success','เพิ่มสินค้าสำเร็จ');
+       // return back()->with('success','เพิ่มสินค้าสำเร็จ');
     }
 
     /**
@@ -217,7 +249,8 @@ class productController extends Controller
               
                //  dd($depart_forAdd);       
               session()->flash('success','แก้ไข้ข้อมูลสำเร็จ');
-        return redirect()->route('product.index');
+              return redirect()->back();
+       // return redirect()->route('product.index');
     }
 
     /**

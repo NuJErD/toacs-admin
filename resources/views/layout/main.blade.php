@@ -13,8 +13,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href=" https://cdn.datatables.net/1.13.6/css/dataTables.tailwindcss.min.css">
+   
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+   
+  
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
     {{-- @include('sweetalert::alert') --}}
@@ -25,12 +30,13 @@
 <script src="{{ asset('js/app.js')}}"></script>
 <script src="{{ asset('js/product.js')}}"></script>
 <script src="{{ asset('js/po.js')}}"></script>
+<script src="{{ asset('js/search.js')}}"></script>
 
 
 {{-- <script
   type="text/javascript"
   src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script> --}}
-<body>
+<body class=" overflow-y-scroll">
     
     <div class="main  ">
         @include('layout.nav')
@@ -54,11 +60,19 @@
 </body>
 @if(session()->has('success'))
 <script>
-    swal("Message","{{session('success')}}",'success',{
-        button:true,
-        button:"OK",
-        //timer:2000
-    })
+    Swal.fire({
+                title: 'Message',
+                text: '{{session('success')}}',
+                icon: 'success',
+                confirmButtonText: 'OK',
+               
+            }).then((result) => {
+                
+                    location.reload();
+                
+            })
+
+           
 </script>
 @endif
 @if(session()->has('error'))

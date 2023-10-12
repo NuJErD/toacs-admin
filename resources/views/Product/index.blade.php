@@ -6,11 +6,11 @@
 
 @section('content')
 
-<div class="main">
+<div class="main ">
     <p class="text-[26px] font-bold mb-[50px]"></p>
     <div class="main-prod">
         <div class="">
-            <div class="card-pro px-4 ">
+            <div class="card-pro px-4 mx-4 ">
                 <div class="header min-h-[50px] max-w-full text-white rounded-t-[5px]  flex justify-between  bg-zinc-800 min-h-14 items-center px-6  flex-wrap">
                     <div class="">สินค้าและบริการ</div>
                     <div class="btn flex justify-end flex-wrap  ">
@@ -40,19 +40,30 @@
                         <div class="show flex justify-between mt-3">
                             <div class="showprod flex ">
                                 <p class=" mr-1 mt">Show</p>
-                                <select class="border border-slate-300 rounded-[5px] w-28">
+                                <select class="border border-slate-300 rounded-[5px] w-28" onchange="setpage(this.value)">
+                                    <option >{{$page}}</option>
+                                    @if($page != 5 )
+                                    <option value="5">5</option>
+                                    @endif
+                                    @if($page != 10 )
                                     <option value="10">10</option>
+                                    @endif
+                                    @if($page != 25 )
                                     <option value="25">25</option>
+                                    @endif
+                                    @if($page != 50 )
                                     <option value="50">50</option>
+                                    @endif
                                 </select>
                                 <p class=" ml-1">entries</p>
                             </div>
-                            <div class="search">Search: <input type="text" class="border border-slate-300 rounded-[5px]"></div>
+                            
+                            <div class="search "> <input id="search_product" onkeyup="search_product(this.value)" type="text" class="border border-slate-300 rounded-[5px] pl-2 py-[3px]" placeholder="Search..."></div>
                         </div>
                         <div class=" mt-3">
                             <div class=" overflow-x-auto  shadow-md sm:rounded-lg">
                                 <table class="w-full text-sm text-left text-black dark:text-gray-400">
-                                    <thead class="text-xs text-black uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
+                                    <thead  class="text-xs text-black uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" class="px-2 py-2">
                                                <p class="flex justify-center">รูปภาพ</p>
@@ -70,17 +81,17 @@
                                              <th scope="col" class="px-2 py-2">
                                                 <p class="flex justify-center">ราคา</p>
                                              </th>
-                                            <th scope="col" class="px-2 py-2 flex items-center justify-center ">
+                                            <th scope="col" class="px-2 py-2 ">
                                                 <p class="flex justify-center">Manage</p>
                                             </th>
                                             <th scope="col" class="px-2 py-2 ">
-                                                <p class="flex ">Active</p>
+                                                <p class="justify-start pr-[10px]">Active</p>
                                              </th>
                                             
                                             
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="product_index" >
                                         @foreach ($product as $p)
                                             
                                         
@@ -89,17 +100,17 @@
                                             <td class="px-2 py-2 w-[130px] ">
                                                <div class="flex justify-center "><img src="picture/product/{{$p->picture}}" class="w-[70px] h-[70px] p-0  alt=""></div>
                                             </td>
-                                            <td class="px-2 py-2">
+                                            <td class="px-2 py-2 w-[130px]">
                                                 <p class="flex justify-center">{{$p->p_code}}</p>
                                             </td>
-                                            <td class="px-2 py-2 ">
+                                            <td class="px-2 py-2 w-[130px]">
                                                 <p class="flex justify-center">{{$p->category}}</p>    
                                             </td>
-                                            <td class="px-2 py-2">
+                                            <td class="px-2 py-2 w-[350px]">
                                                 <p class="flex justify-center">{{$p->PnameTH}}</p> 
                                             </td>
                                            
-                                            <td class="px-2 py-2">
+                                            <td class="px-2 py-2 w-[130px]">
                                                 <p class="flex justify-center">{{$p->price}}</p>
                                             </td>
                                             
@@ -116,7 +127,7 @@
                                                 @if($p->Active == '0')
                                             <div class="" >
                                                 {{-- <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">ลบ</a> --}}
-                                                <label class="relative inline-flex items-center mb-5 cursor-pointer" >
+                                                <label class="relative inline-flex items-center mb-5 cursor-pointer " >
                                                     <input type="checkbox" value="" class="sr-only peer" onclick="active('1',{{$p->id}})" >
                                                     <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                                                     <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
@@ -125,7 +136,7 @@
                                             @else
                                             <div class="">
                                                 {{-- <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">ลบ</a> --}}
-                                                <label class="relative inline-flex items-center mb-5 cursor-pointer">
+                                                <label class="relative inline-flex items-center mb-5 cursor-pointer  ">
                                                     <input type="checkbox" value="" class="sr-only peer" checked onclick="active('0',{{$p->id}})">
                                                     <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                                                     <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
@@ -137,10 +148,25 @@
                                         @endforeach
                                        
                                     </tbody>
-                                    
+                                   
                                 </table>
-                               
+                                
+                                <div id="paginate23">
                                     {{ $product->links() }}
+                                
+                                    
+                                        {{-- <div class="flex select-none space-x-1 text-gray-700">
+                                          <a href="#" class="rounded-md bg-gray-200 px-4 py-2 transition duration-300 hover:bg-gray-400"> Previous </a>
+                                          <a href="#" class="rounded-md bg-gray-200 px-4 py-2 transition duration-300 hover:bg-gray-400"> 1 </a>
+                                          <a href="http://192.168.104.43:81/product?page=2" class="rounded-md bg-gray-200 px-4 py-2 transition duration-300 hover:bg-gray-400"> 2 </a>
+                                          <a href="#" class="rounded-md bg-gray-200 px-4 py-2 transition duration-300 hover:bg-gray-400"> 3 </a>
+                                          <span class="rounded-md px-4 py-2"> ... </span>
+                                          <a href="#" class="rounded-md bg-gray-200 px-4 py-2 transition duration-300 hover:bg-gray-400"> 10 </a>
+                                          <a href="#" class="rounded-md bg-gray-200 px-4 py-2 transition duration-300 hover:bg-gray-400"> Next </a>
+                                        </div> --}}
+                                    
+                                   
+                               </div>
                                    
                                
                                   

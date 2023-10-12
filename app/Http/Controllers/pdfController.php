@@ -21,13 +21,17 @@ class pdfController extends Controller
  
     public function print_po($pono) {
         $po = po::where('order_invoice',$pono)->first();
-        $po_detail = po_detail::where('po_order_invoice',$po->order_invoice)
-        ->join('pr_detail','po_detail.pr_code','pr_details.PR_code')
-        ->select('*')
-        ->get();
-
-        dd($po_detail);
-        $pdf = PDF::loadView('pdf.view',compact( 'po', 'po_detail'));
+        $po_detail = po_detail::where('po_order_invoice',$po->order_invoice)->get();
+        
+        $sum = 0;
+        for($i=0;$i<$po_detail->count();$i++){
+            $sum += $po_detail[$i]['total'];
+        }
+        $vat =  number_format($sum *0.07,2);
+        $sumtotal = $sum+$vat;
+        $sumtotal =number_format($sumtotal,2);
+       //dd();
+        $pdf = PDF::loadView('pdf.view',compact( 'po', 'po_detail','sum','vat','sumtotal'));
         
 
      return $pdf->setPaper('A4')->stream('pr.pdf');

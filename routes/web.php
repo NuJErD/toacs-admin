@@ -68,6 +68,7 @@ Route::get('/addproduct',[productController::class,'addproduct'])->name('additem
 Route::get('/item',[productController::class, 'index'])->name('item');
 Route::put('/active/{product}',[productController::class,'active']);
 
+
 //pr
 Route::get('/prapprove',[prController::class,'pr_approve'])->name('pr_approve');
 //po--get data
@@ -81,14 +82,14 @@ Route::get('/po/create',[poController::class,'PoCreate'])->name('PoCreate');
 Route::get('/po/getpo/detail',[poController::class,'get_po_detail']);
 Route::post('/po/create2',[poController::class,'PoCreate2'])->name('PoCreate2');
 Route::post('/po/add/detail',[poController::class,'po_detail'])->name('po_add_detail');
-route::get('/po_detail/del/{podID}',[poController::class,'po_detail_del'])->name('po_detail_del');
+route::get('/po_detail/del',[poController::class,'po_detail_del'])->name('polistdel');
 //Route::get('/po/detail/{po}',[poController::class,'po_detail'])->name('po_detail');
 //print PO
 Route::get('/print/po/{pono}',[pdfController::class,'print_po'])->name('printPO');
 
 //user
 Route::put('/pwreset/{user}',[userController::class,'resetPW']);
-
+Route::get('/search/user',[userController::class,'search_user']);
 
 //import
 Route::post('/import/user', [ExcelController::class, 'UserImport'])->name('import');
@@ -109,5 +110,6 @@ Route::get('/addsupplier',[supplierController::class,'addsupplier'])->name('adds
 //supplierType
 Route::get('/addSpType',[supplierTypeController::class,'addSpType'])->name('addSpType');
 
-//
+//search
+Route::get('/search/product',[productController::class,'search_product']);
 

@@ -51,7 +51,7 @@
                                 </select>
                                 <p class=" ml-1">entries</p>
                             </div>
-                            <div class="search">Search: <input type="text" class="border border-slate-300 rounded-[5px]"></div>
+                            <div class="search "> <input id="search_user" onkeyup="search_user(this.value)" type="text" class="border border-slate-300 rounded-[5px] pl-2 py-[3px]" placeholder="Search..."></div>
                         </div>
                         <div class=" mt-3">
                             <div class=" overflow-x-auto  shadow-md sm:rounded-lg">
@@ -77,7 +77,7 @@
                                             
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="user_index">
                                         @foreach ($userall as $u)
                                             
                                         
@@ -107,9 +107,9 @@
                                                 <div class=" ">
                                                 <a href="{{route('user.edit',$u->id)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">แก้ไข</a>
                                             </div>
-                                            <div class="">
+                                            {{-- <div class="">
                                                 <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">ลบ</a>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                             </td>
                                         </tr>

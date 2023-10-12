@@ -38,6 +38,25 @@ class userController extends Controller
         return view('users.changePW');
     }
 
+    public function search_user(Request $request){
+        $input = $request->input;
+
+        if(isset($input) && $input != ''){
+            $user = users::where(function($query) use($input){
+                
+                $query->where('nameTH','like','%'. $input . '%');
+               // ->orwhere('PnameTH','like','%'. $input . '%');
+               // ->orwhere('brand','like','%'. $input . '%');
+            })->get();
+        } else{
+            $user =users::all();
+        }
+
+        return response()->json($user);
+    }
+
+
+
     public function changePWCF(Request $request){
         $oldpass = $request->oldpass;
         $newpass = $request->newpass;

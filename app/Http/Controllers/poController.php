@@ -100,6 +100,7 @@ class poController extends Controller
     public function po_detail(Request $request){
 
         $Pname = product::where('id',$request->product)->value('PnameTH');
+        $phase = pr::where('prcode',$request->PRNO)->value('phase_name');
         $podetail = new po_detail;
         $podetail->po_order_invoice = $request->poID;
         $podetail->pr_code = $request->PRNO;
@@ -109,6 +110,7 @@ class poController extends Controller
         $podetail->unit = $request->unit;
         $podetail->price = $request->price;
         $podetail->total = $request->total;
+        $podetail->phase = $phase;
         $podetail->date = $request->date;
         $podetail->note = $request->note;
         $podetail->save();
@@ -127,7 +129,7 @@ class poController extends Controller
             'total' => $totalPO
         ]);
 
-        return response()->json();
+        return response()->json($request->poID);
 
     
     }
@@ -149,6 +151,7 @@ class poController extends Controller
     
      public function get_prlist(){
         $prlist = pr_detail::where('product_sup',session('PoSup'))
+        ->where('PR_code', '!=',null)
         ->where('pr_status','0')
         ->distinct('PR_id')
         ->pluck('PR_id');
@@ -195,10 +198,21 @@ class poController extends Controller
         $po_detail = po_detail::where('po_order_invoice',$request->id)->get();
         return response()->json($po_detail);
      }
+
+    
 //-----------------------------------------------------------------------------------------------------------------//
 
-    public function po_detail_del(Request $podID){
-        dd($podID);
+    public function po_detail_del(Request $request){
+
+        $po_detail = po_detail::where('id',$request->id)->first();
+        pr_detail::where('PR_code',$po_detail->pr_code)
+        ->where('products_id',$po_detail->product_id)
+        ->update([
+            'pr_status' => '0'
+        ]);
+        $poid = $po_detail->po_order_invoice;
+        $po_detail->delete();
+        return response()->json($poid) ;
     }
     /**
      * Store a newly created resource in storage.

@@ -48,7 +48,7 @@ class ProductsExport implements FromCollection,WithHeadings,ShouldAutoSize,WithE
             AfterSheet::class    => function(AfterSheet $event) {
                 $cellRange = 'A1:F1'; // All headers
                 $sheet = $event->sheet->getDelegate();
-                $sheet->getStyle($cellRange)->getFont()->setSize(14);
+                $sheet->getStyle($cellRange)->getFont()->setSize(12);
                 $sheet->getStyle($cellRange)->getFill()
                 ->setFillType(Fill::FILL_SOLID)
                 ->getStartColor()

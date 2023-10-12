@@ -25,7 +25,7 @@
                 <h4 class="text-2xl flex items-center justify-end">
                     <small class="float-right" style="margin-top: 12px;">Create Date:
                         {{$po->create_date}}</small>  
-                        <button class="bg-white border" onclick="">test</button>
+                        
                     </h4>
             </div>
         </div>
@@ -53,11 +53,11 @@
                         <td>{{$sup->phone}}</td>
                     </tr>
                     <tr>
-                        <td class="flex"><b>Address</b>
+                        <td style="vertical-align: top;"><b>Address</b>
                             </td>
-                        <td class="flex flex-row"><p>:</p></td>
+                        <td style="vertical-align: top;"><p>:</p></td>
                     
-                        <td class=" whitespace-normal">{{$sup->address}}700/65 หมู่ 6 ตำบลคลองตำหรุ อำเภอเมือง จังหวัดชลบุรี 20000
+                        <td style="vertical-align: top;" class=" whitespace-pre-line">{{$sup->address}}700/65 หมู่ 6 ตำบลคลองตำหรุ อำเภอเมือง จังหวัดชลบุรี 20000
                             โทร: (038) 213289-91 แฟ็กซ์ : (038)213507}</td>
                     </tr>
                 </tbody>
@@ -105,7 +105,7 @@
                 </tbody>
             </table>
         </div> --}}
-
+      
         <div class="relative overflow-x-auto">
             <div class="a">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
