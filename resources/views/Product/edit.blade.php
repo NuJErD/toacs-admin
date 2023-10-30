@@ -7,14 +7,14 @@
 @section('content')
 
 <div class="main">
-    <p class="text-[26px] font-bold mb-3 px-4">สินค้าและบริการ</p>
-    <div class="main-prod">
+    
+    <div class="main-prod pt-10">
         <div class="">
             <div class="card-pro px-4 flex flex-col  mb-3 ">
                 <div class="header min-h-[50px] rounded-t-[4px] max-w-full text-white border flex justify-between bg-zinc-700 min-h-14 items-center px-6  flex-wrap">
-                    <div class="">เพิ่มสินค้า</div>
+                    <div class="">แก้ไขสินค้า</div>
                     <div class="btn flex justify-end flex-wrap  ">
-                        <div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2" onclick="goBack()"><button>ย้อนกลับ</button> </div>
+                        <a href="{{ url('product') }}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2" onclick=""><button>ย้อนกลับ</button> </div></a>
                         
                     </div>
                 </div>

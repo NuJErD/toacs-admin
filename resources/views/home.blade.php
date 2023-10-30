@@ -17,9 +17,6 @@
 
   </div>
   
-  <div class="list-items border border-gray  grid  md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 ">
-    
-</div>
 
 
 

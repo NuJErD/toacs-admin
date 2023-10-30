@@ -9,8 +9,8 @@
 @section('content')
 
 <div class="main">
-    <p class="text-[26px] font-bold mb-3 ">ผู้ใช้งาน</p>
-    <div class="main-prod">
+  
+    <div class="main-prod pt-10">
         <div class="">
             <div class="card-pro px-4 ">
                 <div class="header min-h-[50px] max-w-full text-white rounded-t-[5px]  flex justify-between  bg-zinc-800 min-h-14 items-center px-6  flex-wrap">

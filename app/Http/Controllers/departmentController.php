@@ -18,6 +18,9 @@ class departmentController extends Controller
        return view('department.index',compact('depart'));
     }
 
+    public function Add_depart(){
+        return view('department.add');
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -36,7 +39,14 @@ class departmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $de = new department ;
+        $de->code = $request->code;
+        $de->departTH = $request->departTH;
+        $de->departEN = $request->departEN;
+        $de->code_fac1 = $request->code_fac1;
+        $de->code_fac5 = $request->code_fac5;
+        $de->save();
+        return redirect()->route('department.index')->with('success','บันทึกข้อมูลสำเร็จ');
     }
 
     /**
@@ -72,14 +82,17 @@ class departmentController extends Controller
      */
     public function update(Request $request, department $department)
     {
+        $department;
        department::where('id',$department->id)
        ->update([
          'code' =>  $request->code,
          'departTH' => $request->departTH,
          'departEN' => $request->departEN,
          'code_fac1' => $request->code_fac1,
-         'code_fac2' => $request->code_fac2
+         'code_fac5' => $request->code_fac5
        ]);
+      
+       return redirect()->route('department.edit',$department->id)->with('success','แก้ไขสำเร็จ');
     }
 
     /**

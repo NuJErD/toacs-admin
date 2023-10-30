@@ -28,6 +28,7 @@ class prController extends Controller
        return view('pr.pr_approve',compact('pr'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      *

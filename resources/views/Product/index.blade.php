@@ -97,20 +97,20 @@
                                         
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                            
-                                            <td class="px-2 py-2 w-[130px] ">
+                                            <td class="px-2 py-2 min-w-[130px] ">
                                                <div class="flex justify-center "><img src="picture/product/{{$p->picture}}" class="w-[70px] h-[70px] p-0  alt=""></div>
                                             </td>
-                                            <td class="px-2 py-2 w-[130px]">
+                                            <td class="px-2 py-2 min-w-[130px]">
                                                 <p class="flex justify-center">{{$p->p_code}}</p>
                                             </td>
-                                            <td class="px-2 py-2 w-[130px]">
+                                            <td class="px-2 py-2 min-w-[130px]">
                                                 <p class="flex justify-center">{{$p->category}}</p>    
                                             </td>
-                                            <td class="px-2 py-2 w-[350px]">
+                                            <td class="px-2 py-2 min-w-[350px]">
                                                 <p class="flex justify-center">{{$p->PnameTH}}</p> 
                                             </td>
                                            
-                                            <td class="px-2 py-2 w-[130px]">
+                                            <td class="px-2 py-2 min-w-[130px]">
                                                 <p class="flex justify-center">{{$p->price}}</p>
                                             </td>
                                             
@@ -128,7 +128,7 @@
                                             <div class="" >
                                                 {{-- <a href="#" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">ลบ</a> --}}
                                                 <label class="relative inline-flex items-center mb-5 cursor-pointer " >
-                                                    <input type="checkbox" value="" class="sr-only peer" onclick="active('1',{{$p->id}})" >
+                                                    <input type="checkbox" id="{{$p->id}}" value="" class="sr-only peer" onclick="active('1',{{$p->id}})" >
                                                     <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                                                     <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
                                                   </label>

@@ -9,7 +9,8 @@ function active(status, id){
     data:{ status:status, pid:id},
     dataType: 'json',
     success: function(data) {
-       
+       let status = document.getElementById(id)
+       status.setAttribute('onclick',`active(${data[2]},${id})`)
        console.log(data)
       
         Swal.fire({

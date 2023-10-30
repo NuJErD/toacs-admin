@@ -82,7 +82,12 @@ Route::get('/po/create',[poController::class,'PoCreate'])->name('PoCreate');
 Route::get('/po/getpo/detail',[poController::class,'get_po_detail']);
 Route::post('/po/create2',[poController::class,'PoCreate2'])->name('PoCreate2');
 Route::post('/po/add/detail',[poController::class,'po_detail'])->name('po_add_detail');
-route::get('/po_detail/del',[poController::class,'po_detail_del'])->name('polistdel');
+Route::get('/po_detail/del',[poController::class,'po_detail_del'])->name('polistdel');
+Route::put('/po/confirm/{po}',[poController::class,'update'])->name('confirmPO');
+Route::get('/order/deliver',[poController::class,'podeliver'])->name('listpoDeli');
+Route::get('/checkreceive/{code}',[poController::class,'CheckReceive_page'])->name('checkreceive');
+Route::get('/received',[poController::class,'received']);
+Route::put('/receiveStatus/{po}',[poController::class,'ReceiveStatus'])->name('ReceiveStatus');
 //Route::get('/po/detail/{po}',[poController::class,'po_detail'])->name('po_detail');
 //print PO
 Route::get('/print/po/{pono}',[pdfController::class,'print_po'])->name('printPO');
@@ -112,4 +117,7 @@ Route::get('/addSpType',[supplierTypeController::class,'addSpType'])->name('addS
 
 //search
 Route::get('/search/product',[productController::class,'search_product']);
+
+//depart
+Route::get('/adddepart',[departmentController::class,'Add_depart']);
 

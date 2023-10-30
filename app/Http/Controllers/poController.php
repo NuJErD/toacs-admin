@@ -11,6 +11,7 @@ use App\Models\product;
 use App\Models\supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use PhpParser\Node\Expr\FuncCall;
 
 class poController extends Controller
 {
@@ -21,8 +22,10 @@ class poController extends Controller
      */
     public function index()
     {
-        $po = po::join('suppliers','po.supplier_id','=','suppliers.id')
+        $po = po::where('approve_status',null)
+        ->join('suppliers','po.supplier_id','=','suppliers.id')
         ->select('po.*','suppliers.SPnameTH')
+        
         ->paginate(5);
        // $po = po::get();
       // dd($po);
@@ -136,7 +139,7 @@ class poController extends Controller
 
 //------------------------------------get data -------------------------------------------------------------------------//
     public function getsup(){
-        $check = pr::where('status','1')->pluck('id');
+        $check = pr::where('ApproveStatus','1')->pluck('id');
         $sup = pr_detail::where('pr_status','0')
         ->whereIn('PR_id',$check)
         ->distinct()->pluck('product_sup');
@@ -163,21 +166,27 @@ class poController extends Controller
         //->get();
 
          $prlistcheck = pr::whereIn('id',$prlist)
+         ->where('status','1')
          ->pluck('prcode');
         return response()->json($prlistcheck);
      }
 
      public function getproduct(Request $request){
-           $pr = pr::where('prcode',$request->prno)->first();
-           $productID = $pr->pr_detail()
-           ->where('pr_status','0')
-           ->where('PR_id',$pr->id)
-           ->where('product_sup',session('PoSup'))
-           ->distinct('products_id')->pluck('products_id');
-            $product = product::whereIn('id',$productID)
-            ->select('products.id','products.PnameTH')->get();
-            
-            return response()->json( $product);
+            if(isset($request->prno)){
+                $pr = pr::where('prcode',$request->prno)->first();
+                $productID = $pr->pr_detail()
+                ->where('pr_status','0')
+                ->where('PR_id',$pr->id)
+                ->where('product_sup',session('PoSup'))
+                ->distinct('products_id')->pluck('products_id');
+                 $product = product::whereIn('id',$productID)
+                 ->select('products.id','products.PnameTH')->get();
+                 
+                 return response()->json( $product);
+            }else{
+                return response()->json();
+            }
+           
      }
 
      public function get_productdetail(Request $request){
@@ -195,8 +204,15 @@ class poController extends Controller
 
 
      public function get_po_detail(Request $request ){
-        $po_detail = po_detail::where('po_order_invoice',$request->id)->get();
-        return response()->json($po_detail);
+        $po = po_detail::where('po_order_invoice',$request->id);
+        $po_detail = $po->get();
+        $checkreceived = $po->where('deliver','0')->first();
+        if(isset($checkreceived)){
+            $checkreceived = "disable";
+          }else{
+            $checkreceived = "enable";
+          }
+        return response()->json(["po_detail"=>$po_detail,"button"=>$checkreceived]);
      }
 
     
@@ -211,11 +227,36 @@ class poController extends Controller
             'pr_status' => '0'
         ]);
         $poid = $po_detail->po_order_invoice;
+        $po = po::where('order_invoice',$poid)->first();
+        $poprice = $po->total - $po_detail->total;
+        po::where('order_invoice',$poid)->update([
+            'total' => $poprice
+        ]);
+
         $po_detail->delete();
         return response()->json($poid) ;
     }
-    /**
+
+
+
+      /**
      * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function podeliver()
+
+    { 
+        $po = po::where('approve_status','1')
+        ->where('received','NO')
+        ->paginate(7);;
+        return view('po.deliver' ,compact('po')); 
+   
+       //dd(2);
+    }
+    /**
+
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -254,12 +295,57 @@ class poController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $po)
     {
-        //
+       po::where('order_invoice',$po)
+       ->update([
+        'approve_status' => '1'
+       ]);
+       return redirect()->route('po.index')->with('success','สร้างใบ PO สำเร็จ');
     }
 
-    /**
+    public function CheckReceive_page( Request $request){
+        $po  = po::where('order_invoice',$request->code)->first();
+        //dd($request->code);
+        Session()->put('PoSup',$po->supplier_code);
+        $sup = supplier::where('s_code',session('PoSup'))->first(); 
+        return view('po.CheckReceive',compact('sup','po'));
+    }
+
+
+    public function received(Request $request){
+        //-----change status in db----------//
+        $status = '';
+        if($request->status == 0){
+            $status = '1';
+        }else{
+            $status = '0';
+        }
+        $po = po_detail::where('id',$request->id);
+        $po->update([
+            'deliver' => $status
+        ]);
+        //--------enable button---------------//
+          $POinvoice = $po->value('po_order_invoice');
+          $checkreceived = po_detail::where('po_order_invoice',$POinvoice)
+          ->where('deliver','0')
+          ->first();
+          if(isset($checkreceived)){
+            $checkreceived = "disable";
+          }else{
+            $checkreceived = "enable";
+          }
+      
+        return response()->json(["id"=>$request->id,"status"=>$status,"button"=>$checkreceived]);
+    }
+
+    public function ReceiveStatus(po $po){
+            $po->update([
+                'received' => 'YES'
+            ]);
+            return redirect()->route('listpoDeli')->with('success','success');
+    }
+    /**0//
      * Remove the specified resource from storage.
      *
      * @param  int  $id

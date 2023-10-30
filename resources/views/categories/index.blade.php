@@ -7,12 +7,12 @@
 @section('content')
 
 <div class="main">
-    <p class="text-[26px] font-bold mb-3 ">ผู้ใช้งาน</p>
-    <div class="main-prod">
+    
+    <div class="main-prod pt-10">
         <div class="">
             <div class="card-pro px-4 ">
                 <div class="header min-h-[50px] max-w-full text-white rounded-t-[5px]  flex justify-between  bg-zinc-800 min-h-14 items-center px-6  flex-wrap">
-                    <div class="">ผู้ใช้งาน</div>
+                    <div class="">หมวดสินค้า</div>
                     <div class="btn flex justify-end flex-wrap  ">
                         <a href="{{url('addcategories')}}"><d class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2" onclick="goBack()"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</d< iv></a>
                         

@@ -40,7 +40,7 @@ class ProductImport implements ToModel,WithHeadingRow,WithUpserts
        //เพิ่ม แผนกที่สามารถเห็นสินค้า
       
         foreach($depart_forAdd as $d){
-            $dname = department::where('departTH',$d)->first();
+            $dname = department::where('code',$d)->first();
            
            // dd($dname->code);
            $data = new product_depart([

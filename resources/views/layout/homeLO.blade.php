@@ -17,7 +17,7 @@
     
     <div class="content" >
         @yield('content')
-        
+       
     </div>
 </body>
 @if(session()->has('success'))

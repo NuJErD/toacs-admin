@@ -40,7 +40,7 @@
     
     <div class="main  ">
         @include('layout.nav')
-        <div class="sidebar fixed top-0 hover:w-[250px]  hover:ease-in-out duration-300  ">
+        <div class="sidebar   ">
 
            
                  @yield('sidebar')

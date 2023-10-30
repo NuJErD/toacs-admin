@@ -162,7 +162,7 @@
                               <input id="unit" name="unit" class="w-[70px] h-[25px] text-center" readonly>
                             </td>
                             <td class="px-6 py-4 bg-blue-200 text-center text-gray-900">
-                                <input id="price" name="price" class="w-[70px] h-[25px] text-center text-gray-900" readonly>
+                                <input id="price" name="price" class="w-[70px] h-[25px] text-center text-gray-900" onkeyup="ChangePrice(this.value)">
                             </td>
                             <td class="px-6 py-4 bg-blue-200 text-center text-gray-900">
                                 <input id="totalprice" name="totalprice" class="w-[70px] h-[25px] text-center" readonly>
@@ -318,7 +318,16 @@
                     </tbody>
                         
                       </table>
-                    </div>
+                    </div>                    
+        </div>
+        <div class="flex justify-center mt-3">
+            <form action="{{route('confirmPO',$po->order_invoice)}}" method="POST">
+                @csrf
+                @method('PUT')
+            <button type="submit" class="min-w-[300px] min-h-[50px] rounded-xl bg-gray-500 hover:bg-green-700 hover:ease-in-out duration-200 hover:scale-104 text-white">
+                Confirm
+            </button>
+        </form>
         </div>
         </div>
     </div>
@@ -329,7 +338,7 @@
 
  <script>
      get_prlist()
-     get_po_detail({{$po->order_invoice}})
+     get_po_detail({{$po->order_invoice}},1)
     
  </script>
 @endsection

@@ -1,30 +1,6 @@
 
 ///////////////////////////sidebar/////////////////////////////////////////////
-var mini = true;
-
-function toggleSidebar() {
-  console.log(1)
-  if (mini) {
-    console.log("opening sidebar");
-    document.getElementById("contentmain").style.marginLeft = "240px";
-    document.getElementById("navbar").style.marginLeft = "250px";
-    document.getElementById("navbar").style.transitionDuration = '0.3s';
-    document.getElementById("contentmain").style.transitionDuration = '0.3s';
-    
-    
-    
-    this.mini = false;
-  } else {
-    console.log("closing sidebar");
-    document.getElementById("contentmain").style.marginLeft = "85px";
-    document.getElementById("navbar").style.marginLeft = "70px";
-    document.getElementById("navbar").style.transitionDuration = '0.3s';
-    document.getElementById("contentmain").style.transitionDuration = '0.3s';
- 
-    this.mini = true;
-   }
-}
-
+var mini = true
 ///////////////////////////showpicupload///////////////////////////////
 function readURL(input) {
   if (input.files && input.files[0]) {
@@ -58,4 +34,27 @@ function openimport(){
  
     this.importbtn = true;
   }
+}
+
+
+var mini = true;
+
+function toggleSidebar() {
+  if (mini) {
+    console.log("opening sidebar");
+    document.getElementById("contentmain").style.marginLeft = "250px";
+    document.getElementById("contentmain").style.transitionDuration = '0.3s';
+    console.log(1)
+    this.mini = false;
+  } else {
+    console.log("closing sidebar");
+    document.getElementById("contentmain").style.marginLeft = "85px";
+    document.getElementById("contentmain").style.transitionDuration = '0.3s';
+  console.log(2)
+    this.mini = true;
+  }
+}
+
+function aa(){
+  console.log(111)
 }

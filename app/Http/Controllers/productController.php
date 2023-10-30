@@ -79,9 +79,9 @@ class productController extends Controller
         ]);
 
         if($status == '1'){     
-            return response()->json(['success','เปิดใช้งานสินค้า']);
+            return response()->json(['success','เปิดใช้งานสินค้า','0']);
         }else{
-            return response()->json(['success','ปิดใช้งานสินค้า']);
+            return response()->json(['success','ปิดใช้งานสินค้า','1']);
         }
        
        
@@ -139,7 +139,7 @@ class productController extends Controller
                    }
         //dd();
         return redirect()->route('product.index')->with('success','เพิ่มสินค้าสำเร็จ');
-       // return back()->with('success','เพิ่มสินค้าสำเร็จ');
+
     }
 
     /**
@@ -191,7 +191,7 @@ class productController extends Controller
      */
     public function update(Request $request,product $product)
     {
-        
+       // dd($product);
         $picname = $product->picture;
        
        
@@ -247,7 +247,8 @@ class productController extends Controller
                           }
               }
               
-               //  dd($depart_forAdd);       
+               //  dd($depart_forAdd); 
+                    
               session()->flash('success','แก้ไข้ข้อมูลสำเร็จ');
               return redirect()->back();
        // return redirect()->route('product.index');

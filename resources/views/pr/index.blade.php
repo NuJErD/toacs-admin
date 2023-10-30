@@ -7,7 +7,7 @@
 @section('content')
 
 <div class="main">
-    <p class="text-[26px] font-bold mb-3 ">รายการรอการอนุมัติ</p>
+ 
     <div class="main-prod">
         <div class="">
             <div class="card-pro px-4 ">

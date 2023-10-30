@@ -9,6 +9,7 @@ use App\Models\department;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\file;
 
 
 class userController extends Controller
@@ -174,9 +175,15 @@ class userController extends Controller
      */
     public function update(Request $request, users $user)
     {
+       $destinationPath='C:/xampp/htdocs/app-admin/public/picture/signature/';
        $signame = $user->signature;
+       $signameOLD = $user->signature;
+       //dd($signame,$request->signature);
        if(isset($request->signature)){
-        unlink("./picture/signature/".$signame);  
+        
+       
+       
+         
         $signature = $request->file('signature');
         $name_gen = hexdec((uniqid())); 
         $name_type = strtolower($signature->getClientOriginalExtension());
@@ -203,6 +210,7 @@ class userController extends Controller
 
             ]
         );
+        file::delete($destinationPath.$signameOLD);
         return redirect()->route('user.index');
     }
 
