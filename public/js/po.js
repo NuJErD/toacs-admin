@@ -379,4 +379,19 @@ function PoReceive(id,status){
   
 }
 
-
+//------------------------------------------delete PO-------------------------------------------------------------------//
+function deletePO(poid){
+    Swal.fire({
+        title: 'ลบใบคำสั่งซื้อ ('+ poid+')',
+        showCancelButton: true,
+        icon:'warning',
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel',
+        preConfirm: () => {
+            document.getElementById('delPO').submit();
+           
+            
+        }
+    })
+    
+}

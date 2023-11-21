@@ -27,10 +27,11 @@
 </head>
 <script src="{{ asset('js/sidebar.js')}}"></script>
 <script src="{{ asset('js/register.js')}}"></script>
-<script src="{{ asset('js/app.js')}}"></script>
+<script src="{{ asset('js/Home.js')}}"></script>
 <script src="{{ asset('js/product.js')}}"></script>
 <script src="{{ asset('js/po.js')}}"></script>
 <script src="{{ asset('js/search.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 {{-- <script
@@ -58,6 +59,8 @@
         
 
 </body>
+
+
 @if(session()->has('success'))
 <script>
     Swal.fire({

@@ -94,11 +94,11 @@
                                                
                                                 <a href="{{route('department.edit',$d->id)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">แก้ไข</a>
                                             
-                                            <form action="{{route('department.destroy',$d->id)}}" method="POST">
+                                            {{-- <form action="{{route('department.destroy',$d->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">ลบ</button>
-                                            </form>
+                                            </form> --}}
                                         </div>
                                             </td>
                                         </tr>

@@ -46,7 +46,7 @@ class supplierController extends Controller
     public function store(Request $request)
     {
        $sup = new supplier;
-       $sup->code = $request->code;
+       $sup->s_code = $request->code;
        $sup->name = $request->name;
        $sup->SPnameTH = $request->SPnameTH;
        $sup->SPnameEN = $request->SPnameEN;

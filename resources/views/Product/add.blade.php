@@ -32,38 +32,59 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"><p>รูปภาพสินค้า</p></div>
-                                <div class=""><input name="productpic" type="file" class="pl-3 w-[450px] ml-6 h-[35px]" onchange="readURL(this)" required></div>
+                                <div class=""><input name="productpic" type="file" class="peer pl-3 w-[450px] ml-6 h-[35px]" onchange="readURL(this)" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*เลือกรูปภาพ</p>
+                                </div>
                             </div>
+
                             <div class="flex flex-wrap justify-between mt-6">
-                                <div class="w-[130px] flex justify-end"><p>รหัสสินค้า</p></div>
-                                <div class=""><input name="code" type="text" placeholder="รหัสสินค้า" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                                <div class="w-[130px] flex justify-end"><label for="code"><span>รหัสสินค้า</span></div>
+                                <div class=""><input id='code'name="code" type="text" placeholder="รหัสสินค้า" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" onkeyup="checkinput({{$productcode}},this.value)" oninput="this.value = this.value.toUpperCase()" required>
+                                   <p id='codecheck' class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                   <p id="codealert" class="ml-6 text-red-600" style="display: none">*รหัสสินค้าซ้ำ</p>
+                                </div>                          
+                            </label>
                             </div>
+
+                                                       
+                            
+
                             <div class="flex flex-wrap justify-between mt-6">                               
-                                <div class="w-[130px] flex justify-end"><p>ชื่อสินค้า(TH)</p></div>                                                                  
-                                    <input name="PnameTH" type="text" placeholder="ชื่อสินค้า" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                <div class="w-[130px] flex justify-end"><p>ชื่อสินค้า(TH)</p></div>
+                                <div class="">                                                                 
+                                    <input id="PnameTH" name="PnameTH" type="text" placeholder="ชื่อสินค้า" class=" valid:border-green-500 peer w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div> 
                         </div>
+
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"><p>ชื่อสินค้า(EN)</p></div>
-                                <div class=""><input name="PnameEN" type="text" placeholder="ชื่อสินค้า(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                                <div class="">
+                                    <input id="PnameEN" name="PnameEN" type="text" placeholder="ชื่อสินค้า(EN)" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
+
                             <div class="flex flex-wrap justify-between mt-6 z-0">
                                 <div class="w-[130px] flex justify-end"><p>สังกัดหน่อยงาน</p></div>
-                                <div class="w-[450px] ml-6 h-[35px] ">
-                                    <select name="department[]" data-te-select-init multiple  required>
+                                <div class="w-[450px] ml-6 h-[35px] border-green-500 " >
+                                    <select name="department[]" class="focus:border-green-500" data-te-select-init multiple  required>
                                         @foreach ($department as $de)
-                                        <option  value="{{$de->id}}">{{$de->departTH}}</option>
+                                        <option class="focus:border-green-500" value="{{$de->id}}">{{$de->departTH}}</option>
                                         @endforeach
                                        
                                        
                                       </select>
                                       <label data-te-select-label-ref>หน่วยงาน</label>
+                                     
                                 </div>  
                             </div>
                             <div class="flex flex-wrap justify-between mt-6 z-0">
                                 <div class="w-[130px] flex justify-end"><p>หมวดสินค้า</p></div>
-                                <div class="w-[450px] ml-6 h-[35px] ">
+                                <div class="w-[450px] ml-6 h-[35px] focus:border-green-500">
                                     <select name="category" data-te-select-init required>
                                         <option ></option>
                                         @foreach ($categories as $c) 
@@ -73,14 +94,22 @@
                                       <label data-te-select-label-ref>หมวดสินค้า</label>
                                 </div>  
                             </div>
+
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"><p>ราคา</p></div>
-                                <div class=""><input name="price" type=text" placeholder="ราคา" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                                <div class=""><input name="price" type="number" placeholder="ราคา" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
+
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"><p>หน่วย</p></div>
-                                <div class=""><input name="unit" type="text" placeholder="หน่วย" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                                <div class="">
+                                    <input name="unit" type="text" placeholder="หน่วย" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
+
                             <div class="flex flex-wrap justify-between mt-6 z-0">
                                 <div class="w-[130px] flex justify-end"><p>ซัพพลายเออร์</p></div>
                                 <div class="w-[450px] ml-6 h-[35px] ">
@@ -107,6 +136,7 @@
                             </div>
                         </div>
                     </form>
+                    
                     </div>
                 
                 </div>

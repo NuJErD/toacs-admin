@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\users;
 use App\Models\pr;
+use App\Models\pr_detail;
+use App\Models\product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use GuzzleHttp\Client;
@@ -18,16 +20,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //dd(session()->all());
-        // $pr = pr::orderBy('create_date')->where('status','!=','0')->get()->groupby(function($data){
-        //     return $data->departments_id;
-        // });
-       
-        // dd($pr);
-       return view('home');
+      $productDATA = product::all();
+      $price = $productDATA->pluck('price');
+      $name = $productDATA->pluck('p_code');
+       return view('home',compact('price','name'));
     }
 
     
+    public function PRbar(){
+        $po = pr_detail::where('pr_status','0')->get();
+        $po = count($po);
+        return response()->json(['count'=>$po]);
+
+    }
     
 
     /**

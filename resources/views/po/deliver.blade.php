@@ -12,9 +12,9 @@
         <div class="">
             <div class="card-pro px-4 ">
                 <div class="header min-h-[50px] max-w-full text-white rounded-t-[5px]  flex justify-between  bg-zinc-800 min-h-14 items-center px-6  flex-wrap">
-                    <div class="" >ใบสั่งซื้อ</div>
+                    <div class="" >รายการรอจัดส่ง</div>
                     <div class="btn flex justify-end flex-wrap  ">
-                       <div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2" onclick="selectSP()"><i class="fa-solid fa-plus mr-1"></i>Create PO</div>
+                      
                         
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                                 </select>
                                 <p class=" ml-1">entries</p>
                             </div>
-                            <div class="search">Search: <input type="text" class="border border-slate-300 rounded-[5px]"></div>
+                            <div class="search">Search: <input type="text" class="border border-slate-300 rounded-[5px]" onkeyup="search_po(this.value)"></div>
                         </div>
                         <div class=" mt-3">
                             <div class=" overflow-x-auto  shadow-md sm:rounded-lg">
@@ -74,7 +74,7 @@
                                             
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="POindex">
                                           @foreach ($po as $pos) 
                                             
                                         
@@ -84,7 +84,7 @@
                                               <p>{{$pos->order_invoice}}</p>
                                             </td>
                                             <td class="px-6 py-4">
-                                               <p>{{$pos->SPnameTH}}</p>
+                                               <p>{{$pos->supplier_name}}</p>
                                             </td>
                                             <td class="px-6 py-4">
                                                 <p>{{$pos->admin_name}}</p>
@@ -93,18 +93,18 @@
                                                 <p>{{$pos->total}}</p>
                                             </td>
                                             <td class="px-6 py-4">
-                                                <p>q</p>
+                                               
                                             </td>
                                             <td class="">
                                                 <div class="flex justify-center">
                                                
                                                 <a href="{{route('checkreceive',$pos->order_invoice)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">แก้ไข</a>
                                             
-                                            <form action="" method="POST">
+                                            {{-- <form action="" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">ลบ</button>
-                                            </form>
+                                            </form> --}}
                                         </div>
                                             </td>
                                         </tr>

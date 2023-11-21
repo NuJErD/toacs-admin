@@ -26,12 +26,18 @@
                         <div class=" px-[10px] ">
                            
                             <div class="flex flex-wrap justify-between mt-6">                               
-                                <div class="min-w-[150px] flex justify-end items-center"><p>ประเภทซัพพลายเออร์ (TH)</p></div>                                                                  
-                                    <input name="SPTnameTH" type="text" placeholder="ประเภทซัพพลายเออร์(TH)" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                <div class="min-w-[150px] flex justify-end items-center"><p>ประเภทซัพพลายเออร์ (TH)</p></div>
+                                <div class="">
+                                    <input name="SPTnameTH" type="text" placeholder="ประเภทซัพพลายเออร์(TH)" class=" peer valid:border-green-500 w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="min-w-[150px] flex justify-end items-center"><p>ประเภทซัพพลายเออร์ (EN)</p></div>
-                                <div class=""><input name="SPTnameEN" type="text" placeholder="ประเภทซัพพลายเออร์(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                                <div class="">
+                                    <input name="SPTnameEN" type="text" placeholder="ประเภทซัพพลายเออร์(EN)" class=" peer valid:border-green-500 pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
                         </div>
                 

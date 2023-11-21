@@ -60,6 +60,7 @@ class poController extends Controller
         $supplier = session('PoSup');
         $user = user::where('id',session('admin'))->value('nameTH');
         $sup_id = supplier::where('s_code',session('PoSup'))->value('id');
+        $supname = supplier::where('s_code',session('PoSup'))->value('SPnameTH');
        
         
         $po = new po ;
@@ -68,6 +69,7 @@ class poController extends Controller
         $po->admin_name = $user;
         $po->supplier_id = $sup_id;
         $po->supplier_code = session('PoSup');
+        $po->supplier_name = $supname;
         $po->create_date = $time;
         $po->save();
         
@@ -255,12 +257,30 @@ class poController extends Controller
    
        //dd(2);
     }
-    /**
 
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+    public function po_search(Request $request)   {
+       
+        $input = $request->input;    
+
+        if(isset($input) && $input != ''){
+            $user = po::where(function($query) use($input){
+                
+                $query->where('received','NO')
+                ->where('approve_status','1')
+                ->where('order_invoice','like','%'. $input . '%');
+               // ->orwhere('PnameTH','like','%'. $input . '%');
+               // ->orwhere('brand','like','%'. $input . '%');
+            })->get();
+        } else{
+            $user = po::where('received','NO')
+            ->where('approve_status','1')
+            ->get();
+        }
+       return response()->json($user) ;
+        
+    }
+
     public function store(Request $request)
     {
         //
@@ -353,6 +373,25 @@ class poController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $polist = po_detail::where('po_order_invoice',$id)->get();
+        $total = count($polist)-1;
+        //loop เปลี่ยนถนานะ pr เป็น ยังไม่ได้เพิ่มในใบสั่งซื้อ
+        for($i = 0;$i   <= $total;$i++){
+            
+            $check = pr_detail::where('PR_code',$polist[$i]['pr_code'])
+            ->where('products_id',$polist[$i]['product_id'])
+            ->update([
+                'pr_status' => '0'
+            ]);
+            
+        }
+        
+        //$pr = pr_detail::where('PR_code',$polist[i][])
+        //->delete();
+        po_detail::where('po_order_invoice',$id)->delete();
+        po::where('order_invoice',$id)->delete();
+        return redirect()->route('po.index')->with('success','ลบใบสั่งซื้อสำเร็จ');
+        //dd($check);
+       
     }
 }

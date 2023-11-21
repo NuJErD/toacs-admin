@@ -25,21 +25,35 @@
                             @csrf
                         <div class=" px-[10px] ">
                             <div class="flex flex-wrap justify-between mt-6">                               
-                                <div class="w-[130px] flex justify-end"><p>ชื่อ-สกุล(TH)</p></div>                                                                  
-                                    <input name="nameTH" type="text" placeholder="ชื่อ-สกุล(TH)" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                <div class="w-[130px] flex justify-end"><p>ชื่อ-สกุล(TH)</p></div> 
+                                <div class="">                                                                 
+                                    <input name="nameTH" type="text" placeholder="ชื่อ-สกุล(TH)" class=" valid:border-green-500 peer w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                         </div>
-                            <div class="flex flex-wrap justify-between mt-6">
+
+                            <div class="flex flex-wrap justify-between mt-4">
                                 <div class="w-[130px] flex justify-end"><p>ชื่อ-สกุล(EN)</p></div>
-                                <div class=""><input name="nameEN" type="text" placeholder="ชื่อ-สกุล(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                                <div class="">
+                                    <input name="nameEN" type="text" placeholder="ชื่อ-สกุล(EN)" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
-                            <div class="flex flex-wrap justify-between mt-6">
+
+                            <div class="flex flex-wrap justify-between mt-4">
                                 <div class="w-[130px] flex justify-end"><p>เบอร์โทรศัพท์</p></div>
-                                <div class=""><input name="phone" type="text" placeholder="เบอร์โทรศัพท์" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                                <div class=""><input name="phone" type="text" placeholder="เบอร์โทรศัพท์" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
-                            <div class="flex flex-wrap justify-between mt-6">
+
+                            <div class="flex flex-wrap justify-between mt-4">
                                 <div class="w-[130px] flex justify-end"><p>อีเมล</p></div>
-                                <div class=""><input name="email" type="email" placeholder="อีเมล" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                                <div class=""><input name="email" type="email" placeholder="อีเมล" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
+
                             <div class="flex flex-wrap justify-between mt-6 z-0">
                                 <div class="w-[130px] flex justify-end"><p>สังกัดหน่อยงาน</p></div>
                                 <div class="w-[450px] ml-6 h-[35px] ">
@@ -53,6 +67,7 @@
                                       <label data-te-select-label-ref>หน่วยงาน</label>
                                 </div>  
                             </div>
+
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"><p>ตำแหน่ง</p></div>
                                 <div class="w-[450px] ml-6 h-[35px]">
@@ -65,6 +80,7 @@
                                       <label data-te-select-label-ref>ตำแหน่ง</label>
                                 </div>
                             </div>
+
                             <div class="flex flex-wrap mt-6">
                                 <div class="w-[130px] flex justify-end"><p>สถานะ</p></div>
                                 <div class="check ml-[30px]">
@@ -80,7 +96,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex flex-wrap justify-between mt-6">
+
+                            <div class="flex flex-wrap justify-between mt-4">
                                 <div class="w-[130px] flex justify-end"><p>อาคารที่อยู่</p></div>
                                 <div class="w-[450px] ml-6 h-[35px]">
                                     <select name="phase"  class="" data-te-select-init required >
@@ -92,14 +109,21 @@
                                       <label data-te-select-label-ref>อาคารที่อยู่</label>
                                 </div>
                             </div>
+
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"><p>รหัสผ่าน</p></div>
-                                <div class=""><input onkeyup="checkpw()" type="password" id="password" name="password" placeholder="รหัสผ่าน" class="  pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                                <div class=""><input onkeyup="checkpw()" type="password" id="password" name="password" placeholder="รหัสผ่าน" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
-                            <div class="flex flex-wrap justify-between mt-6">
+
+                            <div class="flex flex-wrap justify-between mt-4">
                                 <div class="w-[130px] flex justify-end"><p>ยืนยันรหัสผ่าน</p></div>
-                                <div class=""><input onkeyup="checkpw()" id="cfpassword" type="password" name="cfpassword" placeholder="ยืนยันรหัสผ่าน" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>                                
+                                <div class=""><input onkeyup="checkpw()" id="cfpassword" type="password" name="cfpassword" placeholder="ยืนยันรหัสผ่าน" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>                                
                             </div>
+
                             <div class="text-red-500 text-[14px] ml-[155px]" id="passwordcf-feed" ></div>
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"></div>
@@ -109,10 +133,14 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"><p>ลายเซ็น</p></div>
-                                <div class=""><input name="signature" type="file" class="pl-3 w-[450px] ml-6 h-[35px]" onchange="readURL(this)" required></div>
+                                <div class=""><input name="signature" type="file" class=" valid:bg-green-500 peer w-[450px] ml-6 h-[35px]" onchange="readURL(this)" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*เลือกรูปภาพ</p>
+                                </div>
                             </div>
+
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"></div>
                                 <div class=" w-[450px] "><button type="submit" class=" bg-zinc-800 w-[100px] h-[40px] rounded-[5px]" ><p class="text-white">บันทึก</p></button></div>                   

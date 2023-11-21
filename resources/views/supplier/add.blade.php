@@ -26,28 +26,42 @@
                         <div class=" px-[10px] ">
                            
                             <div class="flex flex-wrap justify-between mt-6">                               
-                                <div class="w-[140px] flex justify-end items-center"><p>รหัส</p></div>                                                                  
-                                    <input name="code" type="text" placeholder="รหัส" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                <div class="w-[140px] flex justify-end "><p>รหัส</p></div>  
+                                <div class="">                                                                
+                                    <input name="code" type="text" placeholder="รหัส" class=" peer valid:border-green-500 w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" oninput="this.value = this.value.toUpperCase()" required >
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
 
                             <div class="flex flex-wrap justify-between mt-6">
-                                <div class="w-[140px] flex justify-end items-center"><p>ชื่อ-สกุล</p></div>                                
-                                    <input name="name" type="text" placeholder="ชื่อ-สกุล" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                <div class="w-[140px] flex justify-end "><p>ชื่อ-สกุล</p></div>                                
+                                    <div class=""><input name="name" type="text" placeholder="ชื่อ-สกุล" class=" peer valid:border-green-500 pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p></div>
                             </div>
 
                             <div class="flex flex-wrap justify-between mt-6">
-                                    <div class="w-[140px] flex justify-end items-center"><p>ซัพพลายเออร์(TH)</p></div>                                
-                                        <input name="SPnameTH" type="text" placeholder="ซัพพลายเออร์(TH)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <div class="w-[140px] flex justify-end "><p>ซัพพลายเออร์(TH)</p></div>
+                                    <div class="">                               
+                                        <input name="SPnameTH" type="text" placeholder="ซัพพลายเออร์(TH)" class=" peer valid:border-green-500 pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                        <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                    </div>
                             </div>
 
                             <div class="flex flex-wrap justify-between mt-6">
-                                <div class="w-[140px] flex justify-end items-center"><p>ซัพพลายเออร์(EN)</p></div>                                
-                                    <input name="SPnameEN" type="text" placeholder="ซัพพลายเออร์(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                <div class="w-[140px] flex justify-end "><p>ซัพพลายเออร์(EN)</p></div>  
+                                <div class="">                              
+                                    <input name="SPnameEN" type="text" placeholder="ซัพพลายเออร์(EN)" class="peer valid:border-green-500 pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
 
                             <div class="flex flex-wrap justify-between mt-6">
-                                    <div class="w-[140px] flex justify-end items-center"><p>เบอร์โทรศัพท์</p></div>                                
-                                        <input name="phone" type="text" placeholder="เบอร์โทรศัพท์" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <div class="w-[140px] flex justify-end "><p>เบอร์โทรศัพท์</p></div> 
+                                    <div class="">                              
+                                        <input name="phone" type="text" placeholder="เบอร์โทรศัพท์" class="peer valid:border-green-500 pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                        <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                        </div>
+                                    </div>
                             </div> 
 
                             <div class="flex flex-wrap justify-between mt-6">
@@ -56,12 +70,15 @@
                             </div> 
                                 
                             <div class="flex flex-wrap justify-between mt-6">
-                                            <div class="w-[140px] flex justify-end items-center"><p>เครดิต</p></div>                                
-                                                <input name="credit" type="text" placeholder="เครดิต" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                            <div class="w-[140px] flex justify-end "><p>เครดิต</p></div> 
+                                                <div class="">                             
+                                                <input name="credit" type="text" placeholder="เครดิต" class="peer valid:border-green-500 pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                                <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                                </div>
                             </div> 
                                             
                             <div class="flex flex-wrap justify-between mt-6">
-                                                <div class="w-[150px] flex justify-end items-center"><p>ประเภทซัพพลายเออร์</p></div>                                
+                                                <div class="w-[150px] flex justify-end "><p>ประเภทซัพพลายเออร์</p></div>                                
                                                 <div class="w-[450px] ml-6 h-[35px] ">
                                                     <select name="SPtype" data-te-select-init   required>
                                                     <option></option>
@@ -75,15 +92,19 @@
                             </div>
                             
                             <div class="flex flex-wrap justify-between mt-6">
-                                <div class="w-[140px] flex justify-end items-center"><p>อีเมล</p></div>                                
-                                    <input name="email" type="email" placeholder="อีเมล" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                <div class="w-[140px] flex justify-end "><p>อีเมล</p></div>
+                                <div class="">                               
+                                    <input name="email" type="email" placeholder="อีเมล" class="peer valid:border-green-500 pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div> 
-                        </div>
-                
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"></div>
                                 <div class=" w-[450px] "><button type="submit" class=" bg-zinc-800 w-[100px] h-[40px] rounded-[5px]" ><p class="text-white">บันทึก</p></button></div>                   
                             </div>
+                        </div>
+                
+                            
                         </div>
                     </form>
                     </div>

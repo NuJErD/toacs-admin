@@ -24,20 +24,28 @@
                             @csrf
                         <div class=" px-[10px] ">
                             <div class="flex flex-wrap justify-between mt-6">                               
-                                <div class="w-[130px] flex justify-end"><p>รหัส</p></div>                                                                  
-                                    <input name="code" type="text" placeholder="รหัส" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                <div class="w-[130px] flex justify-end"><p>รหัส</p></div>  
+                                <div class="">                                                                
+                                    <input name="code" type="text" placeholder="รหัส" class=" valid:border-green-500 peer w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
-                            <div class="flex flex-wrap justify-between mt-6">                               
-                                <div class="w-[130px] flex justify-end"><p>ชื่อหมวดหมู่(TH)</p></div>                                                                  
-                                    <input name="CnameTH" type="text" placeholder="ชื่อหมวดหมู่" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                            <div class="flex flex-wrap justify-between mt-4">                               
+                                <div class="w-[130px] flex justify-end"><p>ชื่อหมวดหมู่(TH)</p></div>  
+                                <div class="">                                                                
+                                    <input name="CnameTH" type="text" placeholder="ชื่อหมวดหมู่" class=" valid:border-green-500 peer w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
-                            <div class="flex flex-wrap justify-between mt-6">
+                            <div class="flex flex-wrap justify-between mt-4">
                                 <div class="w-[130px] flex justify-end"><p>ชื่อหมวดหมู่(EN)</p></div>
-                                <div class=""><input name="CnameEN" type="text" placeholder="ชื่อหมวดหมู่(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                                <div class=""><input name="CnameEN" type="text" placeholder="ชื่อหมวดหมู่(EN)" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
                         </div>
                 
-                            <div class="flex flex-wrap justify-between mt-6">
+                            <div class="flex flex-wrap justify-between mt-4">
                                 <div class="w-[130px] flex justify-end"></div>
                                 <div class=" w-[450px] "><button type="submit" class=" bg-zinc-800 w-[100px] h-[40px] rounded-[5px]" ><p class="text-white">บันทึก</p></button></div>                   
                             </div>

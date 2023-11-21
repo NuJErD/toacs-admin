@@ -62,7 +62,9 @@ class productController extends Controller
         $department = department::get();
         $supplier = supplier::get();
         $categories = categories::get();
-        return view('product.add',compact('department','supplier','categories'));
+        $productcode = product::pluck('p_code');
+       // dd($productcode);
+        return view('product.add',compact('department','supplier','categories','productcode'));
     }
 
     

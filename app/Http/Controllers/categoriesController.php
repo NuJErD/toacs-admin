@@ -121,9 +121,9 @@ class categoriesController extends Controller
      */
     public function destroy(categories $category)
     {
-       $check = product::where('category',$category->id)->first();
+       $check = product::where('category',$category->code)->first();
        if(isset($check)){
-       
+        return redirect()->route('categories.index')->with('error','ไม่สามารถลบได้');
        }else{
         categories::where('id',$category->id)->delete();
        }

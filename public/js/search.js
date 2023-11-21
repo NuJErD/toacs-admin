@@ -172,9 +172,62 @@ function search_user(search){
             
         }else{
             $("#user_index").html('')
-            $("#user_index").append('<div class="w-full" colspan="7">ไม่พบสินค้า</div>')
+            $("#user_index").append('<td colspan="7" class=" text-center h-[50px]">ไม่พบผู้ใช้งาน</td>')
         }
     })
+
+
+}
+
+
+function search_po(num){
+    // if(input == ""){
+    //     input = null}
+    let input = {
+        input:num
+    }
+ $.get('/search/po',input,function(data){
+    console.log(data)
+    if(Object.keys(data).length > 0){
+        let po = data.map(function(p){
+            return `<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                            
+            <td class="px-6 py-4 ">
+              <p>${p.order_invoice}</p>
+            </td>
+            <td class="px-6 py-4">
+               <p>${p.supplier_name}</p>
+            </td>
+            <td class="px-6 py-4">
+                <p>${p.admin_name}</p>
+            </td>
+            <td class="px-6 py-4">
+                <p>${p.total}</p>
+            </td>
+            <td class="px-6 py-4">
+                <p>รอจัดส่ง</p>
+            </td>
+            <td class="">
+                <div class="flex justify-center">
+               
+                <a href="http://192.168.104.43:81/checkreceive/${p.order_invoice}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">แก้ไข</a>
+        </div>
+            </td>
+        </tr>`
+        })
+        $("#POindex").html('')
+        $.each(po, function(indexInArray, valueOfitems) {
+            $("#POindex").append(valueOfitems)
+        })
+        console.log(po)
+    }else{
+        $("#POindex").html('')
+        $("#POindex").append('<td colspan="7" class=" text-center h-[50px]">ไม่พบคำสั่งซื้อ</td>')
+    }
+  
+ })
+
+   
 
 
 }

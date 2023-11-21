@@ -100,10 +100,10 @@
                                                
                                                 <a href="{{route('PoPage',$pos->order_invoice)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">แก้ไข</a>
                                             
-                                            <form action="" method="POST">
+                                            <form id='delPO' action="{{route('po.destroy',$pos->order_invoice)}}" method="POST"> 
                                                 @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]">ลบ</button>
+                                                @method('DELETE')  
+                                                <button type="button" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]" onclick="deletePO({{$pos->order_invoice}})">ลบ</button>
                                             </form>
                                         </div>
                                             </td>

@@ -57,8 +57,7 @@
                             </td>
                         <td style="vertical-align: top;"><p>:</p></td>
                     
-                        <td style="vertical-align: top;" class=" whitespace-pre-line">{{$sup->address}}700/65 หมู่ 6 ตำบลคลองตำหรุ อำเภอเมือง จังหวัดชลบุรี 20000
-                            โทร: (038) 213289-91 แฟ็กซ์ : (038)213507}</td>
+                        <td style="vertical-align: top;" class=" whitespace-pre-line">{{$sup->address}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -329,6 +328,7 @@
             </button>
         </form>
         </div>
+        
         </div>
     </div>
     <a href="{{route('printPO',$po->order_invoice)}}"  target="_blank" class="w-[90px] h-[40px] border border-gray-300 bg-gray-100 rounded-sm mt-2 flex justify-center">  

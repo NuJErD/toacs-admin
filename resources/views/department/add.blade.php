@@ -25,24 +25,38 @@
                             
                         <div class=" px-[10px] ">
                             <div class="flex flex-wrap justify-between mt-6">                               
-                                <div class="w-[140px] flex justify-end items-center"><p>รหัส</p></div>                                                                  
-                                    <input name="code"  type="text" placeholder="รหัส" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                <div class="w-[140px] flex justify-end "><p>รหัส</p></div>   
+                                <div class="">                                                              
+                                    <input name="code"  type="text" placeholder="รหัส" class=" valid:border-green-500 peer w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" oninput="this.value = this.value.toUpperCase()" required >
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>                                                                                       
                             </div>
-                            <div class="flex flex-wrap justify-between mt-6">                               
-                                <div class="min-w-[140px] flex justify-end items-center"><p>สังกัดหน่อยงาน(TH)</p></div>                                                                  
-                                    <input name="departTH" type="text" placeholder="สังกัดหน่อยงาน(TH)" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                            <div class="flex flex-wrap justify-between mt-4">                               
+                                <div class="min-w-[140px] flex justify-end "><p>สังกัดหน่อยงาน(TH)</p></div>
+                                      <div class="">                                                        
+                                    <input name="departTH" type="text" placeholder="สังกัดหน่อยงาน(TH)" class=" valid:border-green-500 peer w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                      </div>
                             </div>
-                            <div class="flex flex-wrap justify-between mt-6">
-                                <div class="w-[140px] flex justify-end items-center"><p>สังกัดหน่อยงาน(EN)</p></div>
-                                <div class=""><input name="departEN"  type="text" placeholder="สังกัดหน่อยงาน(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                            <div class="flex flex-wrap justify-between mt-4">
+                                <div class="w-[140px] flex justify-end "><p>สังกัดหน่อยงาน(EN)</p></div>
+                                <div class=""><input name="departEN"  type="text" placeholder="สังกัดหน่อยงาน(EN)" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
-                            <div class="flex flex-wrap justify-between mt-6">                               
-                                <div class="w-[140px] flex justify-end items-center"><p>CODE NO. FAC1</p></div>                                                                  
-                                    <input name="code_fac1"  type="text" placeholder="CODE NO. FAC1" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                            <div class="flex flex-wrap justify-between mt-4">                               
+                                <div class="w-[140px] flex justify-end "><p>CODE NO. FAC1</p></div>                                                                  
+                                <div class="">   
+                                <input name="code_fac1"  type="text" placeholder="CODE NO. FAC1" class=" valid:border-green-500 peer w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >
+                                <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
                             </div>
-                            <div class="flex flex-wrap justify-between mt-6">                               
-                                <div class="w-[140px] flex justify-end items-center"><p>CODE NO. FAC5</p></div>                                                                  
-                                    <input name="code_fac5" type="text" placeholder="CODE NO. FAC5" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                        </div> 
+                            <div class="flex flex-wrap justify-between mt-4">                               
+                                <div class="w-[140px] flex justify-end "><p>CODE NO. FAC5</p></div>  
+                                <div class="">                                                                
+                                    <input name="code_fac5" type="text" placeholder="CODE NO. FAC5" class=" valid:border-green-500 peer w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
                             </div>
                         </div>
                 

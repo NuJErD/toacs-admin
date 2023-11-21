@@ -18,6 +18,7 @@ use App\Http\Controllers\poController;
 use App\Http\Controllers\pdfController;
 use App\Models\supplier;
 use App\Models\supplierType;
+use App\Http\Controllers\chartController;
 use Maatwebsite\Excel\Row;
 
 /*
@@ -62,6 +63,7 @@ Route::post('/resetPWCF',[userController::class,'changePWCF'])->name('cfpass');
 
 //Home
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/prbar',[HomeController::class,'PRbar']);
 
 //product
 Route::get('/addproduct',[productController::class,'addproduct'])->name('additem');
@@ -88,6 +90,7 @@ Route::get('/order/deliver',[poController::class,'podeliver'])->name('listpoDeli
 Route::get('/checkreceive/{code}',[poController::class,'CheckReceive_page'])->name('checkreceive');
 Route::get('/received',[poController::class,'received']);
 Route::put('/receiveStatus/{po}',[poController::class,'ReceiveStatus'])->name('ReceiveStatus');
+Route::get('/search/po',[poController::class,'po_search']);
 //Route::get('/po/detail/{po}',[poController::class,'po_detail'])->name('po_detail');
 //print PO
 Route::get('/print/po/{pono}',[pdfController::class,'print_po'])->name('printPO');
@@ -121,3 +124,5 @@ Route::get('/search/product',[productController::class,'search_product']);
 //depart
 Route::get('/adddepart',[departmentController::class,'Add_depart']);
 
+//chart
+Route::get('/chartPO',[chartController::class,'getPO']);
