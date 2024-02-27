@@ -113,27 +113,11 @@
                         <th scope="col" class="px-6 py-3 w-auto text-center">
                            PR(Ref.) 
                         </th>
-                        <th scope="col" class="px-6 py-3 w-auto text-center">
-                            Productname
+                        <th scope="col" class="px-6 py-3 w-auto ">
+                            <p class=" pl-7">Productname</p>
                         </th>
-                        <th scope="col" class="px-6 py-3 w-auto text-center">
-                            QTY 
-                        </th>
-                        <th scope="col" class="px-6 py-3 w-auto text-center">
-                            Unit 
-                        </th>
-                        <th scope="col" class="px-6 py-3 w-auto text-center">
-                            Price 
-                        </th>
-                        <th scope="col" class="px-6 py-3 w-auto text-center">
-                            Total Price 
-                        </th>
-                        <th scope="col" class="px-6 py-3 w-auto text-center">
-                            Expected Date 
-                        </th>
-                        <th scope="col" class="px-6 py-3 w-auto text-center">
-                            Note 
-                        </th>
+                       
+                        
                         <th scope="col" class="px-6 py-3"">
                             {{-- <i class="fa-solid fa-plus fa-2xl" style="color: #04b907;"></i> --}}
                         </th>
@@ -149,34 +133,15 @@
                              </select>
                             </th>
                             <td class="px-6 py-4 w-auto bg-blue-200 text-center text-gray-900">
-                                <select id="product-po"  class="w-[120px] h-[25px]" onchange="GetProductDetail()" >
+                                <div class="w-[400px] ml-6 bg-white border-none">
+                                <select id="product-po"    data-te-select-init multiple >
 
                                  </select>
-                                 
+                                </div> 
                             </td>
-                            <td class="px-6 py-4  bg-blue-200 text-center text-gray-900">
-                              <input id="QTY" name="QYT" class="w-[70px] h-[25px] text-center"  type="text" readonly>
-                            </td>
+                           
                             <td class="px-6 py-4 bg-blue-200 text-center text-gray-900">
-                              <input id="unit" name="unit" class="w-[70px] h-[25px] text-center" readonly>
-                            </td>
-                            <td class="px-6 py-4 bg-blue-200 text-center text-gray-900">
-                                <input id="price" name="price" class="w-[70px] h-[25px] text-center text-gray-900" onkeyup="ChangePrice(this.value)">
-                            </td>
-                            <td class="px-6 py-4 bg-blue-200 text-center text-gray-900">
-                                <input id="totalprice" name="totalprice" class="w-[70px] h-[25px] text-center" readonly>
-                            </td>
-                            <td class="px-6 py-4 bg-blue-200  text-center text-gray-900">
-                                
-                               
-                                <input id="expected_date" name="expected_date" class="w-[110px] h-[25px] text-center" type="date">
-                               
-                            </td>
-                            <td class="px-6 py-4 bg-blue-200 text-center text-gray-900">
-                                <input id="note" name="note"  class="w-[70px] h-[25px] text-center">
-                            </td>
-                            <td class="px-6 py-4 bg-blue-200 text-center text-gray-900">
-                                <i class="fa-solid fa-plus fa-xl" style="color: #04b907;" onclick="po_add_detail({{$po->order_invoice}})"></i>
+                                <i class="fa-solid fa-plus fa-xl" style="color: #04b907;" onclick="po_add_detail({{$po->order_invoice}},document.getElementById('PRNO').value,document.getElementById('product-po').value)"></i>
                             </td>
                             
                         </tr>
@@ -187,10 +152,86 @@
             
             <div class="b">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                
-                    <tbody id="POlist">
-                           
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 w-auto text-center">
+                               PR(Ref.) 
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-auto text-center">
+                                Productname
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-auto text-center">
+                                ProductCode
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-[50px] text-center">
+                                QTY 
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-auto text-center">
+                                Unit 
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-auto text-center">
+                                Price 
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-auto text-center">
+                                Total Price 
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-auto text-center">
+                                Expected Date 
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-auto text-center">
+                                Note 
+                            </th>
+                            <th scope="col" class="px-6 py-3"">
+                                {{-- <i class="fa-solid fa-plus fa-2xl" style="color: #04b907;"></i> --}}
+                            </th>
                             
+                        </tr>
+                    </thead>
+                    <tbody id="">
+                        @foreach ($list as $index => $item)
+                        <tr  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 " style="display: ">
+                            <th scope="row" class=" px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white  text-center">
+                            
+                                <p class=" w-[150px] h-[25px] text-center"><b>{{$index+1}}.</b> PR.{{$item->pr_code}}</p>
+                        
+                            </th>
+                            <td class="px-6 py-4 w-auto  text-center text-gray-900">
+                                <p class="w-[120px] h-[25px] text-center"> {{$item->product_name}}</p>
+                                   
+                            </td>
+                            <td class="px-6 py-4 w-auto  text-center text-gray-900">
+                                <p class="w-[150px] h-[25px] text-center"> {{$item->product_code}}</p>
+                                   
+                            </td>
+                            <td class="px-6 py-4   text-center text-gray-900">
+                                <input id="change{{$index+1}}" class="w-[50px] h-[30px] border border-red-600 text-center" style="display: none" value="{{$item->QTY}}" onkeyup="change_amount({{$index+1}},{{$item->pr_code}},{{$item->id}},this.value,{{$item->price}},'{{$item->product_code}}')" type="number" required min="0">
+                                <p id="changeQTY{{$index+1}}" class="w-[50px] h-[30px] text-center"> {{$item->QTY}}</p>
+                            </td>
+                            <td class="px-6 py-4  text-center text-gray-900">
+                                <p class="w-[70px] h-[25px]  text-center">{{$item->unit}}</p>
+                            </td>
+                            <td class="px-6 py-4  text-center text-gray-900">
+                                <p class="w-[70px] h-[25px]  text-end" >{{$item->price}}</p>
+                            </td>
+                            <td class="px-6 py-4  text-center text-gray-900">
+                                <p id="totals{{$index+1}}" class="w-[70px] h-[25px]  text-end" >{{$item->total}}</p>
+                            </td>
+                            <td class="px-6 py-4   text-center text-gray-900">
+                                <p class="w-[110px] h-[25px]  text-center">{{$item->date}}</p>
+                            </td>
+                            <td class="px-4 py-4  text-center text-gray-900">
+                                <p class="w-[70px] h-[25px]  text-center">{{$item->note}}</p>
+                            </td>
+                            <td class="pr-6 py-4 text-center text-gray-900 flex items-center justify-start mt-3" >
+                            <i id="open_input{{$index+1}}" class="mt-[20px] h-[20px] fa-solid fa-xl fa-pen-to-square mr-3 hover:cursor-pointer hover:scale-105" onclick="openinput({{$index+1}})"></i>
+                            {{-- <i id="save_amount{{$index+1}}" class="fa-solid fa-xl fa-pen-to-square mr-3 hover:cursor-pointer hover:scale-105" onclick="changeprice({{$index+1}})" style="display: none"></i> --}}
+                            <button id="save_amount{{$index+1}}" class="h-[20px] bg-green-600 border-none   mr-3 hover:cursor-pointer hover:scale-105" onclick="changeprice({{$index+1}},{{$item->id}},document.getElementById('change'+{{$index+1}}).value,document.getElementById('totals'+{{$index+1}}).textContent,{{$item->QTY}},{{$item->price}},{{$item->pr_code}},'{{$item->product_code}}')" style="display: none">SAVE</button>
+                            <i class="h-[20px] mt-[20px] fa-solid fa-trash-can fa-xl hover:cursor-pointer hover:scale-105 text-red-500" onclick="del_podetail({{$item->id}})"></i>
+                            </td>
+                            
+                        </tr 
+                        @endforeach
+          
                     </tbody>
                     
                   </table>
@@ -323,9 +364,15 @@
             <form action="{{route('confirmPO',$po->order_invoice)}}" method="POST">
                 @csrf
                 @method('PUT')
-            <button type="submit" class="min-w-[300px] min-h-[50px] rounded-xl bg-gray-500 hover:bg-green-700 hover:ease-in-out duration-200 hover:scale-104 text-white">
+            @if($list->isEmpty())
+            <button type="submit" class="min-w-[300px] min-h-[50px] rounded-xl bg-gray-500  text-white cursor-not-allowed" disabled >
                 Confirm
-            </button>
+            </button>       
+            @else
+            <button id="cf_po" type="submit" class="min-w-[300px] min-h-[50px] rounded-xl bg-gray-500 hover:bg-green-700 hover:ease-in-out duration-200 hover:scale-104 text-white" >
+                Confirm
+            </button>          
+            @endif
         </form>
         </div>
         
@@ -339,7 +386,7 @@
  <script>
      get_prlist()
      get_po_detail({{$po->order_invoice}},1)
-    
+     
  </script>
 @endsection
 {{-- <h4 class="text-2xl flex items-center">

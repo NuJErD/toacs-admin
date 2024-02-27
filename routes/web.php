@@ -46,7 +46,7 @@ Route::resource('pr',prController::class);
 Route::resource('department',departmentController::class);
 
 Route::get('/', function () {
-    return view('login');
+    return view('home');
 });
 // login 
 
@@ -64,11 +64,15 @@ Route::post('/resetPWCF',[userController::class,'changePWCF'])->name('cfpass');
 //Home
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/prbar',[HomeController::class,'PRbar']);
+Route::get('/dash/receive',[HomeController::class,'Dash_Receive']); 
+Route::get('/dash/total',[HomeController::class,'dash_total']);
 
 //product
 Route::get('/addproduct',[productController::class,'addproduct'])->name('additem');
 Route::get('/item',[productController::class, 'index'])->name('item');
+Route::get('/products/{product}/edit/{page}',[productController::class, 'edit'])->name('edit');
 Route::put('/active/{product}',[productController::class,'active']);
+
 
 
 //pr
@@ -78,6 +82,10 @@ Route::get('/datasup',[poController::class,'getsup']);
 Route::get('/get_prlist',[poController::class,'get_prlist']);
 Route::get('/getproduct',[poController::class,'getproduct']);
 Route::get('/get_productdetail',[poController::class,'get_productdetail']);
+Route::get('/get_amount',[poController::class,'check_amount']);
+Route::get('/save_amount',[poController::class,'save_amount']);
+
+
 //po
 Route::get('/popage/{code}',[poController::class,'popage'])->name('PoPage');
 Route::get('/po/create',[poController::class,'PoCreate'])->name('PoCreate');
@@ -91,6 +99,8 @@ Route::get('/checkreceive/{code}',[poController::class,'CheckReceive_page'])->na
 Route::get('/received',[poController::class,'received']);
 Route::put('/receiveStatus/{po}',[poController::class,'ReceiveStatus'])->name('ReceiveStatus');
 Route::get('/search/po',[poController::class,'po_search']);
+Route::get('/history',[poController::class,'POhistory'])->name('POhistory');
+
 //Route::get('/po/detail/{po}',[poController::class,'po_detail'])->name('po_detail');
 //print PO
 Route::get('/print/po/{pono}',[pdfController::class,'print_po'])->name('printPO');

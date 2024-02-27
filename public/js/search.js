@@ -9,6 +9,8 @@ function setpage(num){
 }
 
 
+
+
 function search_product(search){
 
 let input = {
@@ -29,7 +31,7 @@ $.get('/search/product',input,function(data){
     
     datalist = data.product
     show = data.show
-    console.log(show)
+    console.log(datalist)
     if (Object.keys(datalist).length > 0) {
         let items = datalist.map(function(product) {
             let active 
@@ -52,10 +54,10 @@ $.get('/search/product',input,function(data){
             return `<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                            
             <td class="px-2 py-2 w-[130px] ">
-               <div class="flex justify-center "><img src="picture/product/${product.picture}" class="w-[70px] h-[70px] p-0  alt=""></div>
+               <div class="flex justify-center "><img src="picture/product/${product.picture}" class="w-[70px] h-[70px] p-0"  alt=""></div>
             </td>
             <td class="px-2 py-2 w-[130px]" >
-                <p class="flex justify-center">${product.p_code}</p>
+                <p class="flex justify-center">{product.p_code}</p>
             </td>
             <td class="px-2 py-2 w-[130px]">
                 <p class="flex justify-center">${product.category}</p>    
@@ -88,7 +90,7 @@ $.get('/search/product',input,function(data){
             </td>
         </tr>`
         })
-        console.log(show)
+        //console.log(show)
         if(show === 'none'){
             $('#paginate23').hide()
         }else{

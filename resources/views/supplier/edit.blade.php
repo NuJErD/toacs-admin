@@ -69,8 +69,8 @@
                             </div>
                                             
                             <div class="flex flex-wrap justify-between mt-6">
-                                                <div class="w-[150px] flex justify-end items-center"><p>ประเภทซัพพลายเออร์</p></div>                                
-                                                <div class="w-[450px] ml-6 h-[35px] ">
+                                                {{-- <div class="w-[150px] flex justify-end items-center"><p>ประเภทซัพพลายเออร์</p></div>                                 --}}
+                                                {{-- <div class="w-[450px] ml-6 h-[35px] ">
                                                     <select name="SPtype" data-te-select-init   required>
                                                     <option selected value="{{$supType_use->id}}">{{$supType_use->SPTnameTH}}</option>
                                                       @foreach($supType as $supT)
@@ -79,7 +79,7 @@
                                                        
                                                       </select>
                                                       <label data-te-select-label-ref>ซัพพลายเออร์</label>
-                                                </div>  
+                                                </div>   --}}
                             </div>
                             
                               

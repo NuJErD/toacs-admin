@@ -58,7 +58,7 @@
                                 <p class=" ml-1">entries</p>
                             </div>
                             
-                            <div class="search "> <input id="search_product" onkeyup="search_product(this.value)" type="text" class="border border-slate-300 rounded-[5px] pl-2 py-[3px]" placeholder="Search..."></div>
+                            <div class="search ">Search: <input id="search_product" onkeyup="search_product(this.value)" type="text" class="border border-slate-300 rounded-[5px] pl-2 py-[3px]" placeholder="Search..."></div>
                         </div>
                         <div class=" mt-3">
                             <div class=" overflow-x-auto  shadow-md sm:rounded-lg">
@@ -112,6 +112,7 @@
                                            
                                             <td class="px-2 py-2 min-w-[130px]">
                                                 <p class="flex justify-center">{{$p->price}}</p>
+                                        
                                             </td>
                                             
                                               
@@ -119,7 +120,7 @@
                                             <td class="w-[250px]">
                                                 <div class="flex justify-center">
                                                 <div class=" ">
-                                                <a href="{{route('product.edit',$p->id)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">แก้ไข</a>
+                                                <a href="{{route('edit', ['product' => $p->id, 'page' => $product->currentPage()])}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">แก้ไข</a>
                                             </div>    
                                         </div>
                                             </td>

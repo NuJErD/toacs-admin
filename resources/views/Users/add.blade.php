@@ -74,7 +74,7 @@
                                     <select name="position"  class="" data-te-select-init required >
                                         <option value=""></option>
                                         @foreach ($position as $ps)
-                                        <option value="{{$ps->id}}">{{$ps->posTH}}</option>
+                                        <option value="{{$ps->id}}">{{$ps->posTH}} ({{$ps->posEN}})</option>
                                         @endforeach
                                       </select>
                                       <label data-te-select-label-ref>ตำแหน่ง</label>

@@ -49,11 +49,11 @@ class supplierController extends Controller
        $sup->s_code = $request->code;
        $sup->name = $request->name;
        $sup->SPnameTH = $request->SPnameTH;
-       $sup->SPnameEN = $request->SPnameEN;
+       //$sup->SPnameEN = $request->SPnameEN;
        $sup->phone = $request->phone;
        $sup->address = $request->address;
-       $sup->credit = $request->credit;
-       $sup->SPtype = $request->SPtype;
+       //$sup->credit = $request->credit;
+    //    $sup->SPtype = $request->SPtype;
        $sup->email = $request->email;
        $sup->save();
         
@@ -81,10 +81,10 @@ class supplierController extends Controller
     {
        
         $sup = $supplier;
-        $supType_use = supplierType::where('id',$sup->SPtype)->first();
-        $supType = supplierType::wherenot('id',$sup->SPtype)->get();
+        // $supType_use = supplierType::where('id',$sup->SPtype)->first();
+        // $supType = supplierType::wherenot('id',$sup->SPtype)->get();
       
-      return view('supplier.edit',compact('sup','supType','supType_use'));
+      return view('supplier.edit',compact('sup'));
     }
 
     /**
@@ -111,13 +111,13 @@ class supplierController extends Controller
             's_code' => $request->code ,
             'name' => $request->name ,
             'SPnameTH' => $request->SPnameTH ,
-            'SPnameEN' => $request->SPnameEN,
+           // 'SPnameEN' => $request->SPnameEN,
             'phone' => $request->phone,
             'address' => $request->address,
-            'credit' => $request->credit,
-            'SPtype' => $request->SPtype,
+           // 'credit' => $request->credit,
             'email' => $request->email
         ]);
+        return redirect()->route('supplier.index');
     }
 
     /**

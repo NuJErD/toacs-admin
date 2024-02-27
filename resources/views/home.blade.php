@@ -19,7 +19,7 @@
        
     </div>
 
-    <div class=" min-w-[400px] bg-white min-h-[300px] rounded-lg shadow-xl">
+    <div class=" min-w-[400px] bg-white min-h-[300px] rounded-lg shadow-xl flex justify-center">
       <div class="w-[250px]">
         <canvas id="pie"></canvas>
       </div>
@@ -30,7 +30,7 @@
   
     
     
-    <script src="{{ mix('/js/app.js') }}"></script>
+    <script src="{{ mix('/js/chart.js') }}"></script>
     
 
 
@@ -69,8 +69,8 @@
     <div class="flex flex-row -mx-3">
     <div class="flex-none w-2/3 max-w-full px-3">
     <div>
-    <p class="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Today's Users</p>
-    <h5 class="mb-2 font-bold dark:text-white">2,300</h5>
+    <p class="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60 text-sm">จำนวนสินค้าที่ต้องได้รับ</p>
+    <h5 class="mb-2 font-bold dark:text-white" id="dash_receive"></h5>
     <p class="mb-0 dark:text-white dark:opacity-60">
     <span class="font-bold leading-normal text-sm text-emerald-500"></span>
    
@@ -93,8 +93,10 @@
     <div class="flex flex-row -mx-3">
     <div class="flex-none w-2/3 max-w-full px-3">
     <div>
-    <p class="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60 text-sm">New Clients</p>
-    <h5 class="mb-2 font-bold dark:text-white">+3,462</h5>
+    {{-- <p class="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60 text-sm">จำนวนเงินที่ใช้ </p>
+    <h5 class="mb-2 font-bold dark:text-white" id="dash_total"></h5> --}}
+     
+   
     <p class="mb-0 dark:text-white dark:opacity-60">
     <span class="font-bold leading-normal text-red-600 text-sm"></span>
   
@@ -117,8 +119,8 @@
     <div class="flex flex-row -mx-3">
     <div class="flex-none w-2/3 max-w-full px-3">
     <div>
-    <p class="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Sales</p>
-    <h5 class="mb-2 font-bold dark:text-white">$103,430</h5>
+    {{-- <p class="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Sales</p>
+    <h5 class="mb-2 font-bold dark:text-white">$103,430</h5> --}}
     <p class="mb-0 dark:text-white dark:opacity-60">
     <span class="font-bold leading-normal text-sm text-emerald-500"></span>
 

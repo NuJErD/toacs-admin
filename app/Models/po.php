@@ -11,4 +11,8 @@ class po extends Model
     protected $guarded = [];
     public $timestamps = false;
     use HasFactory;
+
+    // function po_detail(){
+    //     return $this->hasMany(po_detail::class,'order_invoice');
+    // }
 }

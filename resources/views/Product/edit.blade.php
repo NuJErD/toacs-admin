@@ -13,8 +13,8 @@
             <div class="card-pro px-4 flex flex-col  mb-3 ">
                 <div class="header min-h-[50px] rounded-t-[4px] max-w-full text-white border flex justify-between bg-zinc-700 min-h-14 items-center px-6  flex-wrap">
                     <div class="">แก้ไขสินค้า</div>
-                    <div class="btn flex justify-end flex-wrap  ">
-                        <a href="{{ url('product') }}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2" onclick=""><button>ย้อนกลับ</button> </div></a>
+                    <div class="btn flex justify-end flex-wrap">
+                        <a href="{{ route('product.index',['page'=>$page]) }}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2" onclick=""><button>ย้อนกลับ</button> </div></a>
                         
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         </div>
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"><p>ชื่อสินค้า(EN)</p></div>
-                                <div class=""><input name="PnameEN" value="{{$p->PnameEN}}" type="text" placeholder="ชื่อสินค้า(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
+                                <div class=""><input name="part_product" value="{{$p->part_product}}" type="text" placeholder="ชื่อสินค้า(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
                             </div>
                             <div class="flex flex-wrap justify-between mt-6 z-0">
                                 <div class="w-[130px] flex justify-end"><p>สังกัดหน่อยงาน</p></div>

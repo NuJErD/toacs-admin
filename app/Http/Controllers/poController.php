@@ -12,6 +12,8 @@ use App\Models\supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use PhpParser\Node\Expr\FuncCall;
+use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Concerns\ToArray;
 
 class poController extends Controller
 {
@@ -32,7 +34,11 @@ class poController extends Controller
        return view('po.index',compact('po'));
     }
 
-   
+    public function POhistory(){
+        $POhis = po::orderBy('create_date','desc')->where('received','YES')->paginate(7);
+        //dd($POhis);
+        return view('pr.history',compact('POhis'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -87,7 +93,9 @@ class poController extends Controller
         $po  = po::where('order_invoice',$request->code)->first();
         Session()->put('PoSup',$po->supplier_code);
         $sup = supplier::where('s_code',session('PoSup'))->first(); 
-        return view('po.add',compact('sup','po'));
+        $list = po_detail::where('po_order_invoice',$request->code)->get();
+        //dd($list);
+        return view('po.add',compact('sup','po','list'));
        
     }
 
@@ -103,61 +111,134 @@ class poController extends Controller
 
 //---------------------add PO-Detail-------------------------//
     public function po_detail(Request $request){
-
-        $Pname = product::where('id',$request->product)->value('PnameTH');
-        $phase = pr::where('prcode',$request->PRNO)->value('phase_name');
-        $podetail = new po_detail;
-        $podetail->po_order_invoice = $request->poID;
-        $podetail->pr_code = $request->PRNO;
-        $podetail->product_id = $request->product;
-        $podetail->product_name = $Pname;
-        $podetail->QTY = $request->QTY;
-        $podetail->unit = $request->unit;
-        $podetail->price = $request->price;
-        $podetail->total = $request->total;
-        $podetail->phase = $phase;
-        $podetail->date = $request->date;
-        $podetail->note = $request->note;
-        $podetail->save();
-
-        $prID = pr::where('prcode',$request->PRNO)->value('id');
-        $a= pr_detail::where('PR_id',$prID)
-        ->where('products_id',$request->product)
-        ->update([
-            'pr_status' => '1'
-        ]);
         
-        $totalPO = po::where('order_invoice',$request->poID)->value('total');
-        $totalPO = $totalPO + $request->total;
-        $PO_update = po::where('order_invoice',$request->poID)
+        $totalPO = 0;
+        $Pname = product::join('pr_details','products.p_code','pr_details.product_code')
+        ->whereIn('products.p_code',$request->pd)
+        ->where('pr_details.PR_code',$request->pr)
+        ->where('amount_check','!=',0)
+        ->where('products.supplier',session('PoSup'))
+        ->select('products.*','pr_details.amount_max','pr_details.amount_check')
+        ->get();
+        $phase = pr::where('prcode',$request->pr)->value('phase_name');
+        $usedate = pr::where('prcode',$request->pr)->value('use_date');
+        // if(isset($Pname)){
+            foreach ($Pname as $pd){
+                $totalPO = $totalPO + ($pd->amount_max*$pd->price);
+                $podetail = new po_detail;
+                $podetail->po_order_invoice = $request->po;
+                $podetail->pr_code = $request->pr;
+                $podetail->product_id = $pd->id;
+                $podetail->product_name = $pd->PnameTH;
+                $podetail->product_code = $pd->p_code;
+                $podetail->QTY = $pd->amount_check;
+                $podetail->unit = $pd->unit;
+                $podetail->price = $pd->price;
+                $podetail->total = $pd->amount_check * $pd->price;
+                $podetail->phase = $phase;
+                $podetail->date = $usedate;
+               // $podetail->note = $request->note;
+                $podetail->save();
+            //     //prdetail_update
+                pr_detail::where('PR_code',$request->pr)
+                ->where('product_code',$pd->p_code)
+                ->update([
+               
+                'amount_check' => 0
+                ]);
+          //  }
+        }
+
+        $pototal = po::where('order_invoice',$request->po)->value('total');   
+        $total = $totalPO + $pototal;
+        po::where('order_invoice',$request->po)
         ->update([
-            'total' => $totalPO
+            'total' => $total
         ]);
 
-        return response()->json($request->poID);
+        return response()->json($totalPO);
+    }
 
-    
+    public function check_amount(Request $request){
+        $check = pr_detail::where('PR_code',$request->pr)
+        ->where('product_code',$request->p_code)
+        ->value('amount_check');
+        $amount = po_detail::where('id',$request->po)
+        ->value('QTY');
+        return response()->json(['amount'=>$amount,'check'=>$check]);
+    }
+
+    public function save_amount(Request $request){
+        $prde = pr_detail::where('PR_code',$request->pr)
+        ->where('product_code',$request->p_code)
+        ->first();
+        
+        $amountck = pr_detail::where('PR_code',$request->pr)
+        ->where('product_code',$request->p_code)
+        ->value('amount_check');
+
+        if(($request->amount - $amountck)  == $amountck){
+            pr_detail::where('PR_code',$request->pr)
+            ->where('product_code',$request->p_code)
+            ->update([
+                
+                'amount_check' => 0
+        ]);
+
+        }else{
+            pr_detail::where('PR_code',$request->pr)
+            ->where('product_code',$request->p_code) 
+            ->update([
+                'pr_status' => 0,
+                'amount_check' => $prde->amount_max - $request->amount
+            ]);
+        }
+        po_detail::where('id',$request->po)
+        ->update([
+            'QTY' => $request->amount,
+            'total' => $request->total
+        ]);
+        $po = po_detail::where('id',$request->po)->value('po_order_invoice');
+        $total = po_detail::where('po_order_invoice',$po)->sum('total');
+        po::where('order_invoice',$po)
+        ->update([
+            'total' => $total
+        ]);
+        return response()->json(["amount"=>$request->amount,"total"=>$request->total,'amck'=>$amountck]);
     }
 
 //------------------------------------get data -------------------------------------------------------------------------//
     public function getsup(){
+        $datacp = [] ;
         $check = pr::where('ApproveStatus','1')->pluck('id');
-        $sup = pr_detail::where('pr_status','0')
+        // $sup = pr_detail::where('pr_status','0')
+        // ->whereIn('PR_id',$check)
+        // ->distinct()->pluck('product_sup');
+        $sup = pr_detail::where('amount_check','!=',0)
         ->whereIn('PR_id',$check)
-        ->distinct()->pluck('product_sup');
-        // $supname = supplier::whereIn('s_code',$sup)->pluck('SPnameTH');
-        // $supcode = supplier::whereIn('s_code',$sup)->pluck('s_code');
-        $supname = supplier::whereIn('s_code',$sup)
-        ->pluck('SPnameTH');
+        ->get();
+        foreach ($sup as $s){
+            $data1 = json_decode($s->product_sup);
+            $datacp = array_merge($datacp, $data1);
+        }
+        $datacp = array_unique($datacp);
+        $pono = po::where('approve_status',null)->pluck('supplier_code');
         
+        $supname = supplier::whereIn('s_code',$datacp)
+        ->whereNotIn('s_code',$pono)
+        ->pluck('SPnameTH');
+        // $supcode = supplier::whereIn('s_code',$sup)->pluck('s_code');
+       // $supname = supplier::whereIn('s_code',$sup)
+       // ->pluck('SPnameTH');
+      
         
         return response()->json($supname);
     }
     
      public function get_prlist(){
-        $prlist = pr_detail::where('product_sup',session('PoSup'))
+        $prlist = pr_detail::whereJsonContains('product_sup', session('PoSup'))
         ->where('PR_code', '!=',null)
-        ->where('pr_status','0')
+        ->where('amount_check','!=','0')
         ->distinct('PR_id')
         ->pluck('PR_id');
         // $productlist = pr_detail::where('product_sup',session('PoSup'))
@@ -168,26 +249,32 @@ class poController extends Controller
         //->get();
 
          $prlistcheck = pr::whereIn('id',$prlist)
-         ->where('status','1')
+         ->where('ApproveStatus','1')
          ->pluck('prcode');
+        
         return response()->json($prlistcheck);
      }
 
      public function getproduct(Request $request){
+       // $input = $request->prno;
             if(isset($request->prno)){
                 $pr = pr::where('prcode',$request->prno)->first();
-                $productID = $pr->pr_detail()
-                ->where('pr_status','0')
-                ->where('PR_id',$pr->id)
-                ->where('product_sup',session('PoSup'))
-                ->distinct('products_id')->pluck('products_id');
-                 $product = product::whereIn('id',$productID)
-                 ->select('products.id','products.PnameTH')->get();
-                 
-                 return response()->json( $product);
+                 $productID = pr_detail::where('PR_id',$pr->id)
+                ->where('amount_check','!=',0)
+                ->whereJsonContains('product_sup',session('PoSup'))
+                
+                //->whereJsonContains('product_sup','S00067')
+                //     ->where('pr_status','0')
+                
+                ->select('product_name','product_code')->get();
+              
+                // $product = product::whereIn('PnameTH',$productID)
+                // ->select('products.id','products.PnameTH')->get();
+               
+                 return response()->json($productID);
             }else{
                 return response()->json();
-            }
+             }
            
      }
 
@@ -221,12 +308,16 @@ class poController extends Controller
 //-----------------------------------------------------------------------------------------------------------------//
 
     public function po_detail_del(Request $request){
-
+        
         $po_detail = po_detail::where('id',$request->id)->first();
+        $prde = pr_detail::where('PR_code',$po_detail->pr_code)
+        ->where('product_code',$po_detail->product_code)->first();
+
         pr_detail::where('PR_code',$po_detail->pr_code)
-        ->where('products_id',$po_detail->product_id)
+        ->where('product_code',$po_detail->product_code)
         ->update([
-            'pr_status' => '0'
+            'pr_status' => '0',
+            'amount_check' => $prde->amount_check + $po_detail->QTY
         ]);
         $poid = $po_detail->po_order_invoice;
         $po = po::where('order_invoice',$poid)->first();
@@ -321,6 +412,21 @@ class poController extends Controller
        ->update([
         'approve_status' => '1'
        ]);
+       $po = po_detail::where('po_order_invoice',$po)->get();
+       foreach($po as $po){
+        $amountMax = pr_detail::where('PR_code',$po->pr_code)
+         ->where('product_code',$po->product_code)->value('amount_max');
+        
+        pr_detail::where('PR_code',$po->pr_code)
+        ->where('product_code',$po->product_code)
+        ->update([
+            'amount_max' => $amountMax-$po->QTY
+        ]);
+       }
+       pr_detail::where('amount_max',0)
+        ->update([
+            'pr_status' => 1
+        ]);
        return redirect()->route('po.index')->with('success','สร้างใบ PO สำเร็จ');
     }
 
@@ -360,8 +466,10 @@ class poController extends Controller
     }
 
     public function ReceiveStatus(po $po){
+        $time = Carbon::now();
             $po->update([
-                'received' => 'YES'
+                'received' => 'YES',
+                'update_date' => $time
             ]);
             return redirect()->route('listpoDeli')->with('success','success');
     }

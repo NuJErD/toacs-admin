@@ -20,14 +20,19 @@ class productController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){ 
+        
         if(!session('page')){
             session()->put('page','5');
         }else if($request->setpage){
             session()->put('page',$request->setpage);
             //return response();
         }
+        
+        
         $page = session('page');
+       
         $product = product::paginate(session('page'));
+        //dd($request->page);
        //dd($product->lastPage());
         return view('product.index',compact('product','page'));
     }
@@ -113,7 +118,7 @@ class productController extends Controller
         
          $product->p_code = $request->code;     
          $product->PnameTH = $request->PnameTH;
-         $product->PnameEN = $request->PnameEN;
+         $product->part_product = $request->part_product;
          $product->category = $request->category;
          $product->supplier = $request->supplier;
          $product->unit = $request->unit;
@@ -161,9 +166,12 @@ class productController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(product $product)
+
+
+    public function edit(product $product,$page)
     {   
          $p = $product;
+    
          //แบ่งสินค้าตามแผนก
         $depart_use = product_depart::where('products_id',$p->p_code)->pluck('departments_id');
         $depart_use =  $depart_use->toArray();
@@ -177,11 +185,12 @@ class productController extends Controller
          $categories_use = $categories_use[0];
          $supplier = supplier::wherenot('s_code',$product->supplier)->get();
          $supplier_use = supplier::where('s_code',$product->supplier)->first();
-         
+        
+
 
          
         
-        return view('product.edit',compact('p','categories','categories_use','supplier','supplier_use','departInuse','depart'));
+        return view('product.edit',compact('p','categories','categories_use','supplier','supplier_use','departInuse','depart','page'));
     }
 
     /**
@@ -212,7 +221,7 @@ class productController extends Controller
             [
                 'p_code' => $request->code,
                 'PnameTH' => $request->PnameTH,
-                'PnameEN' => $request->PnameEN,
+                'part_product' => $request->part_product,
                 'supplier' => $request->supplier,
                 'category' => $request->category,                
                 'unit' => $request->unit,

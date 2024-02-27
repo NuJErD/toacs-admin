@@ -40,20 +40,20 @@
                             </div>
 
                             <div class="flex flex-wrap justify-between mt-6">
-                                    <div class="w-[140px] flex justify-end "><p>ซัพพลายเออร์(TH)</p></div>
+                                    <div class="w-[140px] flex justify-end "><p>ชื่อซัพพลายเออร์</p></div>
                                     <div class="">                               
                                         <input name="SPnameTH" type="text" placeholder="ซัพพลายเออร์(TH)" class=" peer valid:border-green-500 pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
                                         <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
                                     </div>
                             </div>
 
-                            <div class="flex flex-wrap justify-between mt-6">
+                            {{-- <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[140px] flex justify-end "><p>ซัพพลายเออร์(EN)</p></div>  
                                 <div class="">                              
                                     <input name="SPnameEN" type="text" placeholder="ซัพพลายเออร์(EN)" class="peer valid:border-green-500 pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
                                     <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="flex flex-wrap justify-between mt-6">
                                     <div class="w-[140px] flex justify-end "><p>เบอร์โทรศัพท์</p></div> 
@@ -69,18 +69,18 @@
                                             <textarea name="address" type="text"  class="pl-3 w-[450px] ml-6 h-[100px] border border-gray-300 rounded-[5px]" required></textarea>
                             </div> 
                                 
-                            <div class="flex flex-wrap justify-between mt-6">
+                            {{-- <div class="flex flex-wrap justify-between mt-6">
                                             <div class="w-[140px] flex justify-end "><p>เครดิต</p></div> 
                                                 <div class="">                             
                                                 <input name="credit" type="text" placeholder="เครดิต" class="peer valid:border-green-500 pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
                                                 <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
                                                 </div>
-                            </div> 
+                            </div>  --}}
                                             
                             <div class="flex flex-wrap justify-between mt-6">
                                                 <div class="w-[150px] flex justify-end "><p>ประเภทซัพพลายเออร์</p></div>                                
                                                 <div class="w-[450px] ml-6 h-[35px] ">
-                                                    <select name="SPtype" data-te-select-init   required>
+                                                    <select name="SPtype" data-te-select-init  >
                                                     <option></option>
                                                       @foreach($supType as $sup)
                                                        <option value="{{$sup->id}}">{{$sup->SPTnameTH}}</option>

@@ -61,9 +61,9 @@
                         </div>
 
                             <div class="flex flex-wrap justify-between mt-6">
-                                <div class="w-[130px] flex justify-end"><p>ชื่อสินค้า(EN)</p></div>
+                                <div class="w-[130px] flex justify-end"><p>Part NO.</p></div>
                                 <div class="">
-                                    <input id="PnameEN" name="PnameEN" type="text" placeholder="ชื่อสินค้า(EN)" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
+                                    <input id="part_product" name="part_product" type="text" placeholder="part สินค้า" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
                                     <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
                                 </div>
                             </div>

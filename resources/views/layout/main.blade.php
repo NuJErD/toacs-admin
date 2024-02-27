@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <link rel="stylesheet" 
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="{{ asset('/css/pagination.css') }}" rel="stylesheet">
@@ -18,12 +19,20 @@
    
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
   
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
+    @vite('resources/js/chart.js')
     {{-- @include('sweetalert::alert') --}}
     <title>Document</title>
+    <script>
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                location.reload(true);
+            }
+        });
+    </script>
 </head>
 <script src="{{ asset('js/sidebar.js')}}"></script>
 <script src="{{ asset('js/register.js')}}"></script>

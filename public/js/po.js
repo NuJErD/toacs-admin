@@ -1,3 +1,5 @@
+const { forEach } = require("lodash");
+
 var c = 0
 function selectSP(){
 
@@ -18,7 +20,7 @@ Swal.fire({
             data:{sup:selectedOption},
             success: function (data) {
                 window.location.href = '/popage/'+data
-               console.log(data)
+              
             }
         })
         
@@ -27,14 +29,20 @@ Swal.fire({
 
 $.get('/datasup', function (data) {
     console.log(data)
-    const options = data.map(item => `<option value="${item}">${item}</option>`);
-
+    let options =[]
+    //= data.map(item => `<option value="${item}">${item}</option>`);
+    for (var index in data){
+        var item = data[index];
+        options.push('<option value="' + item + '">' + item + '</option>');
+        console.log(options)
+    }
     // Inject the select field with options into the SweetAlert2 modal
     $('#select-container').html(`
-        <select id="select-field" class="swal2-input">
+        <select id="select-field" class="swal2-input border border-black rounded-md">
             ${options.join('')}
         </select>
     `)
+    
 })
 }
 
@@ -51,41 +59,33 @@ function PoAdd(){
  }
 
 
- function po_add_detail(id){
-
-    PRNO = document.getElementById('PRNO').value
-    product = document.getElementById('product-po').value
-    QTY = document.getElementById('QTY').value
-    unit = document.getElementById('unit').value
-    price = document.getElementById('price').value
-    total = document.getElementById('totalprice').value
-    date = document.getElementById('expected_date').value
-    note = document.getElementById('note').value
-    console.log( price,total)
-   // console.log(PRNO,product,QTY,unit,price,total,date,note);
-    $.ajax({
+ function po_add_detail(po,pr){
+    var selectedValues = [];
+    var select = document.getElementById('product-po')
+    let table = document.getElementById('POlist')
+    for (const option of select.options) {
+        if (option.selected) {
+            selectedValues.push(option.value)
+        }
+      }
+      //console.log(selectedValues,po,pr)
+          $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: 'post',
         url: '/po/add/detail',
-        data:{ poID:id, PRNO:PRNO, product:product, QTY:QTY, unit:unit, price:price, total:total, date:date, note:note },
+        data:{pd:selectedValues , po:po, pr:pr},
         dataType: 'json',
         success: function(data) {
-            $('#PRNO').empty()
-            $('#product-po').empty()
-            get_po_detail(data)
-            get_prlist()
-            get_po_detail(data)
-          //  location.reload();
-           console.log(data)
-           $('#QTY').val(null)
-           $('#unit').val(null)
-           $('#price').val(null)
-           $('#totalprice').val(null)
-           $('#expected_date').val(null)
+        
+        location.reload();
        }
+       
       })
+      
+
+
 
  }
 
@@ -95,26 +95,91 @@ podID = {
     id:id
 }
 $.get('/po_detail/del',podID,function(data){
+    console.log(data)
     $('#PRNO').empty()
     $('#product-po').empty()
     get_po_detail(data)
     get_prlist()
     get_po_detail(data)
+    location.reload();
 })
 
 }
 
 
-function ChangePrice(price){
-   let totalprice = document.getElementById('totalprice')
-   let QTY = document.getElementById('QTY').value
-    total = (price*QTY).toFixed(2)
-    //$('#totalprice').empty()
-    totalprice.value = total 
-    console.log(total,totalprice.value)
-   // $('#totalprice').append(price*QTY)
+//--------------------------------------------------------------------------edit amount po ------------------------------------------------------------------//
+function openinput(id){
+    button = document.getElementById('cf_po')
+    button.disabled = true
+    button.className = "min-w-[300px] min-h-[50px] rounded-xl bg-gray-500 text-white cursor-not-allowed"
+  $('#change'+id).css("display","")
+  $('#changeQTY'+id).css("display","none")
+  $('#open_input'+id).css("display","none") 
+  $('#save_amount'+id).css("display","")
+  console.log('TT')
+ }
 
+function changeprice(id,po,amount,total,OldAmount,price,pr,p_code){
+    valuePD = document.getElementById('change'+id)
+    button = document.getElementById('cf_po')
+    if(amount == 0 ){
+        alert('ใส่จำนวนสินค้า')
+        valuePD.value = amount
+        valuePD.text = amount
+        $("#totals"+id).text(amount*price)
+       
+        document.getElementById('totals'+id).textContent = amount*price
+       
+    }else{
+        $.get('/save_amount',{po:po,amount:amount,total:total,pr:pr,p_code:p_code},function(data){
+            console.log(data.amck)
+            $("#totals"+id).text(data.total)
+            document.getElementById('totals'+id).textContent = data.total
+            valuePD.value = data.amount
+            valuePD.text = data.amount
+            document.getElementById('changeQTY'+id).textContent = data.amount
+        })
+        button.disabled = false
+        button.className = "min-w-[300px] min-h-[50px] rounded-xl bg-gray-500 hover:bg-green-700 hover:ease-in-out duration-200 hover:scale-104 text-white"
+        $('#change'+id).css("display","none")
+        $('#changeQTY'+id).css("display","")
+        $('#open_input'+id).css("display","" ) 
+        $('#save_amount'+id).css("display","none")
+    }
+    
+   
 }
+function change_amount(id,pr,po,amount,price,p_code){
+    console.log(amount)
+    valuePD = document.getElementById('change'+id)
+    num = valuePD.value
+    button = document.getElementById('save_amount'+id)
+    total = (amount * price).toFixed(2)
+    button.setAttribute("class","bg-green-600 border-none  mr-3")
+    button.disabled = false
+    console.log(id,pr,po,amount,price,p_code)
+    $.get('/get_amount',{pr:pr,po:po,p_code:p_code},function(data){
+        console.log(num,data.check,data.amount)
+        if( (num - data.check) > data.amount || num < 0){
+            valuePD.value = data.amount
+            $total2 = (data.amount * price).toFixed(2)
+           // $("#totals"+id).text($total2)
+            document.getElementById('totals'+id).textContent = ($total2)
+            
+            
+            
+            alert('จำนวนเลขมากกว่าคำสั่งซื้อหรือติดลบ')
+           
+        }
+        else{
+            $("#totals"+id).text(total)
+            document.getElementById('totals'+id).textContent = total
+        }
+    })
+   
+}
+
+
 
 //------------------------------------------------- Make an AJAX request to fetch the data  GET DATA--------------------------------------------------------------------------------------------------------------------//
 function get_prlist(){
@@ -155,24 +220,22 @@ function  getproduct(){
         $('#price').val(null)
         $('#totalprice').val(null)
         $('#expected_date').val(null)
-        console.log()
+        console.log(data)
         let selectElement = document.getElementById('product-po') 
         selectElement.innerHTML = ''
 
         let option = document.createElement('option')
             
-            option.value = ''
-            option.className = "text-center"
-            option.text = "เลือกสินค้า"
-            selectElement.appendChild(option)
+            
+            
 
         for (var i = 0; i < data.length; i++) {
         
             let option = document.createElement('option')
             
-            option.value = data[i].id
+            option.value = data[i].product_code
             option.className = "text-center"
-            option.text = data[i].PnameTH
+            option.text = data[i].product_name
             selectElement.appendChild(option)
     }
        
@@ -181,35 +244,35 @@ function  getproduct(){
 }
 
 function GetProductDetail(){
-    let pr = document.getElementById('PRNO').value
-    let product = document.getElementById('product-po').value
+//     let pr = document.getElementById('PRNO').value
+//     let product = document.getElementById('product-po').value
   
-    $.get('/get_productdetail',{product:product, pr:pr},function(data){
+//     $.get('/get_productdetail',{product:product, pr:pr},function(data){
        
-        dataP = data[0]
+//         dataP = data[0]
       
-        let qty = document.getElementById('QTY')
-        let unit = document.getElementById('unit')
-        let price = document.getElementById('price')
-        let total = document.getElementById('totalprice')
-        let exp = document.getElementById('expected_date')
-        // Create a Date object from the datetime string
-    let datetimeObject = new Date(data[1]);
+//         let qty = document.getElementById('QTY')
+//         let unit = document.getElementById('unit')
+//         let price = document.getElementById('price')
+//         let total = document.getElementById('totalprice')
+//         let exp = document.getElementById('expected_date')
+//         // Create a Date object from the datetime string
+//     let datetimeObject = new Date(data[1]);
 
-// Extract the date part as a string in "YYYY-MM-DD" format
-    let dateOnlyString = datetimeObject.toISOString().split('T')[0];
-        console.log(dateOnlyString);
-        qty.value = dataP.amount
-        unit.value = dataP.unit
-        price.value = dataP.products_price
-        unit.value = data[2]
-        exp.value = dateOnlyString
-        total.value = dataP.total
+// // Extract the date part as a string in "YYYY-MM-DD" format
+//     let dateOnlyString = datetimeObject.toISOString().split('T')[0];
+//         console.log(dateOnlyString);
+//         qty.value = dataP.amount
+//         unit.value = dataP.unit
+//         price.value = dataP.products_price
+//         unit.value = data[2]
+//         exp.value = dateOnlyString
+//         total.value = dataP.total
         
     
 
 
-    })
+//     })
 }
 
 
@@ -286,6 +349,7 @@ function get_po_detail(id,type){
     </td>
     <td class="px-6 py-4 text-center text-gray-900" >
     <i class="fa-solid fa-trash-can fa-xl hover:cursor-pointer" onclick="del_podetail(${datapo[i].id})"></i>
+    
     </td>
     
 </tr>`
