@@ -45,10 +45,10 @@
                                 <div class="w-[130px] flex justify-end"><p>ชื่อสินค้า(TH)</p></div>                                                                  
                                     <input name="PnameTH" value="{{$p->PnameTH}}" type="text" placeholder="ชื่อสินค้า" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
                         </div>
-                            <div class="flex flex-wrap justify-between mt-6">
+                            {{-- <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"><p>ชื่อสินค้า(EN)</p></div>
                                 <div class=""><input name="part_product" value="{{$p->part_product}}" type="text" placeholder="ชื่อสินค้า(EN)" class="pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required></div>
-                            </div>
+                            </div> --}}
                             <div class="flex flex-wrap justify-between mt-6 z-0">
                                 <div class="w-[130px] flex justify-end"><p>สังกัดหน่อยงาน</p></div>
                                 <div class="w-[450px] ml-6 h-[35px] ">
@@ -68,7 +68,7 @@
                                 </div>  
                             </div>
                             <div class="flex flex-wrap justify-between mt-6 z-0">
-                                <div class="w-[130px] flex justify-end"><p>หมวดสินค้า</p></div>
+                                {{-- <div class="w-[130px] flex justify-end"><p>หมวดสินค้า</p></div>
                                 <div class="w-[450px] ml-6 h-[35px] ">
                                     <select name="category" data-te-select-init required>
                                         <option value="{{$categories_use->code}}" selected>{{$categories_use->CnameTH}}</option> 
@@ -78,7 +78,7 @@
                                                                                                                                                       
                                       </select>
                                       <label data-te-select-label-ref>หมวดสินค้า</label>
-                                </div>  
+                                </div>   --}}
                             </div>
                             <div class="flex flex-wrap justify-between mt-6">
                                 <div class="w-[130px] flex justify-end"><p>ราคา</p></div>

@@ -22,8 +22,8 @@ class ProductsExport implements FromCollection,WithHeadings,ShouldAutoSize,WithE
     {
        $a = DB::table('products')
         ->join('suppliers','products.supplier','=','suppliers.s_code')
-       ->join('categories','products.category','=','categories.code')
-      ->select('products.p_code','products.PnameTH','products.PnameEN','products.price','categories.CnameTH','suppliers.SPnameTH') //*เลือกข้อมูลที่ต้องการ 
+    //    ->join('categories','products.category','=','categories.code')
+      ->select('products.p_code','products.PnameTH','products.price','suppliers.SPnameTH') //*เลือกข้อมูลที่ต้องการ 
        ->get();
       
         return $a;
@@ -36,9 +36,9 @@ class ProductsExport implements FromCollection,WithHeadings,ShouldAutoSize,WithE
         return [
             'รหัสสินค้า',
             'ชื่อสินค้า-TH',
-            'ชื่อสินค้า-EN',
+            // 'ชื่อสินค้า-EN',
             'ราคา',
-            'ประเภท',
+            // 'ประเภท',
             'ซัพพลายเออร์'
         ];
     }
@@ -46,7 +46,7 @@ class ProductsExport implements FromCollection,WithHeadings,ShouldAutoSize,WithE
     {
         return [
             AfterSheet::class    => function(AfterSheet $event) {
-                $cellRange = 'A1:F1'; // All headers
+                $cellRange = 'A1:D1'; // All headers
                 $sheet = $event->sheet->getDelegate();
                 $sheet->getStyle($cellRange)->getFont()->setSize(12);
                 $sheet->getStyle($cellRange)->getFill()

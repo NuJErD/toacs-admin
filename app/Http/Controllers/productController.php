@@ -180,9 +180,9 @@ class productController extends Controller
         
          
          //ประเภทสินค้า
-         $categories = categories::wherenot('code',$product->category)->get();
-         $categories_use =categories::where('code',$product->category)->get();
-         $categories_use = $categories_use[0];
+        //  $categories = categories::wherenot('code',$product->category)->get();
+        //  $categories_use =categories::where('code',$product->category)->get();
+        //  $categories_use = $categories_use[0];
          $supplier = supplier::wherenot('s_code',$product->supplier)->get();
          $supplier_use = supplier::where('s_code',$product->supplier)->first();
         
@@ -190,7 +190,7 @@ class productController extends Controller
 
          
         
-        return view('product.edit',compact('p','categories','categories_use','supplier','supplier_use','departInuse','depart','page'));
+        return view('product.edit',compact('p','supplier','supplier_use','departInuse','depart','page'));
     }
 
     /**
@@ -221,9 +221,8 @@ class productController extends Controller
             [
                 'p_code' => $request->code,
                 'PnameTH' => $request->PnameTH,
-                'part_product' => $request->part_product,
                 'supplier' => $request->supplier,
-                'category' => $request->category,                
+                // 'category' => $request->category,                
                 'unit' => $request->unit,
                 'price' => $request->price,
                 'detail' => $request->detail,

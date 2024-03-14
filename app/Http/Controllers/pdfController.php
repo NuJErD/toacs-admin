@@ -18,7 +18,7 @@ use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use PhpOffice\PhpSpreadsheet\Calculation\Category;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Barryvdh\DomPDF\Facade ;
-
+use Illuminate\Support\Facades\DB;
 class pdfController extends Controller
 {
  
@@ -27,23 +27,38 @@ class pdfController extends Controller
        // $po_detail = po_detail::where('po_order_invoice',$po->order_invoice)->get();
         $po_detail = po_detail::join('products','po_detail.product_id','products.id')
         ->where('po_detail.po_order_invoice',$po->order_invoice)
-        ->select('po_detail.*','products.p_code')
-        ->get();
-        $po_detail = array_chunk($po_detail->toarray(),20);
-      //  dd($po_detail);
-        $sum = 0;
-        // for($i=0;$i<$po_detail->count();$i++){
-        //     $sum += $po_detail[$i]['total'];
-           
-        // }
+        ->groupBy('po_detail.product_code')
+        ->select('po_detail.*','products.p_code',DB::raw('SUM(po_detail.total) as total'),DB::raw('SUM(po_detail.QTY) as QTY'))
        
+        ->get();
+        $po_detail = array_chunk($po_detail->toarray(),18);
+      
+        $sum = 0;
+        $totalsum =[];
+        foreach($po_detail as $data){
+          foreach($data as $data_sum){
+            if (isset($data_sum['total'])) {
+            // Sum the "total" values in the specific subarray
+            $sum += (float)$data_sum['total'];
+              }
+            
+            }
+          
+           
+          }
+        
+          
         $vat =  number_format($sum *0.07,2);
         $vat = floatval(str_replace(',', '', $vat));
         $sumtotal = $sum+$vat;
-        #dd($vat,gettype($vat) );
+        //dd($po_detail);
         $sumtotal =number_format($sumtotal,2);
+        $vat =  number_format($sum *0.07,2);
         $sum = number_format($sum,2);
+        //dd($po_detail,$vat,$sum,$sumtotal ,$totalsum);
+        //dd($vat,$sum,$sumtotal ,$totalsum);
        // $po_detail = $po_detail->chunk(20);
+       
         $pdf = PDF::setPaper('A4');
        
 

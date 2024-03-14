@@ -11,13 +11,15 @@ Swal.fire({
     cancelButtonText: 'Cancel',
     preConfirm: () => {
         let selectedOption = $('#select-field').val();
+        let selectedOption2 = $('#select-phase').val();
+        //console.log(selectedOption2)
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             url: '/po/create2', // Replace with your controller route
             type: 'post', // Use the appropriate HTTP method
-            data:{sup:selectedOption},
+            data:{sup:selectedOption,phase:selectedOption2},
             success: function (data) {
                 window.location.href = '/popage/'+data
               
@@ -41,6 +43,10 @@ $.get('/datasup', function (data) {
         <select id="select-field" class="swal2-input border border-black rounded-md">
             ${options.join('')}
         </select>
+        <select id="select-phase" class="swal2-input border border-black rounded-md">
+            <option value="PHASE 2">PHASE 2</option>
+            <option value="PHASE 7">PHASE 7</option>
+    </select>
     `)
     
 })
@@ -138,6 +144,8 @@ function changeprice(id,po,amount,total,OldAmount,price,pr,p_code){
             valuePD.value = data.amount
             valuePD.text = data.amount
             document.getElementById('changeQTY'+id).textContent = data.amount
+            get_po_detail(data.pono,1)
+            console.log(data.pono)
         })
         button.disabled = false
         button.className = "min-w-[300px] min-h-[50px] rounded-xl bg-gray-500 hover:bg-green-700 hover:ease-in-out duration-200 hover:scale-104 text-white"
@@ -145,6 +153,7 @@ function changeprice(id,po,amount,total,OldAmount,price,pr,p_code){
         $('#changeQTY'+id).css("display","")
         $('#open_input'+id).css("display","" ) 
         $('#save_amount'+id).css("display","none")
+        
     }
     
    
@@ -174,6 +183,7 @@ function change_amount(id,pr,po,amount,price,p_code){
         else{
             $("#totals"+id).text(total)
             document.getElementById('totals'+id).textContent = total
+           
         }
     })
    
@@ -204,6 +214,7 @@ function get_prlist(){
         selectElement.appendChild(option)
 }
     })
+    console.log(1)
 }
 
 
@@ -305,10 +316,10 @@ function get_po_detail(id,type){
 
         let price = parseFloat(datapo[i].total)
         sum += price
-        sumInt = parseFloat(sum)
-        
+        sumInt = (sum.toFixed(2))*1
+        console.log(((sumInt*1).toLocaleString('en-US', { minimumFractionDigits: 2 })))
         vat = ((sum*0.07).toFixed(2))*1
-        total = (sumInt+vat).toFixed(2)
+        total = (sumInt+vat).toFixed(2)*1
       //  console.log(datapo)
      //----check------------///
      if(datapo[i].deliver == 0){
@@ -316,7 +327,7 @@ function get_po_detail(id,type){
      }else{
         checked = `<input type="checkbox"   id="${datapo[i].id}"  onclick="PoReceive(${datapo[i].id},1)" class="accent-lime-500" checked>`
      }
-   
+     
     if(type == 1){
 
     html +=`<tr  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 " style="display: ">
@@ -330,16 +341,16 @@ function get_po_detail(id,type){
            
     </td>
     <td class="px-6 py-4   text-center text-gray-900">
-        <p class="w-[70px] h-[25px]  text-center">${datapo[i].QTY}</p>
+        <p class="w-[70px] h-[25px]  text-center">${(datapo[i].QTY * 1).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
     </td>
     <td class="px-6 py-4  text-center text-gray-900">
         <p class="w-[70px] h-[25px]  text-center">${datapo[i].unit}</p>
     </td>
     <td class="px-6 py-4  text-center text-gray-900">
-        <p class="w-[70px] h-[25px]  text-end">${datapo[i].price}</p>
+        <p class="w-[70px] h-[25px]  text-end">${(datapo[i].price * 1).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
     </td>
     <td class="px-6 py-4  text-center text-gray-900">
-        <p class="w-[70px] h-[25px]  text-end">${datapo[i].total}</p>
+        <p class="w-[70px] h-[25px]  text-end">${(datapo[i].total * 1).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
     </td>
     <td class="px-6 py-4   text-center text-gray-900">
         <p class="w-[110px] h-[25px]  text-center">${datapo[i].date}</p>
@@ -366,16 +377,16 @@ function get_po_detail(id,type){
            
     </td>
     <td class="px-6 py-4   text-center text-gray-900">
-        <p class="w-min-[70px] h-[25px]  text-center">${datapo[i].QTY}</p>
+        <p class="w-min-[70px] h-[25px]  text-center">${datapo[i].QTY.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
     </td>
     <td class="px-6 py-4  text-center text-gray-900">
         <p class="w-min-[70px] h-[25px]  text-center">${datapo[i].unit}</p>
     </td>
     <td class="px-6 py-4  text-center text-gray-900">
-        <p class="w-min-[70px] h-[25px]  text-end">${datapo[i].price}</p>
+        <p class="w-min-[70px] h-[25px]  text-end">${(datapo[i].price * 1).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
     </td>
     <td class="px-6 py-4  text-center text-gray-900">
-        <p class="w-min-[70px] h-[25px]  text-end">${datapo[i].total}</p>
+        <p class="w-min-[70px] h-[25px]  text-end">${(datapo[i].total * 1).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
     </td>
     <td class="px-6 py-4   text-center text-gray-900">
         <p class="w-min-[110px] h-[25px]  text-center">${datapo[i].date}</p>
@@ -393,9 +404,9 @@ function get_po_detail(id,type){
     }
 
     $('#POlist').html(html)
-    $('#SUM').append(sumInt.toFixed(2))
-    $('#VAT').append(vat)
-    $('#TOTAL').append(total)
+    $('#SUM').append(sumInt.toLocaleString('en-US', { minimumFractionDigits: 2 }))
+    $('#VAT').append(vat.toLocaleString('en-US', { minimumFractionDigits: 2 }))
+    $('#TOTAL').append(total.toLocaleString('en-US', { minimumFractionDigits: 2 }))
     //-----------change button confirm------------//
     button = document.getElementById('receivedBTN')
     if(data.button === "enable"){

@@ -7,7 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+    <link rel="icon" type="image/x-icon" href="/picture/a2.ico">
+  
     <link rel="stylesheet" 
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="{{ asset('/css/pagination.css') }}" rel="stylesheet">
@@ -25,7 +26,7 @@
     @vite('resources/js/app.js')
     @vite('resources/js/chart.js')
     {{-- @include('sweetalert::alert') --}}
-    <title>Document</title>
+    <title>A D M I N 9 9</title>
     <script>
         window.addEventListener('pageshow', function(event) {
             if (event.persisted) {

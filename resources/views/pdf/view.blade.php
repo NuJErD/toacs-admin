@@ -69,13 +69,15 @@
       		border-left: 1px solid #000000;
 			
 			
+			
 		}
 		.list_po td {
       		border-bottom: 1px solid #000000; /* Adjust the color and width as needed */
-			padding-bottom: 30px;
+			
     	}
 		.list_po_first td{
 			padding-top: 20px;
+			
 		}
 
         .row:after {
@@ -129,8 +131,8 @@
 			
 		</section>
 	</header>
-	
-	<footer>
+
+    <footer>
 	
 		
 		
@@ -141,19 +143,19 @@
 				<td colspan="4" style=" border:none; line-height:0.5"><b>Remark</b></td>
 			</tr>
 			<tr style="">
-				<td colspan="4" style=" border:none; line-height:0.5">1. Please confirm to us within 1 day if your received of e-mail purchase order.</td>
+				<td colspan="4" style=" border:none; line-height:0.5"><b>1. Please confirm to us within 1 day if your received of e-mail purchase order.</b></td>
 			</tr>
 			<tr style="">
-				<td colspan="4" style=" border:none; line-height:0.5">2. If your cannot deliver as our delivery requirements.</td>
+				<td colspan="4" style=" border:none; line-height:0.5"><b>2. If your cannot deliver as our delivery requirements.</b></td>
 			</tr>
 			<tr style="">
-				<td colspan="4" style=" border:none; line-height:0.5">(Please fill in เอกสารแจ้งเลื่อนการส่งสินค้า FR-PR-01 REV.02)</td>
+				<td colspan="4" style=" border:none; line-height:0.5"><b>(Please fill in เอกสารแจ้งเลื่อนการส่งสินค้า FR-PR-01 REV.02)</b></td>
 			</tr>
 		
 			<tr>
 				<td style="border:none; width:100%; vertical-align: middle; padding-top:20px;">
 					<div style="text-align: center; font-size: 1rem;">
-						(………………………………………………………………………………)<br>
+						………………………………………………………………………………<br>
 					</div>
 				</td>
 				<td style="border:none; width:100%; vertical-align: middle;">
@@ -164,211 +166,124 @@
 						</div>
 					@else
 						<div style="text-align: center; font-size: 1rem; padding-top:20px; padding-left:90px;">
-							(………………………………………………………………………………)<br>
+							………………………………………………………………………………<br>
 						</div>
 					@endif
 				</td>
 			</tr>
 			<tr>
-				<td style="border:none; text-align:center;line-height:0.5">RECEIVED SIGNATURE</td>
-				<td style="border:none; text-align:center; padding-left:90px; line-height:0.5">AUTHORIZED SIGNATURE</td>
+				<td style="border:none; text-align:center;line-height:0.5"><b>RECEIVED SIGNATURE</b></td>
+				<td style="border:none; text-align:center; padding-left:90px; line-height:0.5"><b>AUTHORIZED SIGNATURE</b></td>
 			</tr>
 		</table>
 		
-		<div style="margin-left: -15px;margin-top:0	px ; font-size: 14px !important; text-align: right;"> PR4 A002 REV.5 </div>
+		<div style="margin-left: -15px;margin-top:0	px ; font-size: 14px !important; text-align: right;"><b> PR4 A002 REV.5</b> </div>
 	</footer>
-	
 <body>
-	{{-- <!--<section class="row">
-		<div class="column" style="float: left; font-size: 16px; width: 50%; height: 150px;">
-			<p style="margin:0px;"><b>TO: {{ $purchaseOrder->supplier_name }} <span
-				style="word-break: break-all;">{{ $purchaseOrder->supplier_address }}</span></b></p>
-			<p style="margin:0px;"><b>ATTN : {{ $purchaseOrder->supplier_name }} Mobile
-				{{ $purchaseOrder->supplier_phone }}</b></p>
-			<p style="margin:0px;">E-Mail : it.office.equipment@gmail.com</p>
-			<p style="margin:0px;">PERSON IN CHARGE : {{ $purchaseOrder->admin_name }} Ext.1123 Mobile 097-0151578</b>
-			</p>
-			<p style="margin:0px;">E-Mail : anjanya@toacs.co.th</p>
-		</div>
-		<div class="column" style="float: left; font-size: 1.3rem; text-align: right; width: 50%; height: 150px;">
-			<p style="margin:0px;"><b>P/O NO : {{ $purchaseOrder->order_invoice }}</b></p>
-			<p style="margin:0px;"><b>Supplier Code : {{ $purchaseOrder->supplier_code }}</b></p>
-			<p style="margin:0px;"><b>QUOTATION NO. : {{ $purchaseOrder->quotation_1 }}</p>
-			@if(!empty($purchaseOrder->quotation_2))
-				<p style="margin:0px;"><b>{{ $purchaseOrder->quotation_2 }}</p>
-			@endif
-			@if(!empty($purchaseOrder->quotation_3))
-				<p style="margin:0px;"><b>{{ $purchaseOrder->quotation_3 }}</p>
-			@endif
-			@if(!empty($purchaseOrder->quotation_4))
-				<p style="margin:0px;"><b>{{ $purchaseOrder->quotation_4 }}</p>
-			@endif
-			<p style="margin:0px;"><b>DATE : {{ date('d-M-y', strtotime($purchaseOrder->created_at)) }}</b> </p>
-		</div>
-	</section> --> --}}
-	<section class="row">
-		<table style="width: 100%; border-collapse: collapse; padding-top:45px;">
-		{{-- <!-- @if (count($purchaseOrderProducts) >= 3) page-break-after:always; @endif}} --> --}}
-		<thead>
-			<tr>
-				<th style="text-align: center; font-size:18px; white-space: nowrap; line-height: 1; padding-bottom:7px;width:40px;">ITEM</th>
-				<th style="text-align: center; font-size: 18px; white-space: nowrap; line-height: 1; padding-bottom:7px;">DESCRIPTION </th>
-				<th style="text-align: center; font-size: 18px; white-space: nowrap; line-height: 1; padding-bottom:7px;width:50px;">REF.NO.</th>
-				<th style="text-align: center; font-size: 18px; white-space: nowrap; line-height: 1; padding-bottom:7px; width:45px;">UNIT</th>
-				<th style="text-align: center; font-size: 18px; 	 line-height: 1; padding-bottom:7px; width:70px; ">QUANTITY</th>
-				<th style="text-align: center; font-size: 18px; white-space: nowrap; line-height: 1; padding-bottom:7px; width:70px; ">UNIT PRICE</th>
-				<th style="text-align: center; font-size: 18px; white-space: nowrap; line-height: 1; padding-bottom:7px;width:80px;">AMOUNT</th>
-			</tr>
-		</thead>
-		 
-			 
-			<tbody style="border-collapse: separate; line-height: 0.62; " >
-			
-				@php  $counter = 0; @endphp
-				@foreach ($po_detail as $index => $pod)
-				
-					<div style="page-break-before: {{ $index > 0 ? 'always' : 'auto' }}">
-					@foreach($pod as $row)	
-					
-				
-		
-					<tr >	
-					<td
-						>
-						{{$index+1}}</td>
-					<td
-						>
-						<b >{{$row['product_name']}}</b><b style="float: right; margin-right:40px; ">{{$row['p_code']}}</b></td>
-					
-					<td
-						>
-						</td>
-					<td
-						>
-						{{$row['unit']}}</td>
-					<td
-						>
-						{{number_format($row['QTY'])}}.00</td>
-					<td	
-						>
-						{{number_format($row['price'])}}.00</td>
-					<td
-						>
-						{{number_format($row['total'])}}.00</td>
-						@php  $counter = $index+1; @endphp
-				</tr>
-					@endforeach
-				@endforeach
+    <section class="row">
+    @foreach ($po_detail as $pageNumber => $page)
+    <div style="page-break-before: {{ $pageNumber > 0 ? 'always' : 'auto' }}">
+        <table style="width: 100%; border-collapse: collapse; padding-top:45px;">
+            <thead>
+                <tr>
+                    <th style="text-align: center; font-size:18px; white-space: nowrap; line-height: 1; padding-bottom:7px;width:40px;">ITEM</th>
+                    <th style="text-align: center; font-size: 18px; white-space: nowrap; line-height: 1; padding-bottom:7px;">DESCRIPTION </th>
+                    <th style="text-align: center; font-size: 18px; white-space: nowrap; line-height: 1; padding-bottom:7px;width:50px;">REF.NO.</th>
+                    <th style="text-align: center; font-size: 18px; white-space: nowrap; line-height: 1; padding-bottom:7px; width:45px;">UNIT</th>
+                    <th style="text-align: center; font-size: 18px; 	 line-height: 1; padding-bottom:7px; width:70px; ">QUANTITY</th>
+                    <th style="text-align: center; font-size: 18px; white-space: nowrap; line-height: 1; padding-bottom:7px; width:70px; ">UNIT PRICE</th>
+                    <th style="text-align: center; font-size: 18px; white-space: nowrap; line-height: 1; padding-bottom:7px;width:100px;">AMOUNT</th>
+                </tr>
+            </thead>
+        <tbody style="border-collapse: separate; line-height: 0.62; " >
+        @php  $counter = 0;  @endphp
+        @foreach($page as $index =>  $row)
+        <tr @if($index == 19) class="list_po" @endif @if($index == 0) class="list_po_first" @endif>
+            <td
+                style="text-align: left; font-size:20px; vertical-align: top; padding-right:.3rem; padding-left:.5rem; ">
+                {{$index+1}}</td>
+            <td
+                style="font-size:20px; word-break: break-all; vertical-align: top; padding-right:.3rem; ">
+                <b >{{$row['product_name']}}</b><b style="float: right; margin-right:40px; ">{{$row['p_code']}}</b></td>
+            
+            <td
+                style="text-align: center; font-size:20px; vertical-align: top; white-space: nowrap; padding-right:.3rem; padding-left:.3rem;">
+                </td>
+            <td
+                style="text-align: left; font-size:18px; vertical-align: top; padding-right:.3rem; padding-left:.2rem;">
+                <b>{{$row['unit']}}</b></td>
+            <td
+                style="text-align: right; font-size:18px; vertical-align: top; padding-right:.4rem; padding-left:.3rem;">
+                <b>{{number_format($row['QTY'],2)}}</b></td>
+            <td	
+                style="text-align: right; font-size:18px; vertical-align: top; padding-right:.4rem; padding-left:.3rem;">
+                <b>{{number_format($row['price'],2)}}</b></td>
+            <td
+                style="text-align: right; font-size:18px; vertical-align: top; white-space: nowrap; padding-right:.45rem; padding-left:.3rem;">
+                <b>{{number_format($row['total'],2)}}</b></td>
+                
+                
+        </tr>
+        @php  $counter = $index+1; @endphp
+        @endforeach
+       
+        @for ($i = $counter; $i < 20; $i++)
+        <tr @if($i == 19) class="list_po" @endif >
 
-		{{-- 222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 --}}
-		{{-- <td
-						style="text-align: left; font-size:20px; vertical-align: top; padding-right:.3rem; padding-left:.5rem; ">
-						{{$index+1}}</td>
-					<td
-						style="font-size:20px; word-break: break-all; vertical-align: top; padding-right:.3rem; ">
-						<b >{{$pod->product_name}}</b><b style="float: right; margin-right:40px; ">{{$pod->p_code}}</b></td>
-					
-					<td
-						style="text-align: center; font-size:20px; vertical-align: top; white-space: nowrap; padding-right:.3rem; padding-left:.3rem;">
-						</td>
-					<td
-						style="text-align: left; font-size:18px; vertical-align: top; padding-right:.3rem; padding-left:.2rem;">
-						{{$pod->unit}}</td>
-					<td
-						style="text-align: right; font-size:18px; vertical-align: top; padding-right:.3rem; padding-left:.3rem;">
-						{{number_format($pod->QTY)}}.00</td>
-					<td	
-						style="text-align: right; font-size:18px; vertical-align: top; padding-right:.3rem; padding-left:.3rem;">
-						{{number_format($pod->price)}}.00</td>
-					<td
-						style="text-align: right; font-size:18px; vertical-align: top; white-space: nowrap; padding-right:.3rem; padding-left:.3rem;">
-						{{number_format($pod->total)}}.00</td>
-						@php  $counter = $index+1; @endphp
-				</tr>
-				@endforeach	
-					 --}}
-					
-			@for ($i = $counter; $i < 20; $i++)
-			<tr @if($i == 19) class="list_po" @endif >
+            <td >&nbsp;</td>
+            <td >&nbsp;</td>
+            <td >&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            
+          
+          </tr>
 
-			  <td >&nbsp;</td>
-			  <td >&nbsp;</td>
-			  <td >&nbsp;</td>
-			  <td>&nbsp;</td>
-			  <td>&nbsp;</td>
-			  <td>&nbsp;</td>
-			  <td>&nbsp;</td>
-			 
-			</tr>
-			
-		  @endfor
-		
-			</tbody>
-			
-		
-	<tr style="margin-top: 40px; line-height: 1;margin-bottom:10px;">
-		<td colspan="4" style=" border:none;">Delivery Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 22/01/2024</td>
-		
-		<td colspan="2" 
-			style="text-align: left; font-size: 1rem; vertical-align: middle; white-space: nowrap; ">
-			<b style="margin-left:5px">SUB TOTAL</b>
-		</td>
-		<td
-			style="text-align: right; vertical-align: middle; font-size: 20px; padding-right:.3rem; padding-left:.3rem; ">
-			<b>{{$sum}}</b>
-		</td>
-	</tr>
-	<tr style=" line-height: 0.7;">
-		<td colspan="4" style=" border:none;">Payment Term: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30 DAYS AFTER END OF MONTH</td>
-		<td colspan="2"
-			style="text-align: left; font-size: 20px; vertical-align: middle; white-space: nowrap;">
-			<b style="margin-left:5px">Vat 7.00%</b>
-		</td>
-		<td
-			style="text-align: right; vertical-align: middle; font-size: 20px; padding-right:.3rem; padding-left:.3rem;">
-			<b>{{$vat}}</b>
-		</td>
-	</tr >
-	<tr style=" line-height: 0.5;">
-		<td colspan="4" style=" border:none;">Note: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELIVERY PHASE 7</td>
-		<td colspan="2"
-			style="text-align: left; font-size: 1rem; vertical-align: middle; white-space: nowrap; border-bottom:1px solid:#000000">
-			<b style="margin-left:5px">TOTAL AMOUNT</b>
-		</td>
-		<td
-			style="text-align: right; ; vertical-align: middle; font-size: 1rem; padding-right:.3rem; padding-left:.3rem;border-bottom:1px solid:#000000; padding-bottom:10px	">
-			<b>{{$sumtotal}}</b>
-		</td>
-	</tr>
-			
-			{{-- @php
-				$totalVat = $purchaseOrder->total_price * ($purchaseOrder->vat / 100);
-			@endphp --}}
-			
-			
-			<!--<tr>
-				<td colspan="8" style="text-align: left; font-size: 1rem; padding-right:.3rem; padding-left:.3rem;">
-					{{-- Note: {{ $purchaseOrder->note }} --}}
-				</td>
-			</tr>
-			<tr>
-				<td colspan="8" style="text-align: left; font-size: 1rem; padding-right:.3rem; padding-left:.3rem;">
-					Please tick mark (/) to indicate your delivery confirmation and reply back to us , within 1 day by E-mail
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan="7" style="text-align: left; font-size: 1rem; padding-right:.3rem; padding-left:.3rem;">
-					Yes,if you can delivery as our delivery requirements.</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan="7" style="text-align: left; font-size: 1rem; padding-right:.3rem; padding-left:.3rem;">
-					No,if you cannot as our delivery requirements( Please fill in your can delivery on ………………………………………)</td>
-			</tr>-->
-		</table>
-		<div class=""></div>
-	</section>
-	
+		@endfor 
+       </tbody>
+       @if($loop->last)
+       <tr style="margin-top: 40px; line-height: 1;margin-bottom:10px;">
+        <td colspan="4" style=" border:none;"><b>Delivery Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 22/01/2024</b></td>
+        
+        <td colspan="2" 
+            style="text-align: left; font-size: 20px; vertical-align: middle; white-space: nowrap; ">
+            <b style="margin-left:5px">SUB TOTAL</b>
+        </td>
+        <td
+            style="text-align: right; vertical-align: middle; font-size: 20px; padding-right:.6rem; padding-left:.3rem; ">
+            <b>{{$sum}}</b>
+        </td>
+    </tr>
+    <tr style=" line-height: 0.7;">
+        <td colspan="4" style=" border:none;"><b>Payment Term: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30 DAYS AFTER END OF MONTH</b></td>
+        <td colspan="2"
+            style="text-align: left; font-size: 20px; vertical-align: middle; white-space: nowrap;">
+            <b style="margin-left:5px">Vat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7.00 %</b>
+        </td>
+        <td
+            style="text-align: right; vertical-align: middle; font-size: 20px; padding-right:.6rem; padding-left:.3rem;">
+            <b>{{$vat}}</b>
+        </td>
+    </tr >
+    <tr style=" line-height: 0.7;">
+        <td colspan="4" style=" border:none;"><b>Note: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELIVERY PHASE 7</b></td>
+        <td colspan="2"
+            style="text-align: left; font-size: 20px; vertical-align: middle; white-space: nowrap; border-bottom:1px solid:#000000">
+            <b style="margin-left:5px">TOTAL AMOUNT</b>
+        </td>
+        <td
+            style="text-align: right; ; vertical-align: middle; font-size: 20px; padding-right:.6rem; padding-left:.3rem;border-bottom:1px solid:#000000; padding-bottom:10px	">
+            <b>{{$sumtotal}}</b>
+        </td>
+    </tr>
+    @endif
+    </table>
+    </div>
+    
+    @endforeach
+    </section>
+    
 </body>
 </html>

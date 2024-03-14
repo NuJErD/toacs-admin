@@ -12,7 +12,7 @@
         <div class="">
             <div class="card-pro px-4 ">
                 <div class="header min-h-[50px] max-w-full text-white rounded-t-[5px]  flex justify-between  bg-zinc-800 min-h-14 items-center px-6  flex-wrap">
-                    <div class="">รายการรอการอนุมัติ</div>
+                    <div class="">รายการ PR</div>
                   
                 </div>
                 <div class="card-body border px-3 py-4">
@@ -54,7 +54,7 @@
                                               <p class="flex justify-center">รหัสใบขอซื้อ</p>
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                <p class="flex justify-center">แผนก</p>
+                                                <p class="flex justify-center">สถานะ</p>
                                               </th>
                                             <th scope="col" class="px-6 py-3">
                                                 <p class="flex justify-center">ราคา </p>
@@ -83,7 +83,11 @@
                                                <p class="flex justify-center">{{$prs->prcode}}</p>
                                             </td>
                                             <td class="px-6 py-4">
-                                                <p class="flex justify-center">{{$prs->departments_id}}</p>
+                                                @if ($prs->status == 1)
+                                                <p class="flex justify-center text-[red]">รอ</p>
+                                                @else
+                                                <p class="flex justify-center text-[green]">สำเร็จ</p>
+                                                @endif
                                              </td>
                                              <td class="px-6 py-4">
                                                 <p class="flex justify-center">{{$prs->total}}</p>

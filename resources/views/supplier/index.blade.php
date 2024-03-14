@@ -66,7 +66,7 @@
                                                 <p class="flex justify-center">ซัพพลายเออร์ (TH)</p>
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                <p class="flex justify-center"> ซัพพลายเออร์ (EN)</p>
+                                                {{-- <p class="flex justify-center"> ซัพพลายเออร์ (EN)</p> --}}
                                               </th>
                                               
                                              
@@ -111,8 +111,9 @@
                                         @endforeach
                                        
                                     </tbody>
-                                    {{ $supplier->links() }}
+                                   
                                 </table>
+                                {{ $supplier->links() }}
                             </div>
                         </div>
                         <div class=""></div>

@@ -14,6 +14,8 @@ use Illuminate\Support\Carbon;
 use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\ToArray;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class poController extends Controller
 {
@@ -25,6 +27,7 @@ class poController extends Controller
     public function index()
     {
         $po = po::where('approve_status',null)
+        ->where('admin_id',session('admin'))
         ->join('suppliers','po.supplier_id','=','suppliers.id')
         ->select('po.*','suppliers.SPnameTH')
         
@@ -45,41 +48,42 @@ class poController extends Controller
      * @return \Illuminate\Http\Response
      */
 //-----------------------create PO---------------------//
-    public function PoCreate()
+    public function PoCreate(Request $request)
     {   
-         $ponum = po::whereDate('create_date','=', date('Y-m-d'))
-        ->orderBy('create_date','desc')
-        ->first();
+        //  $ponum = po::whereDate('create_date','=', date('Y-m-d'))
+        // ->orderBy('create_date','desc')
+        // ->first();
 
-        $time = Carbon::now()->toDateTimeString();
+        // $time = Carbon::now()->toDateTimeString();
     
-        //เรียงออเอร์ตามเวลาสั่ง
-        $num =0;
-        if(isset($ponum)){
-            $num = substr($ponum->order_invoice, -4);
-            $num = $num+1;       
-        }else{
-            $num = 1 ;
-        }
+        // //เรียงออเอร์ตามเวลาสั่ง
+        // $num =0;
+        // if(isset($ponum)){
+        //     $num = substr($ponum->order_invoice, -4);
+        //     $num = $num+1;       
+        // }else{
+        //     $num = 1 ;
+        // }
 
-        $ponumber =  date('Ymd') . str_pad($num,4,'0', STR_PAD_LEFT);
-        $supplier = session('PoSup');
-        $user = user::where('id',session('admin'))->value('nameTH');
-        $sup_id = supplier::where('s_code',session('PoSup'))->value('id');
-        $supname = supplier::where('s_code',session('PoSup'))->value('SPnameTH');
+        // $ponumber =  date('Ymd') . str_pad($num,4,'0', STR_PAD_LEFT);
+        // $supplier = session('PoSup');
+        // $user = user::where('id',session('admin'))->value('nameTH');
+        // $sup_id = supplier::where('s_code',session('PoSup'))->value('id');
+        // $supname = supplier::where('s_code',session('PoSup'))->value('SPnameTH');
        
         
-        $po = new po ;
-        $po->order_invoice =  $ponumber;
-        $po->admin_id = session('admin');
-        $po->admin_name = $user;
-        $po->supplier_id = $sup_id;
-        $po->supplier_code = session('PoSup');
-        $po->supplier_name = $supname;
-        $po->create_date = $time;
-        $po->save();
+        // $po = new po ;
+        // $po->order_invoice =  $ponumber;
+        // $po->admin_id = session('admin');
+        // $po->phase = $request->phase;
+        // $po->admin_name = $user;
+        // $po->supplier_id = $sup_id;
+        // $po->supplier_code = session('PoSup');
+        // $po->supplier_name = $supname;
+        // $po->create_date = $time;
+        // $po->save();
         
-        return response()->json($ponumber);
+        return response()->json($request->phase);
         //dd($num);
 
 
@@ -104,7 +108,7 @@ class poController extends Controller
     {
         $sup = supplier::where('SPnameTH',$request->sup)->value('s_code');
         Session()->put('PoSup',$sup);
-       return redirect()->route('PoCreate');
+       return redirect()->route('PoCreate')->with('phase',$request->phase);
        
     }
 
@@ -113,6 +117,10 @@ class poController extends Controller
     public function po_detail(Request $request){
         
         $totalPO = 0;
+        try{ 
+        DB::unprepared('SET TRANSACTION ISOLATION LEVEL SERIALIZABLE');
+        DB::Transaction(function() use($request,$totalPO){
+            
         $Pname = product::join('pr_details','products.p_code','pr_details.product_code')
         ->whereIn('products.p_code',$request->pd)
         ->where('pr_details.PR_code',$request->pr)
@@ -146,6 +154,7 @@ class poController extends Controller
                
                 'amount_check' => 0
                 ]);
+               //sleep(2);
           //  }
         }
 
@@ -155,8 +164,24 @@ class poController extends Controller
         ->update([
             'total' => $total
         ]);
-
+        
+        DB::commit();
+        });
         return response()->json($totalPO);
+        
+        //sleep(20);
+        //log
+        // foreach ($Pname as $pd){
+        //     Log::info('crate success pr:'. $request->po."pr:".$request->pr."part:".$pd->p_code );
+        // }
+       
+ }catch (\Exception $e){
+        DB::rollback();
+        Log::error('Transaction failed: ' . $e->getMessage());
+        Log::error('Transaction failed: ' . "rowback po:".$request->po."pr:".$request->pr);
+    };
+
+        
     }
 
     public function check_amount(Request $request){
@@ -204,7 +229,7 @@ class poController extends Controller
         ->update([
             'total' => $total
         ]);
-        return response()->json(["amount"=>$request->amount,"total"=>$request->total,'amck'=>$amountck]);
+        return response()->json(["amount"=>$request->amount,"total"=>$request->total,'amck'=>$amountck,'pono'=>$po]);
     }
 
 //------------------------------------get data -------------------------------------------------------------------------//
@@ -257,6 +282,7 @@ class poController extends Controller
 
      public function getproduct(Request $request){
        // $input = $request->prno;
+       
             if(isset($request->prno)){
                 $pr = pr::where('prcode',$request->prno)->first();
                  $productID = pr_detail::where('PR_id',$pr->id)
@@ -423,11 +449,20 @@ class poController extends Controller
             'amount_max' => $amountMax-$po->QTY
         ]);
        }
+       //chang pr status if  amonut == 0
        pr_detail::where('amount_max',0)
         ->update([
             'pr_status' => 1
         ]);
-       return redirect()->route('po.index')->with('success','สร้างใบ PO สำเร็จ');
+        //change pr status  already confirm po   0 = notcreate   1 = cf->pr  2=cf->pr and po  c= cancel
+        $pr_wait = pr_detail::where('pr_status','0')->distinct()->pluck('PR_code');
+        $pr =  pr::where('ApproveStatus','1')->whereNotIn('prcode',$pr_wait)
+         ->update([
+            'status' => '2'
+         ]);
+        
+      
+        return redirect()->route('po.index')->with('success','สร้างใบ PO สำเร็จ');
     }
 
     public function CheckReceive_page( Request $request){
@@ -485,11 +520,14 @@ class poController extends Controller
         $total = count($polist)-1;
         //loop เปลี่ยนถนานะ pr เป็น ยังไม่ได้เพิ่มในใบสั่งซื้อ
         for($i = 0;$i   <= $total;$i++){
+            $current = $check = pr_detail::where('PR_code',$polist[$i]['pr_code'])
+            ->where('product_code',$polist[$i]['product_code'])->value('amount_check');
             
-            $check = pr_detail::where('PR_code',$polist[$i]['pr_code'])
-            ->where('products_id',$polist[$i]['product_id'])
+            pr_detail::where('PR_code',$polist[$i]['pr_code'])
+            ->where('product_code',$polist[$i]['product_code'])
             ->update([
-                'pr_status' => '0'
+                'pr_status' => '0',
+                'amount_check' =>  $current+$polist[$i]['QTY']
             ]);
             
         }

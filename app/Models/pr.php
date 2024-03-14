@@ -9,7 +9,7 @@ class pr extends Model
 {
     use HasFactory;
     protected $table = 'pr';
-
+    public $timestamps = false;
     function pr_detail(){
         return $this->hasMany(pr_detail::class);
     }

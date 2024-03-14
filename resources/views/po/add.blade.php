@@ -214,7 +214,7 @@
                                 <p class="w-[70px] h-[25px]  text-end" >{{$item->price}}</p>
                             </td>
                             <td class="px-6 py-4  text-center text-gray-900">
-                                <p id="totals{{$index+1}}" class="w-[70px] h-[25px]  text-end" >{{$item->total}}</p>
+                                <p id="totals{{$index+1}}" class="w-[70px] h-[25px]  text-end" >{{number_format($item->total,2)}}</p>
                             </td>
                             <td class="px-6 py-4   text-center text-gray-900">
                                 <p class="w-[110px] h-[25px]  text-center">{{$item->date}}</p>
@@ -375,17 +375,18 @@
             @endif
         </form>
         </div>
-        
+        <a href="{{route('printPO',$po->order_invoice)}}"  target="_blank" class="w-[90px] h-[40px] border border-gray-300 bg-gray-500 rounded-sm mt-2 flex justify-center">  
+            <i class="fa-solid fa-print mr-2 flex items-center"></i>
+            <p class="flex items-center">Print</p>
+        </a> 
         </div>
     </div>
-    <a href="{{route('printPO',$po->order_invoice)}}"  target="_blank" class="w-[90px] h-[40px] border border-gray-300 bg-gray-100 rounded-sm mt-2 flex justify-center">  
-        <i class="fa-solid fa-print mr-2 flex items-center"></i>
-        <p class="flex items-center">Print</p>
-    </a> 
+   
 
  <script>
-     get_prlist()
-     get_po_detail({{$po->order_invoice}},1)
+    
+get_prlist()
+get_po_detail({{$po->order_invoice}},1)
      
  </script>
 @endsection
