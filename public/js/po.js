@@ -5,10 +5,11 @@ function selectSP(){
 
 Swal.fire({
     title: 'Select an Option',
-    html: '<div id="select-container"></div>',
+    html: '<div id="select-container""></div>',
     showCancelButton: true,
     confirmButtonText: 'Submit',
     cancelButtonText: 'Cancel',
+    width: '650px',
     preConfirm: () => {
         let selectedOption = $('#select-field').val();
         let selectedOption2 = $('#select-phase').val();
@@ -21,6 +22,7 @@ Swal.fire({
             type: 'post', // Use the appropriate HTTP method
             data:{sup:selectedOption,phase:selectedOption2},
             success: function (data) {
+                console.log(data)
                 window.location.href = '/popage/'+data
               
             }
@@ -33,6 +35,7 @@ $.get('/datasup', function (data) {
     console.log(data)
     let options =[]
     //= data.map(item => `<option value="${item}">${item}</option>`);
+    options.push('<option value="">เลือก Supplier</option>');
     for (var index in data){
         var item = data[index];
         options.push('<option value="' + item + '">' + item + '</option>');
@@ -40,16 +43,36 @@ $.get('/datasup', function (data) {
     }
     // Inject the select field with options into the SweetAlert2 modal
     $('#select-container').html(`
-        <select id="select-field" class="swal2-input border border-black rounded-md">
+        <select id="select-field" class="swal2-input border border-black rounded-md" onchange=get_phase(this.value)>
             ${options.join('')}
         </select>
         <select id="select-phase" class="swal2-input border border-black rounded-md">
-            <option value="PHASE 2">PHASE 2</option>
-            <option value="PHASE 7">PHASE 7</option>
+            
     </select>
     `)
     
 })
+}
+
+
+function get_phase(id){
+    console.log(id)
+   
+    let selectElement = document.getElementById('select-phase')
+        selectElement.innerHTML = ''
+    $.get('/get_phase',{id:id},function(data){
+        
+        for (var i = 0; i < data.length; i++) {
+            let option = document.createElement('option')
+            option.value = data[i]
+            option.className = "text-center"
+            option.text = data[i]
+            selectElement.appendChild(option)
+          
+    }
+       
+    })
+
 }
 
 function PoAdd(){
@@ -84,7 +107,7 @@ function PoAdd(){
         data:{pd:selectedValues , po:po, pr:pr},
         dataType: 'json',
         success: function(data) {
-        
+        console.log(data)
         location.reload();
        }
        
@@ -122,7 +145,7 @@ function openinput(id){
   $('#changeQTY'+id).css("display","none")
   $('#open_input'+id).css("display","none") 
   $('#save_amount'+id).css("display","")
-  console.log('TT')
+  //console.log('TT')
  }
 
 function changeprice(id,po,amount,total,OldAmount,price,pr,p_code){
@@ -137,15 +160,17 @@ function changeprice(id,po,amount,total,OldAmount,price,pr,p_code){
         document.getElementById('totals'+id).textContent = amount*price
        
     }else{
+        console.log(po,amount,total,pr,p_code)
         $.get('/save_amount',{po:po,amount:amount,total:total,pr:pr,p_code:p_code},function(data){
-            console.log(data.amck)
+            console.log(data.pono)
+            console.log(data.total)
             $("#totals"+id).text(data.total)
             document.getElementById('totals'+id).textContent = data.total
             valuePD.value = data.amount
             valuePD.text = data.amount
             document.getElementById('changeQTY'+id).textContent = data.amount
             get_po_detail(data.pono,1)
-            console.log(data.pono)
+            
         })
         button.disabled = false
         button.className = "min-w-[300px] min-h-[50px] rounded-xl bg-gray-500 hover:bg-green-700 hover:ease-in-out duration-200 hover:scale-104 text-white"
@@ -192,8 +217,8 @@ function change_amount(id,pr,po,amount,price,p_code){
 
 
 //------------------------------------------------- Make an AJAX request to fetch the data  GET DATA--------------------------------------------------------------------------------------------------------------------//
-function get_prlist(){
-    $.get('/get_prlist',function(data){
+function get_prlist(phase){
+    $.get('/get_prlist',{phase:phase},function(data){
         console.log(data)
 
     let selectElement = document.getElementById('PRNO') 
@@ -214,7 +239,7 @@ function get_prlist(){
         selectElement.appendChild(option)
 }
     })
-    console.log(1)
+    
 }
 
 
@@ -317,7 +342,7 @@ function get_po_detail(id,type){
         let price = parseFloat(datapo[i].total)
         sum += price
         sumInt = (sum.toFixed(2))*1
-        console.log(((sumInt*1).toLocaleString('en-US', { minimumFractionDigits: 2 })))
+       // console.log(((sumInt*1).toLocaleString('en-US', { minimumFractionDigits: 2 })))
         vat = ((sum*0.07).toFixed(2))*1
         total = (sumInt+vat).toFixed(2)*1
       //  console.log(datapo)
@@ -463,10 +488,25 @@ function deletePO(poid){
         confirmButtonText: 'Confirm',
         cancelButtonText: 'Cancel',
         preConfirm: () => {
-            document.getElementById('delPO').submit();
+            document.getElementById('delPO'+poid).submit();
            
             
         }
     })
     
+}
+
+//--------------------------ADD DATE DELIVERY-----------------------//
+function add_date_deliver(date,id){
+
+ $.get('/add_delivery_date',{date:date,id:id},function(data){
+    console.log(data)
+    location.reload()
+ })
+ 
+}
+
+function showbtnDATE(){
+    $('#date_cf').css('display', 'inline-block');
+    console.log(1)
 }

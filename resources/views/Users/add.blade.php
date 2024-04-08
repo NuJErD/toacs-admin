@@ -25,7 +25,14 @@
                             @csrf
                         <div class=" px-[10px] ">
                             <div class="flex flex-wrap justify-between mt-6">                               
-                                <div class="w-[130px] flex justify-end"><p>ชื่อ-สกุล(TH)</p></div> 
+                                <div class="w-[130px] flex justify-end"><p>username</p></div> 
+                                <div class="">                                                                 
+                                    <input name="username" type="text" placeholder="username" class=" valid:border-green-500 peer w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >
+                                    <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
+                                </div>
+                        </div>
+                            <div class="flex flex-wrap justify-between mt-6">                               
+                                <div class="w-[130px] flex justify-end"><p>ชื่อ(TH)</p></div> 
                                 <div class="">                                                                 
                                     <input name="nameTH" type="text" placeholder="ชื่อ-สกุล(TH)" class=" valid:border-green-500 peer w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >
                                     <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
@@ -33,7 +40,7 @@
                         </div>
 
                             <div class="flex flex-wrap justify-between mt-4">
-                                <div class="w-[130px] flex justify-end"><p>ชื่อ-สกุล(EN)</p></div>
+                                <div class="w-[130px] flex justify-end"><p>ชื่อ(EN)</p></div>
                                 <div class="">
                                     <input name="nameEN" type="text" placeholder="ชื่อ-สกุล(EN)" class=" valid:border-green-500 peer pl-3 w-[450px] ml-6 h-[35px] border border-gray-300 rounded-[5px]" required>
                                     <p class="invisible peer-invalid:visible text-red-600 font-light ml-6 text-[14px]">*กรอกข้อมูล</p>
@@ -59,7 +66,7 @@
                                 <div class="w-[450px] ml-6 h-[35px] ">
                                     <select name="department[]" data-te-select-init multiple  required>
                                         @foreach ($department as $de)
-                                        <option  value="{{$de->id}}">{{$de->departTH}}</option>
+                                        <option  value="{{$de->id}}">{{$de->code}}</option>
                                         @endforeach
                                        
                                        

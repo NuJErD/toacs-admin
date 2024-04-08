@@ -14,7 +14,7 @@
                 <div class="header min-h-[50px] max-w-full text-white rounded-t-[5px]  flex justify-between  bg-zinc-800 min-h-14 items-center px-6  flex-wrap">
                     <div class="" >ใบสั่งซื้อ</div>
                     <div class="btn flex justify-end flex-wrap  ">
-                       <div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2" onclick="selectSP()"><i class="fa-solid fa-plus mr-1"></i>Create PO</div>
+                       <div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2 hover:cursor-pointer" onclick="selectSP()"><i class="fa-solid fa-plus mr-1"></i>Create PO</div>
                         
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                                             <th scope="col" class="px-6 py-3">
                                                ราคา
                                              </th> <th scope="col" class="px-6 py-3">
-                                                สถานะ
+                                               สถานที่ส่ง
                                              </th>
                                            
                                             <th scope="col" class="px-6 py-3 flex items-center justify-center ">
@@ -93,14 +93,14 @@
                                                 <p>{{$pos->total}}</p>
                                             </td>
                                             <td class="px-6 py-4">
-                                                <p>q</p>
+                                                <p>{{$pos->phase}}</p>
                                             </td>
                                             <td class="">
                                                 <div class="flex justify-center">
                                                
                                                 <a href="{{route('PoPage',$pos->order_invoice)}}" class="font-medium text-white dark:text-blue-500 hover:cursor-pointer mr-3 w-[60px] flex items-center justify-center bg-blue-600 h-[30px] rounded-[4px]">แก้ไข</a>
                                             
-                                            <form id='delPO' action="{{route('po.destroy',$pos->order_invoice)}}" method="POST"> 
+                                            <form id="delPO{{$pos->order_invoice}}" action="{{route('po.destroy',$pos->order_invoice)}}" method="POST"> 
                                                 @csrf
                                                 @method('DELETE')  
                                                 <button type="button" class="font-medium text-white dark:text-red-500 hover:cursor-pointer w-[60px] flex items-center justify-center bg-red-600 h-[30px] rounded-[4px]" onclick="deletePO({{$pos->order_invoice}})">ลบ</button>

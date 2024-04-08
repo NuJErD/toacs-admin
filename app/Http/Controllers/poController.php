@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\ToArray;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class poController extends Controller
 {
@@ -50,40 +51,40 @@ class poController extends Controller
 //-----------------------create PO---------------------//
     public function PoCreate(Request $request)
     {   
-        //  $ponum = po::whereDate('create_date','=', date('Y-m-d'))
-        // ->orderBy('create_date','desc')
-        // ->first();
+         $ponum = po::whereMonth('create_date','=', date('m'))
+        ->orderBy('create_date','desc')
+        ->first();
 
-        // $time = Carbon::now()->toDateTimeString();
+        $time = Carbon::now()->toDateTimeString();
     
-        // //เรียงออเอร์ตามเวลาสั่ง
-        // $num =0;
-        // if(isset($ponum)){
-        //     $num = substr($ponum->order_invoice, -4);
-        //     $num = $num+1;       
-        // }else{
-        //     $num = 1 ;
-        // }
+        //เรียงออเอร์ตามเวลาสั่ง
+        $num =0;
+        if(isset($ponum)){
+            $num = substr($ponum->order_invoice, -2);
+            $num = $num+1;       
+        }else{
+            $num = 1 ;
+        }
 
-        // $ponumber =  date('Ymd') . str_pad($num,4,'0', STR_PAD_LEFT);
-        // $supplier = session('PoSup');
-        // $user = user::where('id',session('admin'))->value('nameTH');
-        // $sup_id = supplier::where('s_code',session('PoSup'))->value('id');
-        // $supname = supplier::where('s_code',session('PoSup'))->value('SPnameTH');
+        $ponumber =  date('Ym') . str_pad($num,2,'0', STR_PAD_LEFT);
+        $supplier = session('PoSup');
+        $user = user::where('id',session('admin'))->value('nameTH');
+        $sup_id = supplier::where('s_code',session('PoSup'))->value('id');
+        $supname = supplier::where('s_code',session('PoSup'))->value('SPnameTH');
        
         
-        // $po = new po ;
-        // $po->order_invoice =  $ponumber;
-        // $po->admin_id = session('admin');
-        // $po->phase = $request->phase;
-        // $po->admin_name = $user;
-        // $po->supplier_id = $sup_id;
-        // $po->supplier_code = session('PoSup');
-        // $po->supplier_name = $supname;
-        // $po->create_date = $time;
-        // $po->save();
+        $po = new po ;
+        $po->order_invoice =  $ponumber;
+        $po->admin_id = session('admin');
+        $po->phase = $request->phase;
+        $po->admin_name = $user;
+        $po->supplier_id = $sup_id;
+        $po->supplier_code = session('PoSup');
+        $po->supplier_name = $supname;
+        $po->create_date = $time;
+        $po->save();
         
-        return response()->json($request->phase);
+        return response()->json($ponumber);
         //dd($num);
 
 
@@ -98,7 +99,8 @@ class poController extends Controller
         Session()->put('PoSup',$po->supplier_code);
         $sup = supplier::where('s_code',session('PoSup'))->first(); 
         $list = po_detail::where('po_order_invoice',$request->code)->get();
-        //dd($list);
+        
+        //dd($po->phase);
         return view('po.add',compact('sup','po','list'));
        
     }
@@ -108,7 +110,8 @@ class poController extends Controller
     {
         $sup = supplier::where('SPnameTH',$request->sup)->value('s_code');
         Session()->put('PoSup',$sup);
-       return redirect()->route('PoCreate')->with('phase',$request->phase);
+       return redirect()->route('PoCreate',['phase' => $request->phase]);
+       //return response()->json($request->phase);
        
     }
 
@@ -117,6 +120,7 @@ class poController extends Controller
     public function po_detail(Request $request){
         
         $totalPO = 0;
+    
         try{ 
         DB::unprepared('SET TRANSACTION ISOLATION LEVEL SERIALIZABLE');
         DB::Transaction(function() use($request,$totalPO){
@@ -129,7 +133,7 @@ class poController extends Controller
         ->select('products.*','pr_details.amount_max','pr_details.amount_check')
         ->get();
         $phase = pr::where('prcode',$request->pr)->value('phase_name');
-        $usedate = pr::where('prcode',$request->pr)->value('use_date');
+        //$usedate = pr::where('prcode',$request->pr)->value('use_date');
         // if(isset($Pname)){
             foreach ($Pname as $pd){
                 $totalPO = $totalPO + ($pd->amount_max*$pd->price);
@@ -144,7 +148,7 @@ class poController extends Controller
                 $podetail->price = $pd->price;
                 $podetail->total = $pd->amount_check * $pd->price;
                 $podetail->phase = $phase;
-                $podetail->date = $usedate;
+                //$podetail->date = $usedate;
                // $podetail->note = $request->note;
                 $podetail->save();
             //     //prdetail_update
@@ -218,10 +222,11 @@ class poController extends Controller
                 'amount_check' => $prde->amount_max - $request->amount
             ]);
         }
+        $totalprice = Str::remove(',',$request->total);
         po_detail::where('id',$request->po)
         ->update([
             'QTY' => $request->amount,
-            'total' => $request->total
+            'total' => floatval($totalprice)
         ]);
         $po = po_detail::where('id',$request->po)->value('po_order_invoice');
         $total = po_detail::where('po_order_invoice',$po)->sum('total');
@@ -236,9 +241,7 @@ class poController extends Controller
     public function getsup(){
         $datacp = [] ;
         $check = pr::where('ApproveStatus','1')->pluck('id');
-        // $sup = pr_detail::where('pr_status','0')
-        // ->whereIn('PR_id',$check)
-        // ->distinct()->pluck('product_sup');
+        
         $sup = pr_detail::where('amount_check','!=',0)
         ->whereIn('PR_id',$check)
         ->get();
@@ -252,16 +255,22 @@ class poController extends Controller
         $supname = supplier::whereIn('s_code',$datacp)
         ->whereNotIn('s_code',$pono)
         ->pluck('SPnameTH');
-        // $supcode = supplier::whereIn('s_code',$sup)->pluck('s_code');
-       // $supname = supplier::whereIn('s_code',$sup)
-       // ->pluck('SPnameTH');
+       
       
         
         return response()->json($supname);
     }
+
+    public function get_phase(Request $request){
+        $supcode = supplier::where('SPnameTH',$request->id)->value('s_code');
+        $prno = pr_detail::whereJsonContains('product_sup',$supcode)->distinct()->pluck('PR_code');
+        $phase = pr::whereIn('prcode',$prno)->distinct()->pluck('phase_name');
+        return response()->json($phase);
+    }
     
-     public function get_prlist(){
+     public function get_prlist(Request $request){
         $prlist = pr_detail::whereJsonContains('product_sup', session('PoSup'))
+       
         ->where('PR_code', '!=',null)
         ->where('amount_check','!=','0')
         ->distinct('PR_id')
@@ -274,8 +283,9 @@ class poController extends Controller
         //->get();
 
          $prlistcheck = pr::whereIn('id',$prlist)
-         ->where('ApproveStatus','1')
-         ->pluck('prcode');
+        ->where('phase_name',$request->phase)
+        ->where('ApproveStatus','1')
+        ->pluck('prcode');
         
         return response()->json($prlistcheck);
      }
@@ -537,7 +547,17 @@ class poController extends Controller
         po_detail::where('po_order_invoice',$id)->delete();
         po::where('order_invoice',$id)->delete();
         return redirect()->route('po.index')->with('success','ลบใบสั่งซื้อสำเร็จ');
-        //dd($check);
        
+       
+    }
+
+    public function add_delivery_date(Request $request){
+
+        po::where('id',$request->id)
+        ->update([
+            'delivery_date' => $request->date
+        ]);
+            return response()->json($request->date);
+
     }
 }

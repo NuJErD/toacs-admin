@@ -84,6 +84,7 @@ Route::get('/getproduct',[poController::class,'getproduct']);
 Route::get('/get_productdetail',[poController::class,'get_productdetail']);
 Route::get('/get_amount',[poController::class,'check_amount']);
 Route::get('/save_amount',[poController::class,'save_amount']);
+Route::get('/get_phase',[poController::class,'get_phase']);
 
 
 //po
@@ -100,6 +101,7 @@ Route::get('/received',[poController::class,'received']);
 Route::put('/receiveStatus/{po}',[poController::class,'ReceiveStatus'])->name('ReceiveStatus');
 Route::get('/search/po',[poController::class,'po_search']);
 Route::get('/history',[poController::class,'POhistory'])->name('POhistory');
+Route::get('/add_delivery_date',[poController::class,'add_delivery_date']);
 
 //Route::get('/po/detail/{po}',[poController::class,'po_detail'])->name('po_detail');
 //print PO

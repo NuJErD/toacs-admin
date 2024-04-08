@@ -29,23 +29,28 @@ class pdfController extends Controller
         ->where('po_detail.po_order_invoice',$po->order_invoice)
         ->groupBy('po_detail.product_code')
         ->select('po_detail.*','products.p_code',DB::raw('SUM(po_detail.total) as total'),DB::raw('SUM(po_detail.QTY) as QTY'))
-       
+        ->orderBy('po_detail.id')
         ->get();
         $po_detail = array_chunk($po_detail->toarray(),18);
-      
+
         $sum = 0;
         $totalsum =[];
+        $phase = '';
         foreach($po_detail as $data){
+          //dd($data);
           foreach($data as $data_sum){
+         // dd($data_sum);
             if (isset($data_sum['total'])) {
             // Sum the "total" values in the specific subarray
             $sum += (float)$data_sum['total'];
+            $phase =$data_sum['phase'];
               }
             
             }
           
            
           }
+         // dd($phase);
         
           
         $vat =  number_format($sum *0.07,2);
@@ -62,7 +67,7 @@ class pdfController extends Controller
         $pdf = PDF::setPaper('A4');
        
 
-        $pdf->loadView('pdf.view', compact('po', 'sum', 'vat', 'sumtotal', 'po_detail'));
+        $pdf->loadView('pdf.view', compact('po', 'sum', 'vat', 'sumtotal', 'po_detail','phase'));
         return $pdf->stream('pdf');
         
 

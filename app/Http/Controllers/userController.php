@@ -104,6 +104,7 @@ class userController extends Controller
         $department = implode(",",$request->department);
 
         $user = new users;
+        $user->username = $request->username;
         $user->nameTH = $request->nameTH;
         $user->nameEN =$request->nameEN;
         $user->password = $password;
@@ -197,6 +198,7 @@ class userController extends Controller
         users::where('id',$user->id)
             ->update(
             [
+            'username' => $request->username,
             'nameTH' => $request->nameTH,
             'nameEN' => $request->nameEN,
             'phone' => $request->phone,

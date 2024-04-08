@@ -294,7 +294,14 @@
             </button>
         
         </form>
+       
         </div>
+        <div class="">
+        <a href="{{route('printPO',$po->order_invoice)}}"  target="_blank" class="w-[90px] h-[40px] border border-gray-300 bg-gray-500 rounded-sm mt-2 flex justify-center">  
+            <i class="fa-solid fa-print mr-2 flex items-center"></i>
+            <p class="flex items-center">Print</p>
+        </a> 
+    </div>
         </div>
     </div>
      

@@ -24,7 +24,7 @@ class logincontroller extends Controller
 
     public function logincheck(Request $request){
         //dd(session()->all());
-        $getuser = users::where('email',$request->email)->first();
+        $getuser = users::where('username',$request->username)->first();
      
        if(!empty($getuser)){
         if($getuser->role == "admin"){
@@ -44,7 +44,7 @@ class logincontroller extends Controller
             
         
          }else{
-             session()->flash('error','email ไม่ถูกต้อง');
+             session()->flash('error','username ไม่ถูกต้อง');
              return redirect()->route('login.index');
          }
             

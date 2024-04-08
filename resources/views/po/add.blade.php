@@ -80,13 +80,16 @@
                         <td>{{$po->admin_name}}</td>
                     </tr>
                    
+                   
                 </tbody>
             </table>
             </div>
         </div>
 
         <hr class="my-3 border border-blue-800 ">
-        
+       
+           
+      
         {{-- <div class="">
             <table>
                 <tbody>
@@ -116,6 +119,7 @@
                         <th scope="col" class="px-6 py-3 w-auto ">
                             <p class=" pl-7">Productname</p>
                         </th>
+                        
                        
                         
                         <th scope="col" class="px-6 py-3"">
@@ -132,17 +136,38 @@
                              
                              </select>
                             </th>
-                            <td class="px-6 py-4 w-auto bg-blue-200 text-center text-gray-900">
-                                <div class="w-[400px] ml-6 bg-white border-none">
-                                <select id="product-po"    data-te-select-init multiple >
+                            <td class="px-6 py-4 bg-blue-200 text-center text-gray-900">
+                                <div class="w-[400px] ml-6 bg-white ">
+                                <select class="" id="product-po"    data-te-select-init multiple >
 
                                  </select>
-                                </div> 
+                                </div>
+                            </td>
+                          <div class="flex justify-center"><b><p class=" text-[red] ">{{$po->phase}}</p></b></div>
+                          <div class="flex mb-2">
+                            <span><b>วันที่ส่ง</b></span>
+                            <span>
+                                <script>
+                                    window.onload = function() {
+                                        var today = new Date().toISOString().split('T')[0];
+                                        document.getElementById("DateCart").setAttribute("min", today);
+                                    };
+                                </script>
+                                <input id="DateCart" value="{{$po->delivery_date}}" onchange="showbtnDATE()" type="date" class="border border-red-500 rounded-[3px] h-[30px] ml-3 pl-3" name="date" required/>
+                                
+    
+                            </span>
+                            {{-- @if($po->delivery_date == null)
+                            <button id=""  class="ml-3 border border-black w-[80px] bg-green-500" onclick="add_date_deliver(document.getElementById('DateCart').value,{{$po->id}})">บันทึก</button>
+                            @endif --}}
+                            <button id="date_cf" style="display: none"  class="ml-3 border border-black w-[80px] bg-green-500" onclick="add_date_deliver(document.getElementById('DateCart').value,{{$po->id}})">บันทึก</button>
+                        </div>
+                            
+                            <td class="px-6 py-4 bg-blue-200 text-center text-gray-900">
+                             {{-- <i class="fa-solid fa-plus fa-xl hover:scale-110 hover:cursor-pointer hover:text-[#0a9b0d] text-[#000000]" ></i> --}}
+                                <button class="fa-solid  hover:scale-110 hover:cursor-pointer hover:text-[#0a9b0d] text-[#000000] w-[80px] h-[30px] bg-white border border-black rounded-lg" onclick="po_add_detail({{$po->order_invoice}},document.getElementById('PRNO').value,document.getElementById('product-po').value)">เพิ่ม</button>
                             </td>
                            
-                            <td class="px-6 py-4 bg-blue-200 text-center text-gray-900">
-                                <i class="fa-solid fa-plus fa-xl" style="color: #04b907;" onclick="po_add_detail({{$po->order_invoice}},document.getElementById('PRNO').value,document.getElementById('product-po').value)"></i>
-                            </td>
                             
                         </tr>
                 </tbody>
@@ -154,6 +179,9 @@
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
+                            <th scope="col" class="px-6 py-3"">
+                                {{-- <i class="fa-solid fa-plus fa-2xl" style="color: #04b907;"></i> --}}
+                            </th>
                             <th scope="col" class="px-6 py-3 w-auto text-center">
                                PR(Ref.) 
                             </th>
@@ -181,15 +209,19 @@
                             <th scope="col" class="px-6 py-3 w-auto text-center">
                                 Note 
                             </th>
-                            <th scope="col" class="px-6 py-3"">
-                                {{-- <i class="fa-solid fa-plus fa-2xl" style="color: #04b907;"></i> --}}
-                            </th>
+                            
                             
                         </tr>
                     </thead>
                     <tbody id="">
                         @foreach ($list as $index => $item)
                         <tr  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 " style="display: ">
+                            <td class="pr-6 py-4 text-center text-gray-900 flex items-center justify-start mt-3" >
+                                <i id="open_input{{$index+1}}" class="mt-[20px] h-[20px] w-[50px] fa-solid fa-xl fa-pen-to-square mr-3 hover:cursor-pointer hover:scale-105" onclick="openinput({{$index+1}})"></i>
+                                {{-- <i id="save_amount{{$index+1}}" class="fa-solid fa-xl fa-pen-to-square mr-3 hover:cursor-pointer hover:scale-105" onclick="changeprice({{$index+1}})" style="display: none"></i> --}}
+                                <button id="save_amount{{$index+1}}" class="h-[20px] bg-green-600 border-none   mr-3 hover:cursor-pointer hover:scale-105" onclick="changeprice({{$index+1}},{{$item->id}},document.getElementById('change'+{{$index+1}}).value,document.getElementById('totals'+{{$index+1}}).textContent,{{$item->QTY}},{{$item->price}},{{$item->pr_code}},'{{$item->product_code}}')" style="display: none">SAVE</button>
+                                <i class="h-[20px] mt-[20px] fa-solid fa-trash-can fa-xl hover:cursor-pointer hover:scale-105 text-red-500" onclick="del_podetail({{$item->id}})"></i>
+                                </td>
                             <th scope="row" class=" px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white  text-center">
                             
                                 <p class=" w-[150px] h-[25px] text-center"><b>{{$index+1}}.</b> PR.{{$item->pr_code}}</p>
@@ -222,14 +254,9 @@
                             <td class="px-4 py-4  text-center text-gray-900">
                                 <p class="w-[70px] h-[25px]  text-center">{{$item->note}}</p>
                             </td>
-                            <td class="pr-6 py-4 text-center text-gray-900 flex items-center justify-start mt-3" >
-                            <i id="open_input{{$index+1}}" class="mt-[20px] h-[20px] fa-solid fa-xl fa-pen-to-square mr-3 hover:cursor-pointer hover:scale-105" onclick="openinput({{$index+1}})"></i>
-                            {{-- <i id="save_amount{{$index+1}}" class="fa-solid fa-xl fa-pen-to-square mr-3 hover:cursor-pointer hover:scale-105" onclick="changeprice({{$index+1}})" style="display: none"></i> --}}
-                            <button id="save_amount{{$index+1}}" class="h-[20px] bg-green-600 border-none   mr-3 hover:cursor-pointer hover:scale-105" onclick="changeprice({{$index+1}},{{$item->id}},document.getElementById('change'+{{$index+1}}).value,document.getElementById('totals'+{{$index+1}}).textContent,{{$item->QTY}},{{$item->price}},{{$item->pr_code}},'{{$item->product_code}}')" style="display: none">SAVE</button>
-                            <i class="h-[20px] mt-[20px] fa-solid fa-trash-can fa-xl hover:cursor-pointer hover:scale-105 text-red-500" onclick="del_podetail({{$item->id}})"></i>
-                            </td>
+                           
                             
-                        </tr 
+                        </tr >
                         @endforeach
           
                     </tbody>
@@ -385,7 +412,7 @@
 
  <script>
     
-get_prlist()
+get_prlist("{{$po->phase}}")
 get_po_detail({{$po->order_invoice}},1)
      
  </script>

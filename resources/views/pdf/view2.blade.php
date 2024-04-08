@@ -268,7 +268,7 @@
         </td>
     </tr >
     <tr style=" line-height: 0.7;">
-        <td colspan="4" style=" border:none;">Note: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELIVERY PHASE 7</td>
+        <td colspan="4" style=" border:none;">Note: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELIVERY {{$phase}}</td>
         <td colspan="2"
             style="text-align: left; font-size: 20px; vertical-align: middle; white-space: nowrap; border-bottom:1px solid:#000000">
             <b style="margin-left:5px">TOTAL AMOUNT</b>

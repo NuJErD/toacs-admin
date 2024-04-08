@@ -26,6 +26,10 @@
                             
                         <div class=" px-[10px] ">
                             <div class="flex flex-wrap justify-between mt-6">                               
+                                <div class="w-[130px] flex justify-end"><p>username</p></div>                                                                  
+                                    <input name="username" value="{{$user->username}}" type="text" placeholder="username" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
+                        </div>
+                            <div class="flex flex-wrap justify-between mt-6">                               
                                 <div class="w-[130px] flex justify-end"><p>ชื่อ-สกุล(TH)</p></div>                                                                  
                                     <input name="nameTH" value="{{$user->nameTH}}" type="text" placeholder="ชื่อ-สกุล(TH)" class="w-[450px] pl-3  ml-6 h-[35px] border border-gray-300 rounded-[5px]" required >                                                                                      
                         </div>

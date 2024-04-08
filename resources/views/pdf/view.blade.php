@@ -27,7 +27,7 @@
 			/*height: 3cm;*/
 			height: 30px;
 		}
-		<!-- Edit -->
+		/* <!-- Edit --> */
             @font-face {
             font-family: 'THSarabunNew';
             font-style:;
@@ -57,6 +57,11 @@
 			
 			margin-top: 285px;
 			margin-bottom: 100px;
+        }
+        .thicknessfont{
+            font-family:'';
+            line-height: 25px;
+           
         }
 		
         
@@ -97,15 +102,15 @@
 		</p>
 		<div style="display: inline-block;  line-height: 0.68;">
 			
-			<p style="text-align: center;  margin: 0px;"><b  style="font-size: 2rem;  ">&nbsp;บริษัท โทแอคส์ (ประเทศไทย) จำกัด <b style="font-size: 24px">(สำนักงานใหญ่)</b></b></p>
-			<p style="  margin:0px; margin-bottom: 0px;"><b style="font-size: 2rem; margin-left: 8px; ">TOACS (THAILAND) CO.,LTD.  <b style="font-size: 24px"> (Head Office)</b></b></p>			
+			<p style="text-align: center;  margin: 0px;"><b  style="font-size: 2rem; ">&nbsp;บริษัท โทแอคส์ (ประเทศไทย) จำกัด <b style="font-size: 24px">(สำนักงานใหญ่)</b></b></p>
+			<p style="  margin:0px; margin-bottom: 0px;"><b class="thicknessfont" style="font-size: 1.35rem; margin-left: 8px; ">TOACS (THAILAND) CO.,LTD.  <b style="font-size: 18px"> (Head Office)</b></b></p>			
 		</div>
 		<div style="line-height: 0.8;">
 		<p style="text-align: center; font-size: 18px; margin: 0px;"><b style="font-size: 18px;">700/65 หมู่ 6 ตำบลคลองตำหรุ อำเภอเมือง
 			จังหวัดชลบุรี
-			20000 โทร: (038) 213289-91 ต่อ 1123, 1124</b></p>
-		<p style="text-align: center; font-size: 18px; margin: 0px;"><b>700/65 MOO 6 T. Klongtamru A. Muang Cholburi 20000
-            TEL : (038) 213289-91 EXT : 1123, 1124</b></p>
+			20000 โทร. (038) 213289-91 ต่อ 1123, 1124</b></p>
+		<p style="text-align: center; font-size: 18px; margin: 0px;"><b>700/65 MOO 6, T.KLONGTAMRU, A.MUANG, CHONBURI 20000
+            TEL. (038) 213289-91 EXT : 1123, 1124</b></p>
 			<p style="text-align: center; font-size: 18px; margin: 0px;"><b>TAX ID : 0105537115262 &nbsp; E-MAIL : purchasing@toacs.co.th</b></p>
 		</div>
 		
@@ -122,11 +127,11 @@
 				
 			
 			<div class="column" style="float:left; font-size: 20px; text-align: left; width: 50%; height: 150px; margin-top:30px;">
-				<p style="margin:0px; line-height:1;"><b>P/O NO :<b style="margin-left:7px;"> {{$po->order_invoice}}</b></p>
-				<p style="margin:0px; line-height:0.8;"><b>DATE : <b style="margin-left:22px;">{{$po->supplier_code}}</b></b></p>
-				<p style="margin:0px; line-height:0.8;"><b>NO. : <b style="margin-left:32px;">77096</b></p>
+				<p style="margin:0px; line-height:1;"><b>P/O NO :<b style="margin-left:7px;"> {{$po->order_invoice}}</b></p>            
+				<p style="margin:0px; line-height:0.8;"><b>DATE : <b style="margin-left:22px;">{{\Carbon\Carbon::parse($po->create_date)->format('d/m/Y')}}</b></b></p>
+				<p style="margin:0px; line-height:0.8;"><b>SUPPLIER CODE : {{$po->supplier_code}} <b style="margin-left:32px;"></b></p>
 				
-				<p style="margin:-5px; margin-left:1px; line-height:1.1;"><b>DELIVERY PHASE :</b> </p>
+				
 			</div>
 			
 		</section>
@@ -204,7 +209,7 @@
                 {{$index+1}}</td>
             <td
                 style="font-size:20px; word-break: break-all; vertical-align: top; padding-right:.3rem; ">
-                <b >{{$row['product_name']}}</b><b style="float: right; margin-right:40px; ">{{$row['p_code']}}</b></td>
+                <b >{{Str::limit($row['product_name'], 17,'')}}</b><b style="float: right; margin-right:25px;  ">{{$row['p_code']}}</b></td>
             
             <td
                 style="text-align: center; font-size:20px; vertical-align: top; white-space: nowrap; padding-right:.3rem; padding-left:.3rem;">
@@ -245,7 +250,7 @@
        </tbody>
        @if($loop->last)
        <tr style="margin-top: 40px; line-height: 1;margin-bottom:10px;">
-        <td colspan="4" style=" border:none;"><b>Delivery Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 22/01/2024</b></td>
+        <td colspan="4" style=" border:none;"><b>Delivery Date: &nbsp; <b style="margin-left:22px;">{{\Carbon\Carbon::parse($po->delivery_date)->format('d/m/Y')}}</b></td>
         
         <td colspan="2" 
             style="text-align: left; font-size: 20px; vertical-align: middle; white-space: nowrap; ">
@@ -260,7 +265,7 @@
         <td colspan="4" style=" border:none;"><b>Payment Term: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30 DAYS AFTER END OF MONTH</b></td>
         <td colspan="2"
             style="text-align: left; font-size: 20px; vertical-align: middle; white-space: nowrap;">
-            <b style="margin-left:5px">Vat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7.00 %</b>
+            <b style="margin-left:5px">VAT &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7.00 %</b>
         </td>
         <td
             style="text-align: right; vertical-align: middle; font-size: 20px; padding-right:.6rem; padding-left:.3rem;">
@@ -268,7 +273,7 @@
         </td>
     </tr >
     <tr style=" line-height: 0.7;">
-        <td colspan="4" style=" border:none;"><b>Note: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELIVERY PHASE 7</b></td>
+        <td colspan="4" style=" border:none;"><b>Note: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELIVERY {{$phase}}</b></td>
         <td colspan="2"
             style="text-align: left; font-size: 20px; vertical-align: middle; white-space: nowrap; border-bottom:1px solid:#000000">
             <b style="margin-left:5px">TOTAL AMOUNT</b>
