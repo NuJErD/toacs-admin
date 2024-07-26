@@ -33,8 +33,27 @@
                             <button type="submit" class="w-[120px] flex justify-center items-center h-[30px] bg-zinc-800 text-white rounded-[3px]"><i class="fa-solid fa-file-arrow-up mr-1 flex items-center"></i>Upload File</button></div>
                     </div>
                 </form>
-                    <div class="list-prod ">
+                    <div class="">
+                        <div class=" ">
+                        <form class="flex" method="POST" action="/export/po" >
+                            <script>
+                              function setdate() {
+                                    var today =  document.getElementById('startDate').value;
+                                    document.getElementById('endDate').value = '';
+                                    document.getElementById("endDate").setAttribute("min", today);
+                                };
+                            </script>
+                            @csrf
+                            Export :   
+                            <input id='startDate' type="date" class="ml-2 mr-2 pl-2 border border-slate-300 rounded-[5px] min-w-[35px]"  name = "start" onchange="setdate()" required> To
+                            <input id="endDate" type="date" class="ml-2 mr-2 pl-2 border border-slate-300 rounded-[5px] min-w-[35px]"  name = "end" required>
+                            <div class="w-[70px] border border-black  rounded-md flex justify-center "><button type="submit" class="" >Export</button></div>   
+                            
+                        </form>
+                        </div>
+                        <br>
                         <div class="show flex justify-between mt-3">
+                            
                             <div class="showprod flex ">
                                 <p class=" mr-1 mt">Show</p>
                                 <select class="border border-slate-300 rounded-[5px] w-28">
@@ -55,9 +74,7 @@
                                             <th scope="col" class="px-6 py-3">
                                               <p class="flex justify-center">รหัสใบสั่งซื้อ</p>
                                             </th>
-                                            <th scope="col" class="px-6 py-3">
-                                                <p class="flex justify-center">แผนก</p>
-                                              </th>
+                                            
                                             <th scope="col" class="px-6 py-3">
                                                 <p class="flex justify-center">ราคา </p>
                                             </th>
@@ -87,9 +104,7 @@
                                             <td class="px-6 py-4">
                                                <p class="flex justify-center">{{$pos->order_invoice}}</p>
                                             </td>
-                                            <td class="px-6 py-4">
-                                                <p class="flex justify-center">{{$pos->departments_id}}</p>
-                                             </td>
+                                            
                                              <td class="px-6 py-4">
                                                 <p class="flex justify-center">{{$pos->total}}</p>
                                              </td>
@@ -124,7 +139,7 @@
                           
                             </div>
                         </div>
-                        <div class=""></div>
+                        
                     </div>
                 </div>
             </div>

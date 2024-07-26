@@ -41,7 +41,7 @@ class poController extends Controller
     public function POhistory(){
         $POhis = po::orderBy('create_date','desc')->where('received','YES')->paginate(7);
         //dd($POhis);
-        return view('pr.history',compact('POhis'));
+        return view('po.history',compact('POhis'));
     }
     /**
      * Show the form for creating a new resource.
@@ -83,7 +83,7 @@ class poController extends Controller
         $po->supplier_name = $supname;
         $po->create_date = $time;
         $po->save();
-        
+        Log::channel('process')->info('create Po.No',[$ponumber,$supname,$request->phase,session('name')]);
         return response()->json($ponumber);
         //dd($num);
 
@@ -158,6 +158,7 @@ class poController extends Controller
                
                 'amount_check' => 0
                 ]);
+                Log::channel('process')->info('Add list po',[$request->po,'pr.'.$request->pr,$pd->p_code,session('name')]);
                //sleep(2);
           //  }
         }
@@ -250,21 +251,31 @@ class poController extends Controller
             $datacp = array_merge($datacp, $data1);
         }
         $datacp = array_unique($datacp);
-        $pono = po::where('approve_status',null)->pluck('supplier_code');
+        //$pono = po::where('approve_status',null)->get('supplier_code');
         
         $supname = supplier::whereIn('s_code',$datacp)
-        ->whereNotIn('s_code',$pono)
+        //->whereNotIn('s_code',$pono)
         ->pluck('SPnameTH');
-       
+        $pono = po::select('supplier_code')
+            ->where('approve_status', null)
+            ->groupBy('supplier_code')
+            ->havingRaw('COUNT(approve_status) = 2')
+            ->get();
       
         
         return response()->json($supname);
+       //return response()->json($pono);
     }
 
     public function get_phase(Request $request){
         $supcode = supplier::where('SPnameTH',$request->id)->value('s_code');
-        $prno = pr_detail::whereJsonContains('product_sup',$supcode)->distinct()->pluck('PR_code');
-        $phase = pr::whereIn('prcode',$prno)->distinct()->pluck('phase_name');
+        $sup_alreadyPhase = po::where('supplier_name',$request->id)->pluck('phase');
+        $prno = pr_detail::whereJsonContains('product_sup',$supcode)->where('pr_status',0)->distinct()->pluck('PR_code');
+        $phase = pr::
+        whereIn('prcode',$prno)
+        ->whereNotIn('phase_name',$sup_alreadyPhase)
+        ->distinct()->pluck('phase_name');
+
         return response()->json($phase);
     }
     
@@ -363,6 +374,7 @@ class poController extends Controller
         ]);
 
         $po_detail->delete();
+        Log::channel('process')->info('Delete Po_Detail:',['PO:'.$poid,'PR:'.$po_detail->pr_code,'Part:'.$po_detail->product_code,session('name')]);
         return response()->json($poid) ;
     }
 
@@ -470,7 +482,7 @@ class poController extends Controller
          ->update([
             'status' => '2'
          ]);
-        
+        log::channel('process')->info('Comfirm PO:'.$po, session('name'));
       
         return redirect()->route('po.index')->with('success','สร้างใบ PO สำเร็จ');
     }
@@ -486,16 +498,20 @@ class poController extends Controller
 
     public function received(Request $request){
         //-----change status in db----------//
+        
         $status = '';
         if($request->status == 0){
             $status = '1';
+            log::channel('process')->info('received: received ID. ',[$request->id,session('name')]);
         }else{
             $status = '0';
+            log::channel('process')->info('received: cancel ID. ',[$request->id,session('name')]);
         }
         $po = po_detail::where('id',$request->id);
         $po->update([
             'deliver' => $status
         ]);
+
         //--------enable button---------------//
           $POinvoice = $po->value('po_order_invoice');
           $checkreceived = po_detail::where('po_order_invoice',$POinvoice)
@@ -506,9 +522,47 @@ class poController extends Controller
           }else{
             $checkreceived = "enable";
           }
+          
       
         return response()->json(["id"=>$request->id,"status"=>$status,"button"=>$checkreceived]);
     }
+
+    public function receivedall(Request $request){
+        //-----change status in db----------//
+        foreach($request->id as $po){
+        // $po = po_detail::where('id',$po->id);
+        // $status = $po->value('deliver');
+       
+        // if($status == 0){
+        //     $status = '1';
+        //     log::channel('process')->info('received: received ID. ',[$request->id,session('name')]);
+        // }else{
+        //     $status = '0';
+        //     log::channel('process')->info('received: cancel ID. ',[$request->id,session('name')]);
+        // }
+        $po = po_detail::where('id',$po);
+        $po->update([
+            'deliver' => $request->status
+        ]);
+
+        // //--------enable button---------------//
+        //   $POinvoice = $po->value('po_order_invoice');
+        //   $checkreceived = po_detail::where('po_order_invoice',$POinvoice)
+        //   ->where('deliver','0')
+        //   ->first();
+        //   if(isset($checkreceived)){
+        //     $checkreceived = "disable";
+        //   }else{
+        //     $checkreceived = "enable";
+        //   }
+       
+    }
+       
+         return response() ->json();
+      
+        //return response()->json(["id"=>$request->id,"status"=>$status,"button"=>$checkreceived]);
+    }
+
 
     public function ReceiveStatus(po $po){
         $time = Carbon::now();
@@ -546,6 +600,7 @@ class poController extends Controller
         //->delete();
         po_detail::where('po_order_invoice',$id)->delete();
         po::where('order_invoice',$id)->delete();
+        log::channel('process')->info('delete PO:'.$id, session('name'));
         return redirect()->route('po.index')->with('success','ลบใบสั่งซื้อสำเร็จ');
        
        
@@ -557,6 +612,7 @@ class poController extends Controller
         ->update([
             'delivery_date' => $request->date
         ]);
+        log::channel('process')->info('date deliver PO:',['ID:'.$request->id , $request->date , session('name')]);
             return response()->json($request->date);
 
     }

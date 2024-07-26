@@ -29,7 +29,8 @@ class logincontroller extends Controller
        if(!empty($getuser)){
         if($getuser->role == "admin"){
              if(Hash::check($request->password,$getuser->password)){
-                Session()->put('admin', $getuser->id);   
+                Session()->put('admin', $getuser->id);
+                Session()->put('name', $getuser->username);   
                 return redirect(route('home'));
                 
              }else{
@@ -54,10 +55,12 @@ class logincontroller extends Controller
     
         if(session()->has('user')){
               session()->forget('user');
+              session()->forget('name');
 
          }
         else if(session()->has('admin')){
              session()->forget('admin');
+             session()->forget('name');
         }
       
         

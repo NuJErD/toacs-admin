@@ -98,6 +98,7 @@ Route::put('/po/confirm/{po}',[poController::class,'update'])->name('confirmPO')
 Route::get('/order/deliver',[poController::class,'podeliver'])->name('listpoDeli');
 Route::get('/checkreceive/{code}',[poController::class,'CheckReceive_page'])->name('checkreceive');
 Route::get('/received',[poController::class,'received']);
+Route::get('/receivedall',[poController::class,'receivedall']);
 Route::put('/receiveStatus/{po}',[poController::class,'ReceiveStatus'])->name('ReceiveStatus');
 Route::get('/search/po',[poController::class,'po_search']);
 Route::get('/history',[poController::class,'POhistory'])->name('POhistory');
@@ -118,6 +119,7 @@ Route::post('/import/sup', [ExcelController::class, 'SupplierImport'])->name('im
 
 //Export
 Route::get('/export/users', [ExcelController::class, 'Usersexport']);
+Route::post('/export/po', [ExcelController::class, 'Poexport']);
 Route::get('/export/products', [ExcelController::class, 'Productsexport'])->name('ProductExport');
 Route::get('/export/suppliers', [ExcelController::class, ''])->name('SupplierExport');
 

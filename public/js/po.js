@@ -271,7 +271,7 @@ function  getproduct(){
             
             option.value = data[i].product_code
             option.className = "text-center"
-            option.text = data[i].product_name
+            option.text = (i+1)+'. '+data[i].product_code
             selectElement.appendChild(option)
     }
        
@@ -324,6 +324,11 @@ function get_po_detail(id,type){
     let html = ``
     let sum = 0
     let vat = 0
+    let datapoid = []
+    let checkall = document.getElementById('CheckAllPo')
+    let uncheckall = document.getElementById('UnCheckAllPo')
+    
+   
     //set empty
     $('#SUM').empty()
     $('#VAT').empty()
@@ -338,7 +343,7 @@ function get_po_detail(id,type){
         }else{
             note =''
         }
-
+        datapoid.push(datapo[i].id)
         let price = parseFloat(datapo[i].total)
         sum += price
         sumInt = (sum.toFixed(2))*1
@@ -362,7 +367,7 @@ function get_po_detail(id,type){
 
     </th>
     <td class="px-6 py-4 w-auto  text-center text-gray-900">
-        <p class="w-[120px] h-[25px] text-center"> ${datapo[i].product_name}</p>
+        <p class="w-[120px] min-h-[25px] text-center"> ${datapo[i].product_name}</p>
            
     </td>
     <td class="px-6 py-4   text-center text-gray-900">
@@ -398,7 +403,7 @@ function get_po_detail(id,type){
 
     </th>
     <td class="px-6 py-4 w-auto  text-center text-gray-900">
-        <p class="w-[120px] h-[25px] text-center"> ${datapo[i].product_name}</p>
+        <p class="w-[120px] min-h-[25px] text-center"> ${datapo[i].product_name}</p>
            
     </td>
     <td class="px-6 py-4   text-center text-gray-900">
@@ -427,7 +432,9 @@ function get_po_detail(id,type){
 
     }
     }
-
+    console.log(datapoid[0])
+    checkall.setAttribute("onclick", "PoReciveAll([" + datapoid + "],1)")
+    uncheckall.setAttribute("onclick", "PoReciveAll([" + datapoid + "],0)")
     $('#POlist').html(html)
     $('#SUM').append(sumInt.toLocaleString('en-US', { minimumFractionDigits: 2 }))
     $('#VAT').append(vat.toLocaleString('en-US', { minimumFractionDigits: 2 }))
@@ -478,6 +485,38 @@ function PoReceive(id,status){
     })
   
 }
+function PoReciveAll(id,status){
+//     console.log(data)
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url:"/receivedall",
+        data:{id:id , status:status},
+        dataType:'json',
+        success: function(data){
+            
+        //    check = document.getElementById(data.id)
+        //    button = document.getElementById('receivedBTN')
+        //    check.setAttribute("onclick",`PoReceive(${data.id},${data.status})`)
+           //console.log(data)
+           location.reload()
+           
+        //    button = document.getElementById('receivedBTN')
+        //    if(data.button === "enable"){
+        //        button.setAttribute("class","min-w-[300px] min-h-[50px] rounded-xl bg-green-500 hover:  text-white hover:scale-104 hover:ease-in-out duration-100 ")
+        //        button.disabled = false
+              
+        //   }else{
+        //    button.setAttribute("class","min-w-[300px] min-h-[50px] rounded-xl bg-gray-500 text-white cursor-not-allowed ")
+        //        button.disabled = true
+        //   }
+          
+        //    console.log(data)
+        }
+    })
+ }
+
 
 //------------------------------------------delete PO-------------------------------------------------------------------//
 function deletePO(poid){

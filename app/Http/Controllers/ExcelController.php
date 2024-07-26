@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\users;
 use App\Models\department;
+use App\Models\po_detail;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UsersImport;
 use App\Imports\ProductImport;
@@ -12,6 +13,8 @@ use App\Imports\SupplierImport;
 use App\Exports\UsersExport;
 use App\Exports\ProductsExport;
 use App\Exports\SuppliersExport;
+use App\Exports\PoExport;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -81,4 +84,15 @@ class ExcelController extends Controller
     {
         return Excel::download(new SuppliersExport, 'supplier.xlsx');
     }    
+    public function Poexport(Request $request) 
+    {
+        $start = carbon::parse($request->start);
+        $end = carbon::parse($request->end);
+        // $a = po_detail::whereBetween('po_detail.create_date',[$start->startOfDay(),$end->endOfDay()])->where('po_detail.deliver','1')
+        //  ->join('po','po_detail.po_order_invoice','=','po.order_invoice')
+        //      ->select('po_detail.*','po.supplier_name')
+        //     ->get();
+        // dd($a,$start,$end);
+        return Excel::download(new PoExport($start,$end), "PO_$request->start - $request->end.xlsx");
+    }
 }

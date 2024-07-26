@@ -15,8 +15,8 @@
                     <div class="">สินค้าและบริการ</div>
                     <div class="btn flex justify-end flex-wrap  ">
                         <a href="{{route('additem')}}"><div class="add bg-blue-600  rounded-[4px] h-8 mr-1 flex items-center px-2"><i class="fa-solid fa-plus mr-1"></i>เพิ่ม</div></a>
-                        <button onclick="openimport()" class="import bg-green-800 rounded-[4px] mr-1 flex items-center px-2"><div   ><i class="fa-solid fa-file-arrow-up mr-1" ></i>Excel Upload</div></button>
-                        <div class="export bg-yellow-400 rounded-[4px] text-black flex items-center px-2"><a href="/export/products"><i class="fa-solid fa-file-export mr-1"></i>Export Product Excel</div>
+                        
+                        {{-- <div class="export bg-yellow-400 rounded-[4px] text-black flex items-center px-2"><a href="/export/products"><i class="fa-solid fa-file-export mr-1"></i>Export Product Excel</div> --}}
                     </a> </div>
                 </div>
                 <div class="card-body border px-3 py-4">
@@ -71,9 +71,9 @@
                                             <th scope="col" class="px-2 py-2">
                                                <p class="flex justify-center">รหัส</p>
                                             </th>
-                                            <th scope="col" class="px-2 py-2">
+                                            {{-- <th scope="col" class="px-2 py-2">
                                                <p class="flex justify-center">หมวดสินค้า</p>
-                                            </th>
+                                            </th> --}}
                                             <th scope="col" class="px-2 py-2">
                                                <p class="flex justify-center">ชื่อ</p>
                                             </th>
@@ -103,9 +103,9 @@
                                             <td class="px-2 py-2 min-w-[130px]">
                                                 <p class="flex justify-center">{{$p->p_code}}</p>
                                             </td>
-                                            <td class="px-2 py-2 min-w-[130px]">
+                                            {{-- <td class="px-2 py-2 min-w-[130px]">
                                                 <p class="flex justify-center">{{$p->category}}</p>    
-                                            </td>
+                                            </td> --}}
                                             <td class="px-2 py-2 min-w-[350px]">
                                                 <p class="flex justify-center">{{$p->PnameTH}}</p> 
                                             </td>

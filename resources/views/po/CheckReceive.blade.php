@@ -56,9 +56,10 @@
                         <td style="vertical-align: top;"><b>Address</b>
                             </td>
                         <td style="vertical-align: top;"><p>:</p></td>
+
                     
                         <td style="vertical-align: top;" class=" whitespace-pre-line">{{$sup->address}}700/65 หมู่ 6 ตำบลคลองตำหรุ อำเภอเมือง จังหวัดชลบุรี 20000
-                            โทร: (038) 213289-91 แฟ็กซ์ : (038)213507}</td>
+                            โทร: (038) 213289-91 แฟ็กซ์ : (038)213507</td>
                     </tr>
                 </tbody>
             </table>
@@ -87,7 +88,8 @@
         </div>
 
         <hr class="my-3 border border-blue-800 ">
-        
+        <input id="CheckAllPo" type="checkbox"   >
+        <input id="UnCheckAllPo" type="checkbox"   >
         {{-- <div class="">
             <table>
                 <tbody>

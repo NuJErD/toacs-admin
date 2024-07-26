@@ -57,11 +57,9 @@ $.get('/search/product',input,function(data){
                <div class="flex justify-center "><img src="picture/product/${product.picture}" class="w-[70px] h-[70px] p-0"  alt=""></div>
             </td>
             <td class="px-2 py-2 w-[130px]" >
-                <p class="flex justify-center">{product.p_code}</p>
+                <p class="flex justify-center">${product.p_code}</p>
             </td>
-            <td class="px-2 py-2 w-[130px]">
-                <p class="flex justify-center">${product.category}</p>    
-            </td>
+            
             <td class="px-2 py-2 w-[350px]" >
                 <p class="flex justify-center">${product.PnameTH}</p> 
             </td>
